@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	mode: "jit",
-	darkMode: ["class"],
+	darkMode: "class",
 	content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
 	theme: {
 		container: {
@@ -46,6 +46,15 @@ module.exports = {
 					DEFAULT: "hsl(var(--card))",
 					foreground: "hsl(var(--card-foreground))",
 				},
+				"black-100": "#100d25",
+				"black-200": "#090325",
+				"white-100": "#f3f3f3",
+			},
+			screens: {
+				xs: "450px",
+			},
+			backgroundImage: {
+				"hero-pattern": "url('/herobg.png')",
 			},
 			borderRadius: {
 				lg: "var(--radius)",
