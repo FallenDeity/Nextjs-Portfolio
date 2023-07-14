@@ -4,8 +4,6 @@ import { Decal, Float, OrbitControls, Preload, useTexture } from "@react-three/d
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
 
-import CanvasLoader from "../Loader";
-
 const Ball = (props: { imgUrl: string }): React.JSX.Element => {
 	const [decal] = useTexture([props.imgUrl]);
 
@@ -24,12 +22,11 @@ const Ball = (props: { imgUrl: string }): React.JSX.Element => {
 
 const BallCanvas = ({ icon }: { icon: string }): React.JSX.Element => {
 	return (
-		<Canvas frameloop="demand" dpr={[1, 2]} gl={{ preserveDrawingBuffer: true }}>
-			<Suspense fallback={<CanvasLoader />}>
+		<Canvas frameloop="demand" dpr={[1, 2]} gl={{ preserveDrawingBuffer: false }}>
+			<Suspense fallback={null}>
 				<OrbitControls enableZoom={false} />
 				<Ball imgUrl={icon} />
 			</Suspense>
-
 			<Preload all />
 		</Canvas>
 	);

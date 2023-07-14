@@ -11,6 +11,7 @@ import BallCanvas from "./canvas/BallCanvas";
 import StarWrapper from "./SectionWrapper";
 
 const Tech = (): React.JSX.Element => {
+	const [balls, setBalls] = React.useState<number>(3);
 	return (
 		<>
 			<motion.div variants={textVariant()}>
@@ -18,11 +19,14 @@ const Tech = (): React.JSX.Element => {
 				<h2 className={`${styles.sectionHeadText} text-center`}>Technologies</h2>
 			</motion.div>
 			<div className="mt-20 flex flex-row flex-wrap justify-center gap-10">
-				{technologies.map((technology) => (
+				{technologies.slice(0, balls).map((technology) => (
 					<div className="h-28 w-28" key={technology.name}>
 						<BallCanvas icon={technology.icon} />
 					</div>
 				))}
+				<div className="h-28 w-28" onClick={(): void => setBalls(balls + 3)}>
+					<BallCanvas icon="/tech/plus.png" />
+				</div>
 			</div>
 		</>
 	);

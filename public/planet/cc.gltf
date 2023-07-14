@@ -1,0 +1,272 @@
+{
+	"buffers": [
+		{ "uri": "cc.bin", "byteLength": 330260 },
+		{ "byteLength": 822444, "extensions": { "EXT_meshopt_compression": { "fallback": true } } }
+	],
+	"asset": {
+		"version": "2.0",
+		"generator": "gltfpack 0.19",
+		"extras": {
+			"author": "cmzw (https://sketchfab.com/cmzw)",
+			"license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+			"source": "https://sketchfab.com/3d-models/stylized-planet-789725db86f547fc9163b00f302c3e70",
+			"title": "Stylized planet"
+		}
+	},
+	"extensionsUsed": [
+		"KHR_mesh_quantization",
+		"EXT_meshopt_compression",
+		"KHR_texture_transform",
+		"KHR_materials_unlit"
+	],
+	"extensionsRequired": ["KHR_mesh_quantization", "EXT_meshopt_compression"],
+	"bufferViews": [
+		{
+			"buffer": 1,
+			"byteOffset": 0,
+			"byteLength": 132328,
+			"byteStride": 4,
+			"target": 34962,
+			"extensions": {
+				"EXT_meshopt_compression": {
+					"buffer": 0,
+					"byteOffset": 0,
+					"byteLength": 62146,
+					"byteStride": 4,
+					"mode": "ATTRIBUTES",
+					"filter": "OCTAHEDRAL",
+					"count": 33082
+				}
+			}
+		},
+		{
+			"buffer": 1,
+			"byteOffset": 132328,
+			"byteLength": 264656,
+			"byteStride": 8,
+			"target": 34962,
+			"extensions": {
+				"EXT_meshopt_compression": {
+					"buffer": 0,
+					"byteOffset": 62148,
+					"byteLength": 135503,
+					"byteStride": 8,
+					"mode": "ATTRIBUTES",
+					"count": 33082
+				}
+			}
+		},
+		{
+			"buffer": 1,
+			"byteOffset": 396984,
+			"byteLength": 132328,
+			"byteStride": 4,
+			"target": 34962,
+			"extensions": {
+				"EXT_meshopt_compression": {
+					"buffer": 0,
+					"byteOffset": 197652,
+					"byteLength": 76421,
+					"byteStride": 4,
+					"mode": "ATTRIBUTES",
+					"count": 33082
+				}
+			}
+		},
+		{
+			"buffer": 1,
+			"byteOffset": 529312,
+			"byteLength": 284112,
+			"target": 34963,
+			"extensions": {
+				"EXT_meshopt_compression": {
+					"buffer": 0,
+					"byteOffset": 274076,
+					"byteLength": 52805,
+					"byteStride": 2,
+					"mode": "TRIANGLES",
+					"count": 142056
+				}
+			}
+		},
+		{
+			"buffer": 1,
+			"byteOffset": 813424,
+			"byteLength": 1804,
+			"extensions": {
+				"EXT_meshopt_compression": {
+					"buffer": 0,
+					"byteOffset": 326884,
+					"byteLength": 1160,
+					"byteStride": 4,
+					"mode": "ATTRIBUTES",
+					"count": 451
+				}
+			}
+		},
+		{
+			"buffer": 1,
+			"byteOffset": 815228,
+			"byteLength": 7216,
+			"extensions": {
+				"EXT_meshopt_compression": {
+					"buffer": 0,
+					"byteOffset": 328044,
+					"byteLength": 2214,
+					"byteStride": 8,
+					"mode": "ATTRIBUTES",
+					"filter": "QUATERNION",
+					"count": 902
+				}
+			}
+		}
+	],
+	"accessors": [
+		{ "bufferView": 0, "byteOffset": 0, "componentType": 5120, "count": 26495, "type": "VEC3", "normalized": true },
+		{
+			"bufferView": 1,
+			"byteOffset": 0,
+			"componentType": 5123,
+			"count": 26495,
+			"type": "VEC3",
+			"min": [0, 0, 0],
+			"max": [16383, 16064, 16351]
+		},
+		{ "bufferView": 2, "byteOffset": 0, "componentType": 5123, "count": 26495, "type": "VEC2", "normalized": true },
+		{ "bufferView": 3, "byteOffset": 0, "componentType": 5123, "count": 103014, "type": "SCALAR" },
+		{
+			"bufferView": 0,
+			"byteOffset": 105980,
+			"componentType": 5120,
+			"count": 6587,
+			"type": "VEC3",
+			"normalized": true
+		},
+		{
+			"bufferView": 1,
+			"byteOffset": 211960,
+			"componentType": 5123,
+			"count": 6587,
+			"type": "VEC3",
+			"min": [2017, 2005, 2087],
+			"max": [14319, 14257, 14378]
+		},
+		{
+			"bufferView": 2,
+			"byteOffset": 105980,
+			"componentType": 5123,
+			"count": 6587,
+			"type": "VEC2",
+			"normalized": true
+		},
+		{ "bufferView": 3, "byteOffset": 206028, "componentType": 5123, "count": 39042, "type": "SCALAR" },
+		{
+			"bufferView": 4,
+			"byteOffset": 0,
+			"componentType": 5126,
+			"count": 451,
+			"type": "SCALAR",
+			"min": [0],
+			"max": [15.000001]
+		},
+		{ "bufferView": 5, "byteOffset": 0, "componentType": 5122, "count": 451, "type": "VEC4", "normalized": true },
+		{ "bufferView": 5, "byteOffset": 3608, "componentType": 5122, "count": 451, "type": "VEC4", "normalized": true }
+	],
+	"samplers": [{ "magFilter": 9729, "minFilter": 9987 }],
+	"images": [{ "uri": "textures/Clouds_baseColor.png" }, { "uri": "textures/Planet_baseColor.png" }],
+	"textures": [
+		{ "sampler": 0, "source": 0 },
+		{ "sampler": 0, "source": 1 }
+	],
+	"materials": [
+		{
+			"name": "Clouds",
+			"pbrMetallicRoughness": {
+				"baseColorTexture": {
+					"index": 0,
+					"extensions": { "KHR_texture_transform": { "offset": [0, 0], "scale": [16.003664, 16.003664] } }
+				},
+				"metallicFactor": 0
+			},
+			"emissiveTexture": {
+				"index": 0,
+				"extensions": { "KHR_texture_transform": { "offset": [0, 0], "scale": [16.003664, 16.003664] } }
+			},
+			"doubleSided": true,
+			"extensions": { "KHR_materials_unlit": {} }
+		},
+		{
+			"name": "Planet",
+			"pbrMetallicRoughness": {
+				"baseColorTexture": {
+					"index": 1,
+					"extensions": { "KHR_texture_transform": { "offset": [0, 0], "scale": [16.003664, 16.003664] } }
+				},
+				"metallicFactor": 0
+			},
+			"emissiveTexture": {
+				"index": 1,
+				"extensions": { "KHR_texture_transform": { "offset": [0, 0], "scale": [16.003664, 16.003664] } }
+			},
+			"emissiveFactor": [0.233911559, 0.233911559, 0.233911559],
+			"extensions": { "KHR_materials_unlit": {} }
+		}
+	],
+	"meshes": [
+		{
+			"primitives": [
+				{ "attributes": { "NORMAL": 0, "POSITION": 1, "TEXCOORD_0": 2 }, "indices": 3, "material": 0 }
+			]
+		},
+		{
+			"primitives": [
+				{ "attributes": { "NORMAL": 4, "POSITION": 5, "TEXCOORD_0": 6 }, "indices": 7, "material": 1 }
+			]
+		}
+	],
+	"animations": [
+		{
+			"name": "Animation",
+			"samplers": [
+				{ "input": 8, "output": 9 },
+				{ "input": 8, "output": 10 }
+			],
+			"channels": [
+				{ "sampler": 0, "target": { "node": 5, "path": "rotation" } },
+				{ "sampler": 1, "target": { "node": 7, "path": "rotation" } }
+			]
+		}
+	],
+	"nodes": [
+		{
+			"mesh": 0,
+			"translation": [-0.87633568, -0.863499284, -0.875878215],
+			"scale": [0.00010695307, 0.00010695307, 0.00010695307]
+		},
+		{
+			"mesh": 1,
+			"translation": [-0.87633568, -0.863499284, -0.875878215],
+			"scale": [0.00010695307, 0.00010695307, 0.00010695307]
+		},
+		{
+			"name": "Sketchfab_model",
+			"matrix": [
+				0.99796617, 0.063714385, 0.001990502, 0, 0, 0.03122578, -0.999512374, 0, -0.0637454689, 0.997479558,
+				0.0311622713, 0, 0, 0, 0, 1
+			],
+			"children": [3]
+		},
+		{ "name": "root", "children": [4] },
+		{
+			"name": "GLTF_SceneRootNode",
+			"matrix": [1, 0, 0, 0, 0, 2.22044605e-16, 1, 0, 0, -1, 2.22044605e-16, 0, 0, 0, 0, 1],
+			"children": [5, 7]
+		},
+		{ "name": "Clouds_1", "children": [6] },
+		{ "name": "Object_4", "children": [0] },
+		{ "name": "Planet_2", "children": [8] },
+		{ "name": "Object_6", "children": [1] }
+	],
+	"scenes": [{ "name": "Sketchfab_Scene", "nodes": [2] }],
+	"scene": 0
+}

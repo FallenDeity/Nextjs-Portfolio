@@ -7,7 +7,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import CanvasLoader from "../Loader";
 
 const Computers = ({ isMobile }: { isMobile: boolean }): React.JSX.Element => {
-	const computer = useGLTF("./desktop_pc/scene.gltf");
+	const computer = useGLTF("./desktop_pc/cc.gltf", true, true);
 	return (
 		<mesh>
 			<hemisphereLight intensity={0.15} groundColor="black" />
@@ -31,6 +31,7 @@ const Computers = ({ isMobile }: { isMobile: boolean }): React.JSX.Element => {
 };
 
 const ComputersCanvas = (): React.JSX.Element => {
+	useGLTF.preload("./desktop_pc/scene.gltf");
 	const [isMobile, setIsMobile] = useState(false);
 	useEffect(() => {
 		const mediaQuery = window.matchMedia("(max-width: 500px)");
@@ -49,7 +50,7 @@ const ComputersCanvas = (): React.JSX.Element => {
 			shadows
 			dpr={[1, 2]}
 			camera={{ position: [20, 3, 5], fov: 29 }}
-			gl={{ preserveDrawingBuffer: true }}>
+			gl={{ preserveDrawingBuffer: false }}>
 			<Suspense fallback={<CanvasLoader />}>
 				<OrbitControls
 					autoRotate

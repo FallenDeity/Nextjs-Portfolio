@@ -1,7 +1,7 @@
 {
-	"name": "social-media-clone",
+	"name": "portfolio-website",
 	"version": "1.0.0",
-	"description": "An social media clone.",
+	"description": "A portfolio website for FallenDeity",
 	"main": "src/index.ts",
 	"rootDir": "src",
 	"scripts": {
@@ -10,7 +10,7 @@
 		"lint:fix": "eslint --ext .ts src --fix",
 		"prettier": "prettier .",
 		"prettier:fix": "prettier --write .",
-		"dev": "next dev",
+		"dev": "next dev -H 192.168.0.106",
 		"build": "next build",
 		"start": "next start",
 		"coverage": "nyc npm run test"
