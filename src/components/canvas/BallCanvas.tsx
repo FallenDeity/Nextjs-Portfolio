@@ -22,7 +22,7 @@ const Ball = (props: { imgUrl: string }): React.JSX.Element => {
 
 const BallCanvas = ({ icon }: { icon: string }): React.JSX.Element => {
 	return (
-		<Canvas frameloop="demand" dpr={[1, 2]} gl={{ preserveDrawingBuffer: false }}>
+		<Canvas dpr={[1, 2]} gl={{ preserveDrawingBuffer: false, antialias: false }}>
 			<Suspense fallback={null}>
 				<OrbitControls enableZoom={false} />
 				<Ball imgUrl={icon} />

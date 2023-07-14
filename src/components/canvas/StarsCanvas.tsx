@@ -31,7 +31,7 @@ const Stars = (): React.JSX.Element => {
 const StarsCanvas = (): React.JSX.Element => {
 	return (
 		<div className="absolute inset-0 z-[-1] h-auto w-full">
-			<Canvas camera={{ position: [0, 0, 1] }}>
+			<Canvas camera={{ position: [0, 0, 1] }} gl={{ preserveDrawingBuffer: false, antialias: false }}>
 				<Suspense fallback={null}>
 					<Stars />
 				</Suspense>

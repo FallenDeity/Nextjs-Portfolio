@@ -15,9 +15,8 @@ const EarthCanvas = (): React.JSX.Element => {
 	return (
 		<Canvas
 			shadows
-			frameloop="demand"
 			dpr={[1, 2]}
-			gl={{ preserveDrawingBuffer: false }}
+			gl={{ preserveDrawingBuffer: false, antialias: false }}
 			camera={{
 				fov: 45,
 				near: 0.1,
