@@ -19,6 +19,11 @@ const nextConfig = {
 
 if (isGithubActions) {
 	nextConfig["output"] = "export";
+	nextConfig["images"] = {
+		loader: "imgix",
+		path: "",
+	};
+	nextConfig["assetPrefix"] = "./";
 }
 
 module.exports = nextConfig;
