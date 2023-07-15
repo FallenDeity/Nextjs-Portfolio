@@ -21,7 +21,7 @@ if (isGithubActions) {
 	nextConfig["output"] = "export";
 	nextConfig["images"] = {
 		loader: "imgix",
-		path: "",
+		path: "https://fallendeity.imgix.net",
 	};
 	nextConfig["assetPrefix"] = "./";
 }
