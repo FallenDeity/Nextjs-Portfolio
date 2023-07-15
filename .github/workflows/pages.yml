@@ -3,30 +3,30 @@ name: Build and Deploy to GitHub Pages
 on:
     push:
         branches:
-        - main
+            - main
 
 jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
         steps:
-        - name: Checkout
-          uses: actions/checkout@v2
+            - name: Checkout
+              uses: actions/checkout@v2
 
-        - name: Setup Node.js
-          uses: actions/setup-node@v1
-          with:
-              node-version: '12.x'
-              cache: 'npm'
+            - name: Setup Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: "12.x"
+                  cache: "npm"
 
-        - name: Install and Build
-          run: |
-            npm ci
-            npm run build
-            npm run export
-            touch out/.nojekyll
+            - name: Install and Build
+              run: |
+                  npm ci
+                  npm run build
+                  npm run export
+                  touch out/.nojekyll
 
-        - name: Deploy
-          uses: JamesIves/github-pages-deploy-action@releases/v3
-          with:
-              branch: gh-pages
-              folder: dist
+            - name: Deploy
+              uses: JamesIves/github-pages-deploy-action@releases/v3
+              with:
+                  branch: gh-pages
+                  folder: out
