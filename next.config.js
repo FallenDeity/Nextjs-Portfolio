@@ -19,6 +19,12 @@ const nextConfig = {
 
 if (isGithubActions) {
 	nextConfig["output"] = "export";
+	nextConfig["images"] = {
+		unoptimized: true,
+		loader: "imgix",
+		path: "https://fallendeity.imgix.net",
+	};
+	nextConfig["assetPrefix"] = "./";
 }
 
 module.exports = nextConfig;
