@@ -2,7 +2,7 @@
 
 const isGithubActions = process.env.GITHUB_ACTIONS || false;
 let assetPrefix = "";
-let basePath = "/";
+let basePath = "";
 let images = {
 	remotePatterns: [
 		{
@@ -18,7 +18,7 @@ if (isGithubActions) {
 	images = {
 		loader: "imgix",
 		path: "https://personal-2066.imgix.net/",
-	}
+	};
 }
 
 const nextConfig = {
