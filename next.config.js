@@ -29,4 +29,8 @@ const nextConfig = {
 	distDir: "dist",
 };
 
+if (isGithubActions) {
+	nextConfig["output"] = "export";
+}
+
 module.exports = nextConfig;
