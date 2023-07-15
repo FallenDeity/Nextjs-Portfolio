@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 
 const isGithubActions = process.env.GITHUB_ACTIONS || false;
-let images = {
+
+const images = {
 	remotePatterns: [
 		{
 			protocol: "https",
@@ -9,12 +10,6 @@ let images = {
 		},
 	],
 };
-if (isGithubActions) {
-	images = {
-		loader: "imgix",
-		path: "https://personal-2066.imgix.net/",
-	};
-}
 
 const nextConfig = {
 	images: images,
