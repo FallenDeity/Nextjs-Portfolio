@@ -26,6 +26,10 @@ jobs:
                   npm ci
                   npm run build
                   touch dist/.nojekyll
+              env:
+                EMAILJS_SERVICE_ID: ${{ secrets.EMAILJS_SERVICE_ID }}
+                EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
+                EMAILJS_USER_ID: ${{ secrets.EMAILJS_USER_ID }}
 
             - name: Deploy
               uses: JamesIves/github-pages-deploy-action@v4
