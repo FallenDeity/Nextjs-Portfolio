@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { HiMenu } from "react-icons/hi";
 
@@ -17,6 +17,7 @@ import { navLinks } from "@/lib/constants";
 import { styles } from "@/lib/styles";
 
 export default function Navbar(): React.JSX.Element {
+	const router = useRouter();
 	const [active, setActive] = React.useState<string>("");
 	const navBarRef = React.useRef<HTMLDivElement>(null);
 	React.useEffect(() => {
@@ -39,28 +40,31 @@ export default function Navbar(): React.JSX.Element {
 			className={`fixed top-0 z-20 flex w-full items-center py-5 backdrop-filter ${styles.paddingX} bg-inherit transition-all duration-300 ease-in`}
 			ref={navBarRef}>
 			<div className="mx-auto flex w-full items-center justify-between">
-				<Link
-					href="/"
+				<div
 					className="flex cursor-pointer items-center gap-3"
 					onClick={(): void => {
 						setActive("");
+						router.push("/");
 						window.scrollTo(0, 0);
 					}}>
 					<Image src={"/logo.png"} width={50} height={50} alt="Logo" className="h-8 w-8 object-contain" />
 					<p className="flex items-center text-2xl font-bold">TRIYAN</p>
-				</Link>
+				</div>
 				<ul className="hidden list-none flex-row items-center justify-center gap-10 sm:flex">
 					{navLinks.map((link) => (
 						<li key={link.title}>
-							<Link href={`${link.id}`}>
+							<div>
 								<p
 									className={`cursor-pointer ${
 										active === link.title ? "text-white" : "text-neutral-200 text-opacity-90"
 									} hover:text-white text-md cursor-pointer font-medium transition duration-300 ease-in-out`}
-									onClick={(): void => setActive(link.title)}>
+									onClick={(): void => {
+										setActive(link.title);
+										router.push(link.id);
+									}}>
 									{link.title}
 								</p>
-							</Link>
+							</div>
 						</li>
 					))}
 				</ul>
@@ -78,17 +82,20 @@ export default function Navbar(): React.JSX.Element {
 									<DropdownMenuItem
 										key={link.title}
 										className="items-center justify-between px-2 py-[0.2rem]">
-										<Link href={`#${link.id}`}>
+										<div>
 											<DropdownMenuLabel
 												className={`cursor-pointer ${
 													active === link.title
 														? "text-white"
 														: "text-neutral-200 text-opacity-90"
 												} text-md hover:text-white cursor-pointer font-medium transition duration-300 ease-in-out`}
-												onClick={(): void => setActive(link.title)}>
+												onClick={(): void => {
+													setActive(link.title);
+													router.push(link.id);
+												}}>
 												{link.title}
 											</DropdownMenuLabel>
-										</Link>
+										</div>
 										<link.icon
 											className={`${
 												active === link.title
