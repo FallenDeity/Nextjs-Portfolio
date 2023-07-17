@@ -89,18 +89,18 @@ const Contact = (): React.JSX.Element => {
 				<h3 className={styles.sectionHeadText}>Contact</h3>
 				<form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col gap-8">
 					<label className="flex flex-col">
-						<span className="mb-4 font-medium text-white">Your Name</span>
+						<span className="text-white mb-4 font-medium">Your Name</span>
 						<input
 							type="text"
 							name="name"
 							value={form.name}
 							onChange={handleChange}
 							placeholder="What's your good name?"
-							className="rounded-lg border-none bg-neutral-300 bg-opacity-5 px-6 py-4 font-medium text-white outline-none placeholder:text-neutral-500"
+							className="text-white rounded-lg border-none bg-neutral-300 bg-opacity-5 px-6 py-4 font-medium outline-none placeholder:text-neutral-500"
 						/>
 					</label>
 					<label className="flex flex-col">
-						<span className="mb-4 font-medium text-white">Your email</span>
+						<span className="text-white mb-4 font-medium">Your email</span>
 						<input
 							type="email"
 							name="email"
@@ -108,24 +108,24 @@ const Contact = (): React.JSX.Element => {
 							value={form.email}
 							onChange={handleChange}
 							placeholder="What's your web address?"
-							className="rounded-lg border-none bg-neutral-300 bg-opacity-5 px-6 py-4 font-medium text-white outline-none placeholder:text-neutral-500"
+							className="text-white rounded-lg border-none bg-neutral-300 bg-opacity-5 px-6 py-4 font-medium outline-none placeholder:text-neutral-500"
 						/>
 					</label>
 					<label className="flex flex-col">
-						<span className="mb-4 font-medium text-white">Your Message</span>
+						<span className="text-white mb-4 font-medium">Your Message</span>
 						<textarea
 							rows={7}
 							name="message"
 							value={form.message}
 							onChange={handleChange}
 							placeholder="What you want to say?"
-							className="rounded-lg border-none bg-neutral-300 bg-opacity-5 px-6 py-4 font-medium text-white outline-none placeholder:text-neutral-500"
+							className="text-white rounded-lg border-none bg-neutral-300 bg-opacity-5 px-6 py-4 font-medium outline-none placeholder:text-neutral-500"
 						/>
 					</label>
 					<button
 						disabled={loading}
 						type="submit"
-						className="w-full rounded-xl bg-neutral-300 bg-opacity-5 px-8 py-3 text-center font-bold text-white outline-none transition-all duration-300 hover:bg-opacity-10 disabled:cursor-not-allowed disabled:bg-neutral-500 disabled:bg-opacity-10">
+						className="text-white w-full rounded-xl bg-neutral-300 bg-opacity-5 px-8 py-3 text-center font-bold outline-none transition-all duration-300 hover:bg-opacity-10 disabled:cursor-not-allowed disabled:bg-neutral-500 disabled:bg-opacity-10">
 						{loading ? <BeatLoader size={8} color="#ffffff" /> : "Send"}
 					</button>
 				</form>

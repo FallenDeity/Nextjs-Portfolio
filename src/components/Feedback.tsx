@@ -14,12 +14,12 @@ const FeedbackCard = ({ index, testimony }: { index: number; testimony: Testimon
 	<motion.div
 		variants={fadeIn("", "spring", index * 0.5, 0.75)}
 		className="w-full rounded-3xl bg-black-200 p-10 xs:w-[320px]">
-		<p className="text-[48px] font-black text-white">"</p>
+		<p className="text-white text-[48px] font-black">"</p>
 		<div className="mt-1">
-			<p className="text-[18px] tracking-wider text-white">{testimony.testimonial}</p>
+			<p className="text-white text-[18px] tracking-wider">{testimony.testimonial}</p>
 			<div className="mt-7 flex items-center justify-between gap-1">
 				<div className="flex flex-1 flex-col">
-					<p className="text-[16px] font-medium text-white">
+					<p className="text-white text-[16px] font-medium">
 						<span className="blue-text-gradient">@</span> {testimony.name}
 					</p>
 					<p className="mt-1 text-[12px] text-neutral-300">

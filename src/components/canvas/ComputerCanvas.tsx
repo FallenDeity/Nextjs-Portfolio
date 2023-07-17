@@ -4,7 +4,7 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense, useEffect, useState } from "react";
 
-import CanvasLoader from "../Loader";
+import PyramidLoader from "../loaders/PyramidLoader";
 
 const Computers = ({ isMobile }: { isMobile: boolean }): React.JSX.Element => {
 	const computer = useGLTF("./desktop_pc/cc.gltf", true, true);
@@ -31,7 +31,7 @@ const Computers = ({ isMobile }: { isMobile: boolean }): React.JSX.Element => {
 };
 
 const ComputersCanvas = (): React.JSX.Element => {
-	useGLTF.preload("./desktop_pc/scene.gltf");
+	useGLTF.preload("./desktop_pc/cc.gltf");
 	const [isMobile, setIsMobile] = useState(false);
 	useEffect(() => {
 		const mediaQuery = window.matchMedia("(max-width: 500px)");
@@ -46,12 +46,12 @@ const ComputersCanvas = (): React.JSX.Element => {
 	}, []);
 	return (
 		<Canvas
-			frameloop="demand"
+			frameloop="always"
 			shadows
 			dpr={[1, 2]}
 			camera={{ position: [20, 3, 5], fov: 29 }}
 			gl={{ preserveDrawingBuffer: false, antialias: false }}>
-			<Suspense fallback={<CanvasLoader />}>
+			<Suspense fallback={<PyramidLoader />}>
 				<OrbitControls
 					autoRotate
 					autoRotateSpeed={5}

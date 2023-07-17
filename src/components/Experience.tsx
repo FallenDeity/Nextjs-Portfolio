@@ -37,7 +37,7 @@ const ExperienceCard = ({ experience }: { experience: ExprienceModel }): React.J
 				</div>
 			}>
 			<div>
-				<h3 className="vertical-timeline-element-title text-[24px] font-bold text-white">{experience.title}</h3>
+				<h3 className="vertical-timeline-element-title text-white text-[24px] font-bold">{experience.title}</h3>
 				<p
 					className="vertical-timeline-element-subtitle text-[16px] font-semibold text-neutral-300"
 					style={{ margin: 0 }}>

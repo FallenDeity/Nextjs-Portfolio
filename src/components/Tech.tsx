@@ -1,17 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import React from "react";
+import Tilt from "react-parallax-tilt";
 
-import { technologies } from "@/lib/constants";
-import { textVariant } from "@/lib/motion";
+import useTech from "@/lib/hooks/getTech";
+import { fadeIn, textVariant } from "@/lib/motion";
 import { styles } from "@/lib/styles";
 
-import BallCanvas from "./canvas/BallCanvas";
 import StarWrapper from "./SectionWrapper";
 
 const Tech = (): React.JSX.Element => {
-	const [balls, setBalls] = React.useState<number>(3);
+	const technologies = useTech();
 	return (
 		<>
 			<motion.div variants={textVariant()}>
@@ -19,14 +20,24 @@ const Tech = (): React.JSX.Element => {
 				<h2 className={`${styles.sectionHeadText} text-center`}>Technologies</h2>
 			</motion.div>
 			<div className="mt-20 flex flex-row flex-wrap justify-center gap-10">
-				{technologies.slice(0, balls).map((technology) => (
-					<div className="h-28 w-28" key={technology.name}>
-						<BallCanvas icon={technology.icon} />
-					</div>
+				{technologies.map((technology, index) => (
+					<Tilt>
+						<motion.div
+							variants={fadeIn("up", "spring", index * 0.5, 0.75)}
+							className="green-border-gradient flex h-28 w-28 cursor-pointer items-center justify-center rounded-full p-1 shadow-[0_35px_120px_-15px_#211e35]"
+							key={technology.name}>
+							<div className="flex h-full w-full items-center justify-center rounded-full bg-background">
+								<Image
+									src={technology.logo}
+									alt={technology.name}
+									width={100}
+									height={100}
+									className="h-20 w-20 rounded-full object-contain"
+								/>
+							</div>
+						</motion.div>
+					</Tilt>
 				))}
-				<div className="h-28 w-28" onClick={(): void => setBalls(balls + 3)}>
-					<BallCanvas icon="/tech/plus.png" />
-				</div>
 			</div>
 		</>
 	);

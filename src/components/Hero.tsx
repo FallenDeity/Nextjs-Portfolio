@@ -2,12 +2,17 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
+import Typewriter from "typewriter-effect";
 
 import ComputerCanvas from "@/components/canvas/ComputerCanvas";
 import { styles } from "@/lib/styles";
 
+import CraftsmanCanvas from "./canvas/ProjectCanvas";
+
 export default function Hero(): React.JSX.Element {
+	const pathname = usePathname();
 	return (
 		<section className="relative mx-auto h-screen w-full">
 			<div className={`${styles.paddingX} absolute inset-0 top-[120px] mx-auto flex flex-row items-start gap-5`}>
@@ -16,17 +21,34 @@ export default function Hero(): React.JSX.Element {
 					<div className="violet-gradient h-40 w-1 sm:h-80" />
 				</div>
 				<div>
-					<h1 className={`${styles.heroHeadText} text-white`}>
-						Hi, I'm <span className="text-[#915eff]">Triyan</span>
-					</h1>
-					<p className={`${styles.heroSubText} mt-2 text-neutral-200`}>
-						I'm a Fullstack Developer, I<br className="hidden sm:block" /> love to build things with code
-					</p>
+					<Typewriter
+						options={{
+							autoStart: true,
+							delay: 50,
+							deleteSpeed: 50,
+							cursor: "",
+						}}
+						onInit={(typewriter): void => {
+							typewriter
+								.typeString(
+									pathname.includes("/projects")
+										? "<h1 class='font-black text-white lg:text-[80px] sm:text-[60px] xs:text-[45px] text-[35px] lg:leading-[98px] mt-2 text-white'>My <span class='text-[#e2b94a]'>Projects</span></h1>"
+										: "<h1 class='font-black text-white lg:text-[80px] sm:text-[60px] xs:text-[45px] text-[35px] lg:leading-[98px] mt-2 text-white'>Hi, I'm <span class='text-[#915eff]'>Triyan</span></h1>"
+								)
+								.typeString(
+									pathname.includes("/projects")
+										? "<p class='text-[#dfd9ff] font-medium lg:text-[30px] sm:text-[26px] xs:text-[20px] text-[16px] lg:leading-[40px] mt-2'>Welcome to my projects page, <br class='hidden sm:block' /> feel free to explore!</p>"
+										: "<p class='text-[#dfd9ff] font-medium lg:text-[30px] sm:text-[26px] xs:text-[20px] text-[16px] lg:leading-[40px] mt-2'>I'm a Fullstack Developer, I<br class='hidden sm:block' /> love to build things with code</p>"
+								)
+								.pauseFor(2500)
+								.start();
+						}}
+					/>
 				</div>
 			</div>
-			<ComputerCanvas />
+			{pathname.includes("/projects") ? <CraftsmanCanvas /> : <ComputerCanvas />}
 			<div className="absolute bottom-32 flex w-full items-center justify-center xs:bottom-10">
-				<Link href="#about">
+				<Link href="/#about">
 					<div className="flex h-[64px] w-[35px] items-start justify-center rounded-3xl border-4 border-neutral-300 p-2">
 						<motion.div
 							animate={{

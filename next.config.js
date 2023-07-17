@@ -3,6 +3,7 @@
 const isGithubActions = process.env.GITHUB_ACTIONS || false;
 
 const images = {
+	unoptimized: true,
 	remotePatterns: [
 		{
 			protocol: "https",

@@ -8,6 +8,7 @@ import { HiMenu } from "react-icons/hi";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
+	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
@@ -17,29 +18,45 @@ import { styles } from "@/lib/styles";
 
 export default function Navbar(): React.JSX.Element {
 	const [active, setActive] = React.useState<string>("");
+	const navBarRef = React.useRef<HTMLDivElement>(null);
+	React.useEffect(() => {
+		const handleScroll = (): void => {
+			if (navBarRef.current) {
+				if (window.scrollY > 0) {
+					navBarRef.current.classList.remove("bg-inherit");
+					navBarRef.current.classList.add("backdrop-blur-sm");
+				} else {
+					navBarRef.current.classList.remove("backdrop-blur-sm");
+					navBarRef.current.classList.add("bg-inherit");
+				}
+			}
+		};
+		window.addEventListener("scroll", handleScroll);
+		return (): void => window.removeEventListener("scroll", handleScroll);
+	}, []);
 	return (
-		<nav className={`fixed top-0 z-20 flex w-full items-center py-5 ${styles.paddingX} bg-background`}>
+		<nav
+			className={`fixed top-0 z-20 flex w-full items-center py-5 backdrop-filter ${styles.paddingX} bg-inherit transition-all duration-300 ease-in`}
+			ref={navBarRef}>
 			<div className="mx-auto flex w-full items-center justify-between">
 				<Link
 					href="/"
-					className="flex cursor-pointer items-center gap-2"
+					className="flex cursor-pointer items-center gap-3"
 					onClick={(): void => {
 						setActive("");
 						window.scrollTo(0, 0);
 					}}>
-					<Image src={"/logo.png"} width={50} height={50} alt="Logo" className="h-10 w-10 object-contain" />
-					<p className="text-2xl font-bold text-white">
-						Triyan <span className="hidden md:inline-flex">| Portfolio</span>
-					</p>
+					<Image src={"/logo.png"} width={50} height={50} alt="Logo" className="h-8 w-8 object-contain" />
+					<p className="flex items-center text-2xl font-bold">TRIYAN</p>
 				</Link>
-				<ul className="hidden list-none flex-row gap-10 sm:flex">
+				<ul className="hidden list-none flex-row items-center justify-center gap-10 sm:flex">
 					{navLinks.map((link) => (
 						<li key={link.title}>
-							<Link href={`#${link.id}`}>
+							<Link href={`${link.id}`}>
 								<p
 									className={`cursor-pointer ${
 										active === link.title ? "text-white" : "text-neutral-200 text-opacity-90"
-									} cursor-pointer text-xl font-medium transition duration-300 ease-in-out hover:text-white`}
+									} hover:text-white text-md cursor-pointer font-medium transition duration-300 ease-in-out`}
 									onClick={(): void => setActive(link.title)}>
 									{link.title}
 								</p>
@@ -51,33 +68,37 @@ export default function Navbar(): React.JSX.Element {
 					<DropdownMenu>
 						<DropdownMenuTrigger className="focus:outline-none">
 							<HiMenu
-								className="cursor-pointer text-3xl text-white"
+								className="cursor-pointer text-3xl"
 								onClick={(): void => setActive(active === "" ? "active" : "")}
 							/>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent className="mr-3 sm:hidden">
-							{navLinks.map((link) => (
-								<DropdownMenuItem
-									key={link.title}
-									className="items-center justify-between px-2 py-[0.2rem]">
-									<Link href={`#${link.id}`}>
-										<DropdownMenuLabel
-											className={`cursor-pointer ${
+							<DropdownMenuGroup>
+								{navLinks.map((link) => (
+									<DropdownMenuItem
+										key={link.title}
+										className="items-center justify-between px-2 py-[0.2rem]">
+										<Link href={`#${link.id}`}>
+											<DropdownMenuLabel
+												className={`cursor-pointer ${
+													active === link.title
+														? "text-white"
+														: "text-neutral-200 text-opacity-90"
+												} text-md hover:text-white cursor-pointer font-medium transition duration-300 ease-in-out`}
+												onClick={(): void => setActive(link.title)}>
+												{link.title}
+											</DropdownMenuLabel>
+										</Link>
+										<link.icon
+											className={`${
 												active === link.title
 													? "text-white"
 													: "text-neutral-200 text-opacity-90"
-											} text-md cursor-pointer font-medium transition duration-300 ease-in-out hover:text-white`}
-											onClick={(): void => setActive(link.title)}>
-											{link.title}
-										</DropdownMenuLabel>
-									</Link>
-									<link.icon
-										className={`${
-											active === link.title ? "text-white" : "text-neutral-200 text-opacity-90"
-										} text-md cursor-pointer transition duration-300 ease-in-out hover:text-white`}
-									/>
-								</DropdownMenuItem>
-							))}
+											} text-md hover:text-white cursor-pointer transition duration-300 ease-in-out`}
+										/>
+									</DropdownMenuItem>
+								))}
+							</DropdownMenuGroup>
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</div>
