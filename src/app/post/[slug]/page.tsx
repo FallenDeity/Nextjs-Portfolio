@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import React from "react";
 
@@ -9,6 +10,13 @@ import PostDetail from "@/components/blog/PostDetail";
 import PostWidget from "@/components/blog/PostWidget";
 import Navbar from "@/components/Navbar";
 import getPostDetails from "@/lib/requests/getPostDetails";
+
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+	return {
+		title: params.slug,
+		description: "A blog post",
+	};
+}
 
 export default async function Page({ params }: { params: { slug: string } }): Promise<React.JSX.Element> {
 	const post = await getPostDetails(params.slug);

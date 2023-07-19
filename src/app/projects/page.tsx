@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 	description: "Projects",
 };
 
-export default function Home(): React.JSX.Element {
+export default function Projects(): React.JSX.Element {
 	return (
 		<div className="relative z-0">
 			<div className="bg-project-pattern bg-cover bg-center bg-no-repeat">
