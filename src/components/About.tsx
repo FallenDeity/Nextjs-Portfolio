@@ -9,7 +9,7 @@ import useAbout from "@/lib/hooks/getAbout";
 import { fadeIn, textVariant } from "@/lib/motion";
 import { styles } from "@/lib/styles";
 
-import StarWrapper from "./SectionWrapper";
+import StarWrapper from "./wrappers/SectionWrapper";
 
 const ServiceCard = ({
 	index,

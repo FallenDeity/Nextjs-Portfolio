@@ -1,14 +1,9 @@
 import { AiOutlineMessage } from "react-icons/ai";
 import { BsInfoCircleFill } from "react-icons/bs";
-import { MdWork } from "react-icons/md";
+import { ImBlog } from "react-icons/im";
 import { PiProjectorScreenChart } from "react-icons/pi";
 
 export const navLinks = [
-	{
-		id: "/#work",
-		title: "WORK",
-		icon: MdWork,
-	},
 	{
 		icon: BsInfoCircleFill,
 		id: "/#about",
@@ -23,6 +18,11 @@ export const navLinks = [
 		id: "/projects",
 		title: "PROJECTS",
 		icon: PiProjectorScreenChart,
+	},
+	{
+		id: "/blog",
+		title: "BLOG",
+		icon: ImBlog,
 	},
 ];
 

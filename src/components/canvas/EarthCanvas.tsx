@@ -4,7 +4,7 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
 
-import CubicLoader from "../loaders/CubicLoader";
+import PyramidLoader from "../loaders/PyramidLoader";
 
 const Earth = (): React.JSX.Element => {
 	const earth = useGLTF("./planet/cc.gltf", true, true);
@@ -23,7 +23,7 @@ const EarthCanvas = (): React.JSX.Element => {
 				far: 200,
 				position: [-4, 3, 6],
 			}}>
-			<Suspense fallback={<CubicLoader />}>
+			<Suspense fallback={<PyramidLoader />}>
 				<OrbitControls
 					autoRotate={true}
 					autoRotateSpeed={10}

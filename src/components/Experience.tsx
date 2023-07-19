@@ -12,7 +12,7 @@ import { Experience as ExprienceModel, experiences } from "@/lib/constants";
 import { textVariant } from "@/lib/motion";
 import { styles } from "@/lib/styles";
 
-import StarWrapper from "./SectionWrapper";
+import StarWrapper from "./wrappers/SectionWrapper";
 
 const ExperienceCard = ({ experience }: { experience: ExprienceModel }): React.JSX.Element => {
 	return (
@@ -74,7 +74,7 @@ const Experience = (): React.JSX.Element => {
 	}, [cards]);
 	return (
 		<>
-			<motion.div variants={textVariant()}>
+			<motion.div variants={textVariant()} initial="hidden" whileInView="show" viewport={{ once: true }}>
 				<p className={`${styles.sectionSubText} text-center`}>What I have done so far</p>
 				<h2 className={`${styles.sectionHeadText} text-center`}>Work Experience</h2>
 			</motion.div>

@@ -50,7 +50,7 @@ export default function Navbar(): React.JSX.Element {
 					<Image src={"/logo.png"} width={50} height={50} alt="Logo" className="h-8 w-8 object-contain" />
 					<p className="flex items-center text-2xl font-bold">TRIYAN</p>
 				</div>
-				<ul className="hidden list-none flex-row items-center justify-center gap-10 sm:flex">
+				<ul className="hidden list-none flex-row items-center justify-center gap-10 md:flex">
 					{navLinks.map((link) => (
 						<li key={link.title}>
 							<div>
@@ -68,7 +68,7 @@ export default function Navbar(): React.JSX.Element {
 						</li>
 					))}
 				</ul>
-				<div className="flex items-center sm:hidden">
+				<div className="flex items-center md:hidden">
 					<DropdownMenu>
 						<DropdownMenuTrigger className="focus:outline-none">
 							<HiMenu
@@ -76,7 +76,7 @@ export default function Navbar(): React.JSX.Element {
 								onClick={(): void => setActive(active === "" ? "active" : "")}
 							/>
 						</DropdownMenuTrigger>
-						<DropdownMenuContent className="mr-3 sm:hidden">
+						<DropdownMenuContent className="mr-3 md:hidden">
 							<DropdownMenuGroup>
 								{navLinks.map((link) => (
 									<DropdownMenuItem

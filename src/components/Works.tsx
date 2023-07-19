@@ -12,7 +12,7 @@ import useProject, { Project } from "@/lib/hooks/getProject";
 import { fadeIn, textVariant } from "@/lib/motion";
 import { styles } from "@/lib/styles";
 
-import StarWrapper from "./SectionWrapper";
+import StarWrapper from "./wrappers/SectionWrapper";
 
 const ProjectCard = ({ project, index }: { project: Project; index: number }): React.JSX.Element => {
 	const router = useRouter();

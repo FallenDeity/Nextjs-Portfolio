@@ -9,13 +9,13 @@ import useTech from "@/lib/hooks/getTech";
 import { fadeIn, textVariant } from "@/lib/motion";
 import { styles } from "@/lib/styles";
 
-import StarWrapper from "./SectionWrapper";
+import StarWrapper from "./wrappers/SectionWrapper";
 
 const Tech = (): React.JSX.Element => {
 	const technologies = useTech();
 	return (
 		<>
-			<motion.div variants={textVariant()}>
+			<motion.div variants={textVariant()} initial="hidden" whileInView="show" viewport={{ once: true }}>
 				<p className={`${styles.sectionSubText} text-center`}>Technologies I am familiar with</p>
 				<h2 className={`${styles.sectionHeadText} text-center`}>Technologies</h2>
 			</motion.div>
@@ -23,6 +23,9 @@ const Tech = (): React.JSX.Element => {
 				{technologies.map((technology, index) => (
 					<Tilt>
 						<motion.div
+							initial="hidden"
+							whileInView="show"
+							viewport={{ once: true }}
 							variants={fadeIn("up", "spring", index * 0.5, 0.75)}
 							className="green-border-gradient flex h-28 w-28 cursor-pointer items-center justify-center rounded-full p-1 shadow-[0_35px_120px_-15px_#211e35]"
 							key={technology.name}>

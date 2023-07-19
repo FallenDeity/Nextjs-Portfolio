@@ -12,7 +12,7 @@ import { slideIn } from "@/lib/motion";
 import { styles } from "@/lib/styles";
 
 import EarthCanvas from "./canvas/EarthCanvas";
-import StarWrapper from "./SectionWrapper";
+import StarWrapper from "./wrappers/SectionWrapper";
 
 const Contact = (): React.JSX.Element => {
 	const formRef = useRef<HTMLFormElement>(null);
@@ -83,6 +83,9 @@ const Contact = (): React.JSX.Element => {
 		<div className={`flex flex-col-reverse gap-10 overflow-hidden xl:mt-12 xl:flex-row`}>
 			<ToastContainer />
 			<motion.div
+				initial="hidden"
+				whileInView="show"
+				viewport={{ once: true }}
 				variants={slideIn("left", "tween", 0.2, 1)}
 				className="flex-[0.75] rounded-2xl bg-black-100 p-8">
 				<p className={styles.sectionSubText}>Get in touch</p>
@@ -125,12 +128,15 @@ const Contact = (): React.JSX.Element => {
 					<button
 						disabled={loading}
 						type="submit"
-						className="text-white w-full rounded-xl bg-neutral-300 bg-opacity-5 px-8 py-3 text-center font-bold outline-none transition-all duration-300 hover:bg-opacity-10 disabled:cursor-not-allowed disabled:bg-neutral-500 disabled:bg-opacity-10">
+						className="text-white w-full rounded-xl bg-pink-600 px-8 py-3 text-center font-bold outline-none transition-all duration-300 hover:bg-opacity-10 disabled:cursor-not-allowed disabled:bg-pink-400 disabled:bg-opacity-10">
 						{loading ? <BeatLoader size={8} color="#ffffff" /> : "Send"}
 					</button>
 				</form>
 			</motion.div>
 			<motion.div
+				initial="hidden"
+				whileInView="show"
+				viewport={{ once: true }}
 				variants={slideIn("right", "tween", 0.2, 1)}
 				className="h-[350px] md:h-[550px] xl:h-auto xl:flex-1">
 				<EarthCanvas />

@@ -3,6 +3,7 @@ import "react-vertical-timeline-component/style.min.css";
 import React from "react";
 
 import About from "@/components/About";
+import Achievement from "@/components/Achievement";
 import StarsCanvas from "@/components/canvas/StarsCanvas";
 import Contact from "@/components/Contact";
 import Experience from "@/components/Experience";
@@ -22,6 +23,7 @@ export default function Home(): React.JSX.Element {
 			<Experience />
 			<Tech />
 			<Works />
+			<Achievement />
 			<div className="relative z-0">
 				<Contact />
 				<StarsCanvas />

@@ -8,10 +8,13 @@ import { testimonials, Testimony } from "@/lib/constants";
 import { fadeIn, textVariant } from "@/lib/motion";
 import { styles } from "@/lib/styles";
 
-import StarWrapper from "./SectionWrapper";
+import StarWrapper from "./wrappers/SectionWrapper";
 
 const FeedbackCard = ({ index, testimony }: { index: number; testimony: Testimony }): React.JSX.Element => (
 	<motion.div
+		initial="hidden"
+		whileInView="show"
+		viewport={{ once: true }}
 		variants={fadeIn("", "spring", index * 0.5, 0.75)}
 		className="w-full rounded-3xl bg-black-200 p-10 xs:w-[320px]">
 		<p className="text-white text-[48px] font-black">"</p>
@@ -42,7 +45,7 @@ const Feedbacks = (): React.JSX.Element => {
 	return (
 		<div className={`mt-12 rounded-[20px] bg-black-100`}>
 			<div className={`rounded-2xl bg-neutral-500 bg-opacity-5 ${styles.padding} min-h-[300px]`}>
-				<motion.div variants={textVariant()}>
+				<motion.div variants={textVariant()} initial="hidden" whileInView="show" viewport={{ once: true }}>
 					<p className={styles.sectionSubText}>What others say</p>
 					<h2 className={styles.sectionHeadText}>Testimonials</h2>
 				</motion.div>
