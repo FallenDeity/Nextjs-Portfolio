@@ -1,7 +1,13 @@
 import { gql, request } from "graphql-request";
 
-export interface RecentPostResult {
+export interface FeaturedPostResult {
 	title: string;
+	author: {
+		name: string;
+		photo: {
+			url: string;
+		};
+	};
 	featuredImage: {
 		url: string;
 	};
@@ -10,23 +16,26 @@ export interface RecentPostResult {
 }
 
 interface RequestData {
-	posts: RecentPostResult[];
+	posts: FeaturedPostResult[];
 }
 
-export default async function getRecentPosts(): Promise<RecentPostResult[]> {
+export async function getFeaturedPosts(): Promise<FeaturedPostResult[]> {
 	const query = gql`
 		query GetPostDetails() {
-            posts(
-                orderBy: createdAt_ASC
-                last: 3
-            ) {
-                title
-                featuredImage {
+            posts(where: {featuredPost: true}) {
+                author {
+                  name
+                  photo {
                     url
+                  }
                 }
-                createdAt
+                featuredImage {
+                  url
+                }
+                title
                 slug
-            }
+                createdAt
+              }
         }
     `;
 	let success = false;

@@ -14,7 +14,7 @@ export default function PostDetail({ post }: { post: PostDetailsResult }): React
 	const [toHtml, setToHtml] = React.useState<{ data: string }>({ data: "" });
 	React.useEffect(() => {
 		const octokit = new Octokit({
-			auth: process.env.GITHUB_TOKEN,
+			auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN,
 		});
 		void octokit
 			.request("POST /markdown", {

@@ -66,11 +66,16 @@ export default async function getPostDetails(slug: string): Promise<PostDetailsR
 			}
 		}
 	`;
-	try {
-		const data = await request<RequestData>(String(process.env.NEXT_PUBLIC_GRAPHQL_URL), query, { slug });
-		return data.post;
-	} catch (error) {
-		console.log(error);
-		return null;
+	let success = false;
+	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+	while (!success) {
+		try {
+			const data = await request<RequestData>(String(process.env.NEXT_PUBLIC_GRAPHQL_URL), query, { slug });
+			success = true;
+			return data.post;
+		} catch (error) {
+			console.log(error);
+		}
 	}
+	return null;
 }

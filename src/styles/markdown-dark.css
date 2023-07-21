@@ -1042,6 +1042,12 @@
 	}
 }
 
+@media screen and (max-width: 450px) {
+	.markdown-body-dark {
+		padding: 5px;
+	}
+}
+
 .markdown-body-dark .highlight pre,
 .markdown-body-dark pre {
 	background-color: #2d3748;

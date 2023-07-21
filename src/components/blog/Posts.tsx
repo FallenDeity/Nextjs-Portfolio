@@ -3,12 +3,14 @@
 import React from "react";
 
 import PostCard from "@/components/blog/PostCard";
-import getPosts, { PostResult } from "@/lib/requests/getPosts";
+import getPosts, { getCategoryPosts, PostResult } from "@/lib/requests/getPosts";
 
-export default function Posts(): React.JSX.Element {
+export default function Posts({ slug = "" }: { slug?: string }): React.JSX.Element {
 	const [posts, setPosts] = React.useState<PostResult[] | undefined>(undefined);
 	React.useEffect(() => {
-		void getPosts().then((res) => setPosts(res));
+		slug
+			? void getCategoryPosts(slug).then((posts) => setPosts(posts))
+			: void getPosts().then((posts) => setPosts(posts));
 	}, []);
 	return (
 		<>

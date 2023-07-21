@@ -64,8 +64,8 @@ export default function PostWidget({ slug, categories }: { slug?: string; catego
 											<Skeleton circle={true} height={60} width={60} />
 										</div>
 										<div className="ml-4 flex-grow">
-											<Skeleton height={20} width={100} />
-											<Skeleton height={20} width={200} />
+											<Skeleton height={20} width={80} />
+											<Skeleton height={20} width={130} />
 										</div>
 									</div>
 								))}

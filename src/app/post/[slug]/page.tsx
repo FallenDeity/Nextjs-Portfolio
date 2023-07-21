@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import React from "react";
 
+import AdjacentPosts from "@/components/blog/AdjacentPosts";
 import Author from "@/components/blog/Author";
 import Categories from "@/components/blog/Categories";
 import CommentForm from "@/components/blog/CommentForm";
@@ -31,8 +32,9 @@ export default async function Page({ params }: { params: { slug: string } }): Pr
 					<div className="col-span-1 lg:col-span-8">
 						<PostDetail post={post} />
 						<Author author={post.author} />
-						<CommentForm />
-						<CommentList />
+						<AdjacentPosts createdAt={post.createdAt} slug={post.slug} />
+						<CommentForm slug={post.slug} />
+						<CommentList slug={post.slug} />
 					</div>
 					<div className="col-span-1 lg:col-span-4">
 						<div className="relative top-20 lg:sticky">

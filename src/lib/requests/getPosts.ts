@@ -60,11 +60,60 @@ export default async function getPosts(): Promise<PostResult[]> {
 			}
 		}
 	`;
-	try {
-		const data = await request<RequestData>(String(process.env.NEXT_PUBLIC_GRAPHQL_URL), query);
-		return data.postsConnection.edges.map((edge) => edge.node);
-	} catch (error) {
-		console.log(error);
-		return [];
+	let success = false;
+	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+	while (!success) {
+		try {
+			const data = await request<RequestData>(String(process.env.NEXT_PUBLIC_GRAPHQL_URL), query);
+			success = true;
+			return data.postsConnection.edges.map((edge) => edge.node);
+		} catch (error) {
+			console.log(error);
+		}
 	}
+	return [];
+}
+
+export async function getCategoryPosts(slug: string): Promise<PostResult[]> {
+	const query = gql`
+		query GetPostDetails($slug: String!) {
+			postsConnection(where: { categories_some: { slug: $slug } }) {
+				edges {
+					node {
+						author {
+							id
+							name
+							bio
+							photo {
+								url
+							}
+						}
+						createdAt
+						slug
+						title
+						excerpt
+						featuredImage {
+							url
+						}
+						categories {
+							name
+							slug
+						}
+					}
+				}
+			}
+		}
+	`;
+	let success = false;
+	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+	while (!success) {
+		try {
+			const data = await request<RequestData>(String(process.env.NEXT_PUBLIC_GRAPHQL_URL), query, { slug });
+			success = true;
+			return data.postsConnection.edges.map((edge) => edge.node);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+	return [];
 }
