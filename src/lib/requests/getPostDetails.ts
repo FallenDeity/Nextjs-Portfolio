@@ -16,6 +16,7 @@ export interface PostDetailsResult {
 		url: string;
 	};
 	content: {
+		markdown: string;
 		text: string;
 		raw: {
 			children: {
@@ -56,6 +57,7 @@ export default async function getPostDetails(slug: string): Promise<PostDetailsR
 				createdAt
 				slug
 				content {
+					markdown
 					text
 					raw
 				}

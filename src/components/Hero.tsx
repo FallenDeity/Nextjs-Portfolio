@@ -66,7 +66,7 @@ export default function Hero(): React.JSX.Element {
 								y: [0, 24, 0],
 							}}
 							transition={{
-								duration: 3,
+								duration: 2,
 								repeat: Infinity,
 								repeatType: "loop",
 							}}

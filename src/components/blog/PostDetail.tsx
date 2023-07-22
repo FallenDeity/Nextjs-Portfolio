@@ -16,12 +16,17 @@ export default function PostDetail({ post }: { post: PostDetailsResult }): React
 		const octokit = new Octokit({
 			auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN,
 		});
+		let text = "";
+		for (const child of post.content.raw.children) {
+			for (const c of child.children) {
+				text += c.text;
+			}
+		}
 		void octokit
 			.request("POST /markdown", {
-				text: post.content.text,
+				text: text.trim(),
 			})
 			.then((response) => {
-				// remove user-content- prefix from all ids
 				response.data = response.data.replace(/user-content-/g, "");
 				setToHtml({ data: response.data });
 			});
