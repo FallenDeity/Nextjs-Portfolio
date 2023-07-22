@@ -58,10 +58,11 @@ export function About(): React.JSX.Element {
 				viewport={{ once: true }}
 				variants={fadeIn("", "", 0.1, 1)}
 				className="mt-4 max-w-3xl text-[17px] leading-[30px] text-neutral-400">
-				I'm a skilled software developer with experience in TypeScript and JavaScript, and expertise in
-				frameworks like React, Node.js, and Three.js. I'm a quick learner and collaborate closely with clients
-				to create efficient, scalable, and user-friendly solutions that solve real-world problems. Let's work
-				together to bring your ideas to life!
+				Hey there! I'm Triyan, a student and an aspiring software developer from India. I have expertise with
+				languages such as TypeScript, Python, and C++, I enjoy exploring frameworks like Next.js, FastAPI, React
+				Native, Docker etc. My passion lies in creating efficient and user-friendly solutions that solve
+				real-world problems. I'm eager to bring innovative ideas to life through code, and I'm always excited to
+				take on projects!
 			</motion.p>
 			<div className="mt-20 flex flex-wrap items-center justify-center gap-10">
 				{abouts.map((service, index) => (

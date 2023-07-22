@@ -11,12 +11,24 @@ import PostDetail from "@/components/blog/PostDetail";
 import PostWidget from "@/components/blog/PostWidget";
 import Navbar from "@/components/Navbar";
 import getPostDetails from "@/lib/requests/getPostDetails";
+import { meta } from "@/lib/utils";
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-	return {
-		title: params.slug,
-		description: "A blog post",
-	};
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+	const post = await getPostDetails(params.slug);
+	const metadata = meta;
+	if (!post) {
+		metadata.title = "404";
+		metadata.openGraph.title = "404";
+		metadata.description = "Page not found";
+		metadata.openGraph.description = "Page not found";
+		return metadata;
+	}
+	meta.title = post.title;
+	meta.openGraph.title = post.title;
+	meta.description = post.excerpt;
+	meta.openGraph.description = post.excerpt;
+	meta.openGraph.images = post.featuredImage.url;
+	return metadata;
 }
 
 export default async function Page({ params }: { params: { slug: string } }): Promise<React.JSX.Element> {

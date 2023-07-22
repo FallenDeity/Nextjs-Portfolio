@@ -8,8 +8,9 @@ export function cn(...inputs: ClassValue[]): string {
 export const meta = {
 	title: "Triyan | Portfolio",
 	metadataBase: new URL(String(process.env.NEXT_PUBLIC_BASE_URL)),
-	description: "Hi, I'm Triyan. I'm a full-stack developer.",
-	keywords: ["Triyan", "Portfolio", "Full-stack", "Developer", "Student", "FallenDeity"],
+	description:
+		"Hey There! I am Triyan, an aspiring student from India, driven by a deep passion for crafting impactful software solutions that positively impact people's lives.",
+	keywords: ["Triyan", "Portfolio", "Full-stack", "Developer", "Student", "FallenDeity", "Software", "Engineer"],
 	authors: [{ name: "FallenDeity" }],
 	robots: {
 		follow: true,
@@ -18,7 +19,8 @@ export const meta = {
 	},
 	openGraph: {
 		title: "Triyan | Portfolio",
-		description: "Hi, I'm Triyan. I'm a full-stack developer.",
+		description:
+			"Hey There! I am Triyan, an aspiring student from India, driven by a deep passion for crafting impactful software solutions that positively impact people's lives.",
 		images: "/logo.png",
 		type: "website",
 	},

@@ -40,7 +40,7 @@ export const experiences: Experience[] = [
 		title: "React.js Developer",
 		company_name: "Starbucks",
 		icon: "/experience/starbucks.png",
-		iconBg: "#383E56",
+		iconBg: "#326E36",
 		date: "March 2020 - April 2021",
 		points: [
 			"Developing and maintaining web applications using React.js and other related technologies.",
@@ -66,7 +66,7 @@ export const experiences: Experience[] = [
 		title: "Web Developer",
 		company_name: "Shopify",
 		icon: "/experience/shopify.png",
-		iconBg: "#383E56",
+		iconBg: "#DDF9DC",
 		date: "Jan 2022 - Jan 2023",
 		points: [
 			"Developing and maintaining web applications using React.js and other related technologies.",

@@ -6,11 +6,18 @@ import FeaturedPosts from "@/components/blog/FeaturedPosts";
 import Posts from "@/components/blog/Posts";
 import PostWidget from "@/components/blog/PostWidget";
 import Navbar from "@/components/Navbar";
+import { meta } from "@/lib/utils";
 
-export const metadata: Metadata = {
-	title: "Blog",
-	description: "A collection of blog posts",
-};
+export function generateMetadata(): Metadata {
+	const metadata = meta;
+	metadata.title = "Blog";
+	metadata.openGraph.title = "Blog";
+	metadata.description =
+		"Welcome to my blog page! Dive into a collection of insightful articles and captivating stories where I share my thoughts, experiences, and expertise on various topics.";
+	metadata.openGraph.description =
+		"Welcome to my blog page! Dive into a collection of insightful articles and captivating stories where I share my thoughts, experiences, and expertise on various topics.";
+	return metadata;
+}
 
 export default function Blog(): React.JSX.Element {
 	return (
