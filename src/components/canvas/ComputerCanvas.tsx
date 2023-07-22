@@ -54,7 +54,7 @@ const ComputersCanvas = (): React.JSX.Element => {
 			<Suspense fallback={<PyramidLoader />}>
 				<OrbitControls
 					autoRotate
-					autoRotateSpeed={5}
+					autoRotateSpeed={3}
 					enableZoom={false}
 					maxPolarAngle={Math.PI / 2}
 					minPolarAngle={Math.PI / 2}

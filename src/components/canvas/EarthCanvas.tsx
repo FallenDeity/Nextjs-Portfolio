@@ -26,7 +26,7 @@ const EarthCanvas = (): React.JSX.Element => {
 			<Suspense fallback={<PyramidLoader />}>
 				<OrbitControls
 					autoRotate={true}
-					autoRotateSpeed={10}
+					autoRotateSpeed={5}
 					enableZoom={false}
 					maxPolarAngle={Math.PI / 2}
 					minPolarAngle={Math.PI / 2}
