@@ -66,7 +66,7 @@ export default function FeaturedPosts(): React.JSX.Element {
 				customLeftArrow={customLeftArrow}
 				customRightArrow={customRightArrow}
 				responsive={responsive}
-				itemClass="pr-4">
+				itemClass="px-4">
 				{posts.length > 0 && posts.map((post, index) => <FeaturedPostCard key={index} post={post} />)}
 			</Carousel>
 		</div>

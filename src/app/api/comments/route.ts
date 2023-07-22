@@ -22,7 +22,6 @@ async function handler(req: Request): Promise<NextResponse> {
 				}
 			}
 		`;
-		console.log(body);
 		const result = await client.request(query, { ...body });
 		return new NextResponse(JSON.stringify({ message: "Posted comment successfully!", statusCode: 200, result }), {
 			status: 200,

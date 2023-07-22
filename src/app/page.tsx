@@ -1,5 +1,6 @@
 import "react-vertical-timeline-component/style.min.css";
 
+import { Metadata } from "next";
 import React from "react";
 
 import About from "@/components/About";
@@ -11,6 +12,9 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import Tech from "@/components/Tech";
 import Works from "@/components/Works";
+import { meta } from "@/lib/utils";
+
+export const metadata: Metadata = meta;
 
 export default function Home(): React.JSX.Element {
 	return (

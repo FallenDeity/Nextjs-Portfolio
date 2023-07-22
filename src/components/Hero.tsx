@@ -17,8 +17,16 @@ export default function Hero(): React.JSX.Element {
 		<section className="relative mx-auto h-screen w-full">
 			<div className={`${styles.paddingX} absolute inset-0 top-[120px] mx-auto flex flex-row items-start gap-5`}>
 				<div className="mt-5 flex flex-col items-center justify-center">
-					<div className="h-5 w-5 rounded-full bg-[#915eff]" />
-					<div className="violet-gradient h-40 w-1 sm:h-80" />
+					<div
+						className={`h-5 w-5 rounded-full ${
+							pathname.includes("/projects") ? "bg-[#edde5d]" : "bg-[#804dee]"
+						}`}
+					/>
+					<div
+						className={`h-40 w-1 sm:h-80 ${
+							pathname.includes("/projects") ? "golden-gradient" : "violet-gradient"
+						}`}
+					/>
 				</div>
 				<div>
 					<Typewriter
@@ -37,7 +45,7 @@ export default function Hero(): React.JSX.Element {
 								)
 								.typeString(
 									pathname.includes("/projects")
-										? "<p class='text-[#dfd9ff] font-medium lg:text-[30px] sm:text-[26px] xs:text-[20px] text-[16px] lg:leading-[40px] mt-2'>Welcome to my projects page, <br class='hidden sm:block' /> feel free to explore!</p>"
+										? "<p class='text-[#fff5d9] font-medium lg:text-[30px] sm:text-[26px] xs:text-[20px] text-[16px] lg:leading-[40px] mt-2'>Welcome to my projects page, <br class='hidden sm:block' /> feel free to explore!</p>"
 										: "<p class='text-[#dfd9ff] font-medium lg:text-[30px] sm:text-[26px] xs:text-[20px] text-[16px] lg:leading-[40px] mt-2'>I'm a Fullstack Developer, I<br class='hidden sm:block' /> love to build things with code</p>"
 								)
 								.pauseFor(2500)

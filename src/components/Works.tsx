@@ -80,12 +80,15 @@ const Works = (): React.JSX.Element => {
 	const router = useRouter();
 	const projects = useProject();
 	const pathname = usePathname();
-	const [total, setTotal] = React.useState<number>(3);
+	const [projectCards, setProjectCards] = React.useState<Project[]>([]);
 	React.useEffect(() => {
 		if (pathname.includes("/projects")) {
-			setTotal(projects.length);
+			setProjectCards(projects);
+		} else {
+			const randomProjects = projects.sort(() => Math.random() - Math.random()).slice(0, 3);
+			setProjectCards(randomProjects);
 		}
-	}, [pathname, projects.length]);
+	}, [pathname, projects]);
 	return (
 		<>
 			<motion.div
@@ -121,7 +124,7 @@ const Works = (): React.JSX.Element => {
 				</motion.p>
 			</div>
 			<div className="mt-20 flex h-full w-full flex-wrap items-center justify-center gap-7">
-				{projects.slice(0, total).map((project, index) => (
+				{projectCards.map((project, index) => (
 					<ProjectCard key={`project-${index}`} index={index} project={project} />
 				))}
 			</div>

@@ -21,20 +21,8 @@ export default function PostDetail({ post }: { post: PostDetailsResult }): React
 				text: post.content.text,
 			})
 			.then((response) => {
-				const headers = response.data.match(/<h[1-6] [^>]*>(.*?)<\/h[1-6]>/g);
-				if (headers) {
-					headers.forEach((header) => {
-						const headerContent = header.match(/<h[1-6] [^>]*>(.*?)<\/h[1-6]>/);
-						if (headerContent) {
-							const headerText = headerContent[1].toLowerCase().replace(/ /g, "-");
-							const newContent = headerContent[0].replace(
-								`>${headerContent[1]}</`,
-								` id="${headerText}">${headerContent[1]}</`
-							);
-							response.data = response.data.replace(headerContent[0], newContent);
-						}
-					});
-				}
+				// remove user-content- prefix from all ids
+				response.data = response.data.replace(/user-content-/g, "");
 				setToHtml({ data: response.data });
 			});
 	}, [post.content.text]);
