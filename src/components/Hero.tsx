@@ -40,8 +40,8 @@ export default function Hero(): React.JSX.Element {
 							typewriter
 								.typeString(
 									pathname.includes("/projects")
-										? "<h1 class='font-black text-white lg:text-[80px] sm:text-[60px] xs:text-[45px] text-[35px] lg:leading-[98px] mt-2 text-white'>My <span class='text-[#e2b94a]'>Projects</span></h1>"
-										: "<h1 class='font-black text-white lg:text-[80px] sm:text-[60px] xs:text-[45px] text-[35px] lg:leading-[98px] mt-2 text-white'>Hi, I'm <span class='text-[#915eff]'>Triyan</span></h1>"
+										? "<h1 class='font-black text-white lg:text-[80px] sm:text-[60px] xs:text-[45px] text-[35px] lg:leading-[98px] mt-2 text-white'>My <span class='text-transparent bg-clip-text bg-gradient-to-br from-yellow-400 to-red-600'>Projects</span></h1>"
+										: "<h1 class='font-black text-white lg:text-[80px] sm:text-[60px] xs:text-[45px] text-[35px] lg:leading-[98px] mt-2 text-white'>Hi, I'm <span class='text-transparent bg-clip-text bg-gradient-to-br from-purple-700 to-rose-500'>Triyan</span></h1>"
 								)
 								.typeString(
 									pathname.includes("/projects")

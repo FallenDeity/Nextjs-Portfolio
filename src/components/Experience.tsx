@@ -8,7 +8,8 @@ import React from "react";
 import { BsPlusLg } from "react-icons/bs";
 import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component";
 
-import { Experience as ExprienceModel, experiences } from "@/lib/constants";
+import useExperience from "@/lib/hooks/getExperience";
+import { Experience as ExprienceModel } from "@/lib/models";
 import { textVariant } from "@/lib/motion";
 import { styles } from "@/lib/styles";
 
@@ -26,7 +27,7 @@ const ExperienceCard = ({ experience }: { experience: ExprienceModel }): React.J
 			date={experience.date}
 			iconStyle={{ background: experience.iconBg }}
 			icon={
-				<div className="flex h-full w-full items-center justify-center p-1">
+				<div className="flex h-full w-full items-center justify-center p-2">
 					<Image
 						width={64}
 						height={64}
@@ -44,9 +45,11 @@ const ExperienceCard = ({ experience }: { experience: ExprienceModel }): React.J
 					{experience.company_name}
 				</p>
 			</div>
-			<ul className="ml-5 mt-5 list-disc space-y-2">
+			<ul className="ml-2 mt-5 list-disc space-y-2 sm:ml-5">
 				{experience.points.map((point, index) => (
-					<li key={`experience-point-${index}`} className="pl-1 text-[14px] tracking-wider text-white-100">
+					<li
+						key={`experience-point-${index}`}
+						className="pl-1 text-[13px] tracking-wider text-white-100 sm:text-[14px]">
 						{point}
 					</li>
 				))}
@@ -56,6 +59,7 @@ const ExperienceCard = ({ experience }: { experience: ExprienceModel }): React.J
 };
 
 const Experience = (): React.JSX.Element => {
+	const experiences = useExperience();
 	const [cards, setCards] = React.useState<number>(2);
 	React.useEffect(() => {
 		const hidden = document.querySelectorAll(".is-hidden");
@@ -71,28 +75,30 @@ const Experience = (): React.JSX.Element => {
 		hidden.forEach((item) => {
 			ob.observe(item);
 		});
-	}, [cards]);
+	}, [cards, experiences]);
 	return (
 		<>
 			<motion.div variants={textVariant()} initial="hidden" whileInView="show" viewport={{ once: true }}>
 				<p className={`${styles.sectionSubText} text-center`}>What I have done so far</p>
 				<h2 className={`${styles.sectionHeadText} text-center`}>Work Experience</h2>
 			</motion.div>
-			<div className="mt-20 flex flex-col">
-				<VerticalTimeline className="h-full w-full">
-					{experiences.slice(0, cards).map((experience, index) => (
-						<ExperienceCard key={`experience-${index}`} experience={experience} />
-					))}
-					{cards < experiences.length && (
-						<VerticalTimelineElement
-							className="vertical-timeline-element--work cursor-pointer"
-							iconStyle={{ background: "#11ABB0", color: "#fff" }}
-							icon={<BsPlusLg className="transition-all duration-300 ease-in-out hover:scale-150" />}
-							iconOnClick={(): void => setCards(cards + 2)}
-						/>
-					)}
-				</VerticalTimeline>
-			</div>
+			{experiences.length > 0 && (
+				<div className="mt-20 flex flex-col">
+					<VerticalTimeline className="h-full w-full">
+						{experiences.slice(0, cards).map((experience, index) => (
+							<ExperienceCard key={`experience-${index}`} experience={experience} />
+						))}
+						{cards < experiences.length && (
+							<VerticalTimelineElement
+								className="vertical-timeline-element--work cursor-pointer"
+								iconStyle={{ background: "#11ABB0", color: "#fff" }}
+								icon={<BsPlusLg className="transition-all duration-300 ease-in-out hover:scale-150" />}
+								iconOnClick={(): void => setCards(cards + 2)}
+							/>
+						)}
+					</VerticalTimeline>
+				</div>
+			)}
 		</>
 	);
 };

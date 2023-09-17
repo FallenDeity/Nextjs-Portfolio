@@ -18,7 +18,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }): R
 	const router = useRouter();
 	return (
 		<motion.div
-			variants={fadeIn("up", "spring", index * 0.25, 0.75)}
+			variants={fadeIn("up", "spring", index * 0.2, 0.65)}
 			initial="hidden"
 			whileInView="show"
 			viewport={{ once: true }}>

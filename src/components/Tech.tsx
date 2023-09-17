@@ -21,12 +21,12 @@ const Tech = (): React.JSX.Element => {
 			</motion.div>
 			<div className="mt-20 flex flex-row flex-wrap justify-center gap-10">
 				{technologies.map((technology, index) => (
-					<Tilt>
+					<Tilt key={technology.name}>
 						<motion.div
 							initial="hidden"
 							whileInView="show"
 							viewport={{ once: true }}
-							variants={fadeIn("up", "spring", index * 0.5, 0.75)}
+							variants={fadeIn("up", "spring", index * 0.2, 0.65)}
 							className="green-border-gradient flex h-28 w-28 cursor-pointer items-center justify-center rounded-full p-1 shadow-[0_35px_120px_-15px_#211e35]"
 							key={technology.name}>
 							<div className="flex h-full w-full items-center justify-center rounded-full bg-background">

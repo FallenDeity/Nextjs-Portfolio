@@ -746,6 +746,24 @@
 	margin-bottom: 16px;
 }
 
+.markdown-body-dark .highlight pre::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+	display: block;
+}
+
+.markdown-body-dark .highlight pre::-webkit-scrollbar-thumb {
+	background-color: rgba(129, 136, 147, 0.4);
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+.markdown-body-dark .highlight pre::-webkit-scrollbar-track {
+	background-color: #141d2b;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
 .markdown-body-dark .highlight pre {
 	margin-bottom: 0;
 	word-break: normal;
@@ -754,6 +772,7 @@
 .markdown-body-dark .highlight pre,
 .markdown-body-dark pre {
 	padding: 16px;
+	padding-bottom: 10px;
 	overflow: auto;
 	font-size: 85%;
 	line-height: 1.45;
