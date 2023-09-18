@@ -33,7 +33,7 @@ export default async function getRecentPosts(): Promise<RecentPostResult[]> {
 	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	while (!success) {
 		try {
-			const data = await request<RequestData>(String(process.env.GRAPHQL_URL), query);
+			const data = await request<RequestData>(String(process.env.NEXT_PUBLIC_GRAPHQL_URL), query);
 			success = true;
 			return data.posts;
 		} catch (error) {

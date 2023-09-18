@@ -4,32 +4,37 @@ import "@/styles/markdown-dark.css";
 
 import moment from "moment";
 import Image from "next/image";
-import { Octokit } from "octokit";
 import React from "react";
 import { BsCalendar2Week } from "react-icons/bs";
 
 import { PostDetailsResult } from "@/lib/requests/getPostDetails";
 
+interface MarkdownResponse extends Response {
+	result: string;
+}
+
 export default function PostDetail({ post }: { post: PostDetailsResult }): React.JSX.Element {
 	const [toHtml, setToHtml] = React.useState<{ data: string }>({ data: "" });
 	React.useEffect(() => {
-		const octokit = new Octokit({
-			auth: process.env.GITHUB_TOKEN,
-		});
 		let text = "";
 		for (const child of post.content.raw.children) {
 			for (const c of child.children) {
 				text += c.text;
 			}
 		}
-		void octokit
-			.request("POST /markdown", {
-				text: text.trim(),
-			})
-			.then((response) => {
-				response.data = response.data.replace(/user-content-/g, "");
-				setToHtml({ data: response.data });
+		text = text.trim();
+		void fetch("/api/markdown", {
+			method: "POST",
+			body: JSON.stringify({ text }),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((response) => {
+			void response.json().then((response: MarkdownResponse) => {
+				const data = response.result.replace(/user-content-/g, "");
+				setToHtml({ data });
 			});
+		});
 	}, [post.content.text]);
 	return (
 		<div className="mb-8 rounded-lg bg-[#0e0a1f] p-0 pb-6 shadow-[0px_15px_30px_-15px_#211e35] lg:p-8">

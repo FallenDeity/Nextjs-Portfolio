@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 import { ApiComment } from "@/lib/requests/Comments";
 
-const URL = String(process.env.GRAPHQL_URL);
+const URL = String(process.env.NEXT_PUBLIC_GRAPHQL_URL);
 
 async function handler(req: Request): Promise<NextResponse> {
 	try {

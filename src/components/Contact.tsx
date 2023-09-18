@@ -2,7 +2,6 @@
 
 import "react-toastify/dist/ReactToastify.css";
 
-import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import React, { useRef, useState } from "react";
 import { BeatLoader } from "react-spinners";
@@ -42,42 +41,34 @@ const Contact = (): React.JSX.Element => {
 			return;
 		}
 		setLoading(true);
-		emailjs.init(String(process.env.EMAILJS_USER_ID));
-		emailjs
-			.send(
-				String(process.env.EMAILJS_SERVICE_ID),
-				String(process.env.EMAILJS_TEMPLATE_ID),
-				{
-					from_name: form.name,
-					to_name: "Triyan Mukherjee",
-					from_email: form.email,
-					to_email: "triyanmukherjee@gmail.com",
-					message: form.message,
-				},
-				String(process.env.EMAILJS_USER_ID)
-			)
-			.then(
-				() => {
-					setLoading(false);
-					toast.success("Message sent successfully!", {
-						position: "bottom-right",
-						theme: "dark",
-					});
-					setForm({
-						name: "",
-						email: "",
-						message: "",
-					});
-				},
-				(error) => {
-					setLoading(false);
-					console.error(error);
-					toast.error("Something went wrong. Please try again later.", {
-						position: "bottom-right",
-						theme: "dark",
-					});
-				}
-			);
+		void fetch("/api/mail", {
+			method: "POST",
+			body: JSON.stringify(form),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then(
+			() => {
+				setLoading(false);
+				toast.success("Message sent successfully!", {
+					position: "bottom-right",
+					theme: "dark",
+				});
+				setForm({
+					name: "",
+					email: "",
+					message: "",
+				});
+			},
+			(error) => {
+				setLoading(false);
+				console.error(error);
+				toast.error("Something went wrong. Please try again later.", {
+					position: "bottom-right",
+					theme: "dark",
+				});
+			}
+		);
 	};
 
 	return (
