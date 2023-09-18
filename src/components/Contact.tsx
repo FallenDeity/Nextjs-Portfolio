@@ -2,6 +2,7 @@
 
 import "react-toastify/dist/ReactToastify.css";
 
+import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import React, { useRef, useState } from "react";
 import { BeatLoader } from "react-spinners";
@@ -41,34 +42,42 @@ const Contact = (): React.JSX.Element => {
 			return;
 		}
 		setLoading(true);
-		void fetch("/api/mail", {
-			method: "POST",
-			body: JSON.stringify(form),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}).then(
-			() => {
-				setLoading(false);
-				toast.success("Message sent successfully!", {
-					position: "bottom-right",
-					theme: "dark",
-				});
-				setForm({
-					name: "",
-					email: "",
-					message: "",
-				});
-			},
-			(error) => {
-				setLoading(false);
-				console.error(error);
-				toast.error("Something went wrong. Please try again later.", {
-					position: "bottom-right",
-					theme: "dark",
-				});
-			}
-		);
+		emailjs.init(String(process.env.NEXT_PUBLIC_EMAILJS_USER_ID));
+		void emailjs
+			.send(
+				String(process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID),
+				String(process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID),
+				{
+					from_name: form.name,
+					to_name: "Triyan Mukherjee",
+					from_email: form.email,
+					to_email: "triyanmukherjee@gmail.com",
+					message: form.message,
+				},
+				String(process.env.NEXT_PUBLIC_EMAILJS_USER_ID)
+			)
+			.then(
+				() => {
+					setLoading(false);
+					toast.success("Message sent successfully!", {
+						position: "bottom-right",
+						theme: "dark",
+					});
+					setForm({
+						name: "",
+						email: "",
+						message: "",
+					});
+				},
+				(error) => {
+					setLoading(false);
+					console.error(error);
+					toast.error("Something went wrong. Please try again later.", {
+						position: "bottom-right",
+						theme: "dark",
+					});
+				}
+			);
 	};
 
 	return (
@@ -120,7 +129,7 @@ const Contact = (): React.JSX.Element => {
 					<button
 						disabled={loading}
 						type="submit"
-						className="text-white w-full rounded-xl bg-pink-600 px-8 py-3 text-center font-bold outline-none transition-all duration-300 hover:bg-opacity-10 disabled:cursor-not-allowed disabled:bg-pink-400 disabled:bg-opacity-10">
+						className="text-white w-full rounded-xl bg-pink-600 px-8 py-3 text-center font-bold outline-none transition-all duration-300 hover:bg-purple-500 disabled:cursor-not-allowed disabled:bg-pink-400 disabled:bg-opacity-10">
 						{loading ? <BeatLoader size={8} color="#ffffff" /> : "Send"}
 					</button>
 				</form>
