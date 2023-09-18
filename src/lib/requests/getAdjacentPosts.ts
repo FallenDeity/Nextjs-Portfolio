@@ -52,7 +52,7 @@ export default async function getAdjacentPosts(createdAt: string, slug: string):
 	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	while (!success) {
 		try {
-			const result = await request<RequestData>(String(process.env.NEXT_PUBLIC_GRAPHQL_URL), query, {
+			const result = await request<RequestData>(String(process.env.GRAPHQL_URL), query, {
 				slug,
 				createdAt,
 			});

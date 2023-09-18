@@ -7,21 +7,21 @@ export const navLinks = [
 	{
 		icon: BsInfoCircleFill,
 		id: "/#about",
-		title: "ABOUT",
+		title: "About",
 	},
 	{
 		id: "/#contact",
-		title: "CONTACT",
+		title: "Contact",
 		icon: AiOutlineMessage,
 	},
 	{
 		id: "/projects",
-		title: "PROJECTS",
+		title: "Projects",
 		icon: PiProjectorScreenChart,
 	},
 	{
 		id: "/blog",
-		title: "BLOG",
+		title: "Blog",
 		icon: ImBlog,
 	},
 ];

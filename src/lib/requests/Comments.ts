@@ -51,7 +51,7 @@ export async function getComments(slug: string): Promise<CommentResult[]> {
 	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	while (!success) {
 		try {
-			const data = await request<RequestData>(String(process.env.NEXT_PUBLIC_GRAPHQL_URL), query, { slug });
+			const data = await request<RequestData>(String(process.env.GRAPHQL_URL), query, { slug });
 			success = true;
 			return data.comments;
 		} catch (error) {

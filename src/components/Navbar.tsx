@@ -1,18 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { HiMenu } from "react-icons/hi";
 
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuGroup,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { navLinks } from "@/lib/constants";
 import { styles } from "@/lib/styles";
 
@@ -57,7 +51,7 @@ export default function Navbar(): React.JSX.Element {
 								<p
 									className={`cursor-pointer ${
 										active === link.title ? "text-white" : "text-neutral-200 text-opacity-90"
-									} hover:text-white text-md cursor-pointer font-medium transition duration-300 ease-in-out`}
+									} hover:text-white text-md cursor-pointer font-medium uppercase transition duration-300 ease-in-out`}
 									onClick={(): void => {
 										setActive(link.title);
 										router.push(link.id);
@@ -69,45 +63,30 @@ export default function Navbar(): React.JSX.Element {
 					))}
 				</ul>
 				<div className="flex items-center md:hidden">
-					<DropdownMenu>
-						<DropdownMenuTrigger className="focus:outline-none">
+					<Sheet>
+						<SheetTrigger asChild>
 							<HiMenu
 								className="cursor-pointer text-3xl"
 								onClick={(): void => setActive(active === "" ? "active" : "")}
 							/>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent className="mr-3 md:hidden">
-							<DropdownMenuGroup>
-								{navLinks.map((link) => (
-									<DropdownMenuItem
-										key={link.title}
-										className="items-center justify-between px-2 py-[0.2rem]">
-										<div>
-											<DropdownMenuLabel
-												className={`cursor-pointer ${
-													active === link.title
-														? "text-white"
-														: "text-neutral-200 text-opacity-90"
-												} text-md hover:text-white cursor-pointer font-medium transition duration-300 ease-in-out`}
-												onClick={(): void => {
-													setActive(link.title);
-													router.push(link.id);
-												}}>
-												{link.title}
-											</DropdownMenuLabel>
-										</div>
-										<link.icon
-											className={`${
-												active === link.title
-													? "text-white"
-													: "text-neutral-200 text-opacity-90"
-											} text-md hover:text-white cursor-pointer transition duration-300 ease-in-out`}
-										/>
-									</DropdownMenuItem>
-								))}
-							</DropdownMenuGroup>
-						</DropdownMenuContent>
-					</DropdownMenu>
+						</SheetTrigger>
+						<SheetContent>
+							<SheetHeader>
+								<SheetTitle className="my-3 text-center">Menu</SheetTitle>
+							</SheetHeader>
+							{navLinks.map((link) => (
+								<Link key={link.title} href={link.id} passHref>
+									<SheetDescription
+										className={`cursor-pointer ${
+											active === link.title ? "text-white" : "text-neutral-200 text-opacity-90"
+										} text-md hover:text-white my-3 flex cursor-pointer flex-row items-center rounded-md p-2 font-medium uppercase transition duration-300 ease-in-out hover:bg-secondary`}>
+										<link.icon className="mr-3 h-3 w-3" />
+										{link.title}
+									</SheetDescription>
+								</Link>
+							))}
+						</SheetContent>
+					</Sheet>
 				</div>
 			</div>
 		</nav>

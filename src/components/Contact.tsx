@@ -42,11 +42,11 @@ const Contact = (): React.JSX.Element => {
 			return;
 		}
 		setLoading(true);
-		emailjs.init(String(process.env.NEXT_PUBLIC_EMAILJS_USER_ID));
+		emailjs.init(String(process.env.EMAILJS_USER_ID));
 		emailjs
 			.send(
-				String(process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID),
-				String(process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID),
+				String(process.env.EMAILJS_SERVICE_ID),
+				String(process.env.EMAILJS_TEMPLATE_ID),
 				{
 					from_name: form.name,
 					to_name: "Triyan Mukherjee",
@@ -54,7 +54,7 @@ const Contact = (): React.JSX.Element => {
 					to_email: "triyanmukherjee@gmail.com",
 					message: form.message,
 				},
-				String(process.env.NEXT_PUBLIC_EMAILJS_USER_ID)
+				String(process.env.EMAILJS_USER_ID)
 			)
 			.then(
 				() => {

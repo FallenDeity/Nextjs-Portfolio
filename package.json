@@ -63,6 +63,7 @@
 	},
 	"dependencies": {
 		"@emailjs/browser": "^3.11.0",
+		"@radix-ui/react-dialog": "^1.0.4",
 		"@radix-ui/react-dropdown-menu": "^2.0.5",
 		"@react-three/drei": "^9.78.2",
 		"@react-three/fiber": "^8.13.5",

@@ -72,7 +72,7 @@ export default async function getPostDetails(slug: string): Promise<PostDetailsR
 	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	while (!success) {
 		try {
-			const data = await request<RequestData>(String(process.env.NEXT_PUBLIC_GRAPHQL_URL), query, { slug });
+			const data = await request<RequestData>(String(process.env.GRAPHQL_URL), query, { slug });
 			success = true;
 			return data.post;
 		} catch (error) {

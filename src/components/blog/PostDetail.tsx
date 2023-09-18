@@ -14,7 +14,7 @@ export default function PostDetail({ post }: { post: PostDetailsResult }): React
 	const [toHtml, setToHtml] = React.useState<{ data: string }>({ data: "" });
 	React.useEffect(() => {
 		const octokit = new Octokit({
-			auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN,
+			auth: process.env.GITHUB_TOKEN,
 		});
 		let text = "";
 		for (const child of post.content.raw.children) {
