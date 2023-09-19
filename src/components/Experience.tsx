@@ -27,7 +27,7 @@ const ExperienceCard = ({ experience }: { experience: ExprienceModel }): React.J
 			date={experience.date}
 			iconStyle={{ background: experience.iconBg }}
 			icon={
-				<div className="flex h-full w-full items-center justify-center p-2">
+				<div className="flex h-full w-full items-center justify-center p-1.5">
 					<Image
 						width={64}
 						height={64}
@@ -93,7 +93,7 @@ const Experience = (): React.JSX.Element => {
 								className="vertical-timeline-element--work cursor-pointer"
 								iconStyle={{ background: "#11ABB0", color: "#fff" }}
 								icon={<BsPlusLg className="transition-all duration-300 ease-in-out hover:scale-150" />}
-								iconOnClick={(): void => setCards(cards + 2)}
+								iconOnClick={(): void => setCards(Math.min(cards + 2, experiences.length))}
 							/>
 						)}
 					</VerticalTimeline>
