@@ -14,7 +14,7 @@ export const meta = {
 	authors: [{ name: "FallenDeity" }],
 	robots: {
 		follow: true,
-		index: false,
+		index: true,
 		nocache: true,
 	},
 	openGraph: {

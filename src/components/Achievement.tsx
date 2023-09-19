@@ -3,6 +3,7 @@
 import "@/styles/carousel.css";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
@@ -61,7 +62,9 @@ const Achievements = (): React.JSX.Element => {
 					{picks.map((achievement, index) => (
 						<Link key={index} href={achievement.link} target="_blank">
 							{/* eslint-disable-next-line @next/next/no-img-element */}
-							<img
+							<Image
+								width={500}
+								height={500}
 								src={achievement.image}
 								alt="achievement_image"
 								className="rounded-2xl object-contain"

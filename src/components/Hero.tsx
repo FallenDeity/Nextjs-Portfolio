@@ -56,7 +56,7 @@ export default function Hero(): React.JSX.Element {
 			</div>
 			{pathname.includes("/projects") ? <CraftsmanCanvas /> : <ComputerCanvas />}
 			<div className="absolute bottom-32 flex w-full items-center justify-center xs:bottom-10">
-				<Link href={pathname.includes("/projects") ? "#projects-works" : "#about"}>
+				<Link aria-label="content" href={pathname.includes("/projects") ? "#projects-works" : "#about"}>
 					<div className="flex h-[64px] w-[35px] items-start justify-center rounded-3xl border-4 border-neutral-300 p-2">
 						<motion.div
 							initial="hidden"

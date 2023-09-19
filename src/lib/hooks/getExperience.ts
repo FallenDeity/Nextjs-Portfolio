@@ -22,7 +22,7 @@ export default function useExperience(): Experience[] {
 			const query = '*[_type == "experience"]';
 			const experience = await sanityClient.fetch<Experience[]>(query);
 			experience.forEach((experience) => {
-				experience.icon = urlFor(experience.icon).url();
+				experience.icon = urlFor(experience.icon).width(75).auto("format").url();
 			});
 			setExperience(experience);
 		}
@@ -31,7 +31,7 @@ export default function useExperience(): Experience[] {
 			if (record.transition === "appear") {
 				try {
 					const experience = record.result as unknown as Experience;
-					experience.icon = urlFor(experience.icon).url();
+					experience.icon = urlFor(experience.icon).width(75).auto("format").url();
 					setExperience((experiences) => [...experiences, experience]);
 				} catch (error) {
 					console.log(error);

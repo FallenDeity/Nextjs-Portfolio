@@ -83,7 +83,7 @@ module.exports = {
 				xs: "450px",
 			},
 			backgroundImage: {
-				"hero-pattern": "url('/herobg.png')",
+				"hero-pattern": "url('/herobg.webp')",
 				"project-pattern": "url('/projectbg.png')",
 			},
 			borderRadius: {

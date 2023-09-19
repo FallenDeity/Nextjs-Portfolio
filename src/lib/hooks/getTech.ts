@@ -19,7 +19,7 @@ export default function useTech(): Tech[] {
 			const query = '*[_type == "tech"]';
 			const tech = await sanityClient.fetch<Tech[]>(query);
 			tech.forEach((tech) => {
-				tech.logo = urlFor(tech.logo).url();
+				tech.logo = urlFor(tech.logo).width(100).auto("format").url();
 			});
 			setTech(tech);
 		}
@@ -28,7 +28,7 @@ export default function useTech(): Tech[] {
 			if (record.transition === "appear") {
 				try {
 					const tech = record.result as unknown as Tech;
-					tech.logo = urlFor(tech.logo).url();
+					tech.logo = urlFor(tech.logo).width(100).auto("format").url();
 					setTech((techs) => [...techs, tech]);
 				} catch (error) {
 					console.log(error);

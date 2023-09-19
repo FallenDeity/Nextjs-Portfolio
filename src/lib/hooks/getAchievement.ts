@@ -20,7 +20,7 @@ export default function useAchievement(): Achievement[] {
 			const query = '*[_type == "achievement"]';
 			const achievement = await sanityClient.fetch<Achievement[]>(query);
 			achievement.forEach((achievement) => {
-				achievement.image = urlFor(achievement.image).url();
+				achievement.image = urlFor(achievement.image).auto("format").url();
 			});
 			setAchievement(achievement);
 		}
@@ -29,7 +29,7 @@ export default function useAchievement(): Achievement[] {
 			if (record.transition === "appear") {
 				try {
 					const achievement = record.result as unknown as Achievement;
-					achievement.image = urlFor(achievement.image).url();
+					achievement.image = urlFor(achievement.image).auto("format").url();
 					setAchievement((achievements) => [...achievements, achievement]);
 				} catch (error) {
 					console.log(error);
