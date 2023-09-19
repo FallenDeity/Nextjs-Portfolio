@@ -11,7 +11,7 @@ const Stars = (): React.JSX.Element => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const ref = useRef<any>();
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-	const [sphere] = useState(() => random.inSphere(new Float32Array(5000), { radius: 1.2 }));
+	const [sphere] = useState(() => random.inSphere(new Float32Array(4500), { radius: 1.2 }));
 	useFrame((_, delta) => {
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 		ref.current.rotation.x -= delta / 10;

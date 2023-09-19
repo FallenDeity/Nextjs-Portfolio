@@ -35,8 +35,8 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }): R
 								src={project.image}
 								alt="project_image"
 								className="h-[230px] w-full rounded-2xl object-cover"
-								width={360}
-								height={230}
+								width={500}
+								height={500}
 							/>
 							<div className="absolute inset-0 m-5 hidden justify-between group-hover:flex">
 								{project.link && (

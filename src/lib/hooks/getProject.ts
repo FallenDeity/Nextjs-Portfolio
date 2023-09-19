@@ -25,7 +25,7 @@ export default function useProject(): Project[] {
 			const query = '*[_type == "project"]';
 			const project = await sanityClient.fetch<Project[]>(query);
 			project.forEach((project) => {
-				project.image = urlFor(project.image).auto("format").url();
+				project.image = urlFor(project.image).width(600).auto("format").url();
 			});
 			setProjects(project);
 		}
@@ -34,7 +34,7 @@ export default function useProject(): Project[] {
 			if (record.transition === "appear") {
 				try {
 					const project = record.result as unknown as Project;
-					project.image = urlFor(project.image).auto("format").url();
+					project.image = urlFor(project.image).width(600).auto("format").url();
 					setProjects((projects) => [...projects, project]);
 				} catch (error) {
 					console.log(error);

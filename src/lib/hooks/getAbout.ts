@@ -19,7 +19,7 @@ export default function useAbout(): About[] {
 			const query = '*[_type == "about"]';
 			const about = await sanityClient.fetch<About[]>(query);
 			about.forEach((about) => {
-				about.logo = urlFor(about.logo).width(300).auto("format").url();
+				about.logo = urlFor(about.logo).width(400).auto("format").url();
 			});
 			setAbout(about);
 		}
@@ -28,7 +28,7 @@ export default function useAbout(): About[] {
 			if (record.transition === "appear") {
 				try {
 					const about = record.result as unknown as About;
-					about.logo = urlFor(about.logo).width(300).auto("format").url();
+					about.logo = urlFor(about.logo).width(400).auto("format").url();
 					setAbout((abouts) => [...abouts, about]);
 				} catch (error) {
 					console.log(error);
