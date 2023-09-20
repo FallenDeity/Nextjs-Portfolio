@@ -19,7 +19,7 @@ export default function useExperience(): Experience[] {
 	const [experience, setExperience] = React.useState<Experience[]>([]);
 	React.useEffect(() => {
 		async function fetchExperience(): Promise<void> {
-			const query = '*[_type == "experience"]';
+			const query = '*[_type == "experience"] | order(_createdAt asc)';
 			const experience = await sanityClient.fetch<Experience[]>(query);
 			experience.forEach((experience) => {
 				experience.icon = urlFor(experience.icon).width(75).auto("format").url();
