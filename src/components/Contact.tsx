@@ -97,6 +97,7 @@ const Contact = (): React.JSX.Element => {
 						<input
 							type="text"
 							name="name"
+							autoComplete="name"
 							value={form.name}
 							onChange={handleChange}
 							placeholder="What's your good name?"
@@ -106,6 +107,7 @@ const Contact = (): React.JSX.Element => {
 					<label className="flex flex-col">
 						<span className="text-white mb-4 font-medium">Your email</span>
 						<input
+							autoComplete="email"
 							type="email"
 							name="email"
 							pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"

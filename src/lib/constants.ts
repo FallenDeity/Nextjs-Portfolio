@@ -3,6 +3,12 @@ import { BsInfoCircleFill } from "react-icons/bs";
 import { ImBlog } from "react-icons/im";
 import { PiProjectorScreenChart } from "react-icons/pi";
 
+export const socialLinks = {
+	github: "https://github.com/FallenDeity",
+	discord: "https://discord.com/users/656838010532265994",
+	gmail: "mailto:triyanmukherjee@gmail.com",
+};
+
 export const navLinks = [
 	{
 		icon: BsInfoCircleFill,

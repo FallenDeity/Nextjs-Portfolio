@@ -90,12 +90,14 @@ export default function CommentForm({ slug }: { slug: string }): React.JSX.Eleme
 				<div className="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
 					<input
 						type="text"
+						autoComplete="name"
 						className="w-full rounded-lg bg-black-100 px-4 py-2 text-white-300 outline-none"
 						placeholder="Name"
 						name="commenterName"
 					/>
 					<input
 						type="email"
+						autoComplete="email"
 						className="w-full rounded-lg bg-black-100 px-4 py-2 text-white-300 outline-none"
 						placeholder="Email"
 						name="email"

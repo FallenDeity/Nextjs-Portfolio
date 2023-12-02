@@ -1,0 +1,115 @@
+#main-div {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	z-index: 0;
+}
+
+#main-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	height: 50px;
+	width: 50px;
+	font-size: 20px;
+	color: #d3e0f1;
+	cursor: pointer;
+	background-color: rgb(44, 28, 108);
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+}
+
+#main-button ~ a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	z-index: -1;
+	margin-right: 2.5px;
+	height: 45px;
+	width: 45px;
+	font-size: 23px;
+	opacity: 0;
+	text-decoration: none;
+	color: #fff;
+	background-color: #fff;
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+	transition: 0.2s all linear;
+	-webkit-transition: 0.2s all linear;
+	-moz-transition: 0.2s all linear;
+	-ms-transition: 0.2s all linear;
+	-o-transition: 0.2s all linear;
+}
+
+#main-button ~ .github-color {
+	background: linear-gradient(0deg, #191919, #232525);
+}
+
+#main-button ~ .discord-color {
+	background: linear-gradient(0deg, #5370d8, #7289da);
+}
+
+#main-button ~ .gmail-color {
+	color: #d44638;
+	background: linear-gradient(0deg, #c6c6c6, #e5e4e2);
+}
+
+#main-button.open ~ a {
+	opacity: 1;
+	transition: 0.4s all cubic-bezier(0, 0.01, 0, 1.2);
+	-webkit-transition: 0.4s all cubic-bezier(0, 0.01, 0, 1.2);
+	-moz-transition: 0.4s all cubic-bezier(0, 0.01, 0, 1.2);
+	-ms-transition: 0.4s all cubic-bezier(0, 0.01, 0, 1.2);
+	-o-transition: 0.4s all cubic-bezier(0, 0.01, 0, 1.2);
+}
+#main-button.open ~ a:nth-of-type(1) {
+	bottom: 60px;
+}
+#main-button.open ~ a:nth-of-type(2) {
+	bottom: 120px;
+}
+#main-button.open ~ a:nth-of-type(3) {
+	bottom: 180px;
+}
+
+.wave {
+	animation-name: wave;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+@keyframes wave {
+	0% {
+		box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0.5);
+	}
+	100% {
+		box-shadow: 0 0 0px 8px rgba(255, 255, 255, 0);
+	}
+}
+
+.open {
+	animation-iteration-count: 1;
+}
+
+/* if sceen is smaller than 450px make main-div hidden */
+@media only screen and (max-width: 450px) {
+	#main-div {
+		display: none;
+	}
+}
