@@ -15,6 +15,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 		"Welcome to my blog page! Dive into a collection of insightful articles and captivating stories where I share my thoughts, experiences, and expertise on various topics.";
 	metadata.openGraph.description =
 		"Welcome to my blog page! Dive into a collection of insightful articles and captivating stories where I share my thoughts, experiences, and expertise on various topics.";
+	metadata.openGraph.images = "/og.png";
 	return metadata;
 }
 

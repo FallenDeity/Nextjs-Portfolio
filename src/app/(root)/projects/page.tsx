@@ -14,6 +14,7 @@ export function generateMetadata(): Metadata {
 		"Welcome to my projects page! Explore an assortment of meticulously crafted projects I've personally worked on and take pride in.";
 	metadata.openGraph.description =
 		"Welcome to my projects page! Explore an assortment of meticulously crafted projects I've personally worked on and take pride in.";
+	metadata.openGraph.images = "/og.png";
 	return metadata;
 }
 
