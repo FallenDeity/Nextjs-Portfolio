@@ -21,7 +21,7 @@ export const meta = {
 		title: "Triyan | Portfolio",
 		description:
 			"Hey There! I am Triyan, an aspiring student from India, driven by a deep passion for crafting impactful software solutions that positively impact people's lives.",
-		images: "/logo.png",
+		images: "/og.png",
 		type: "website",
 	},
 	themeColor: "#5c09b5",
