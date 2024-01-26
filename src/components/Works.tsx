@@ -57,7 +57,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }): R
 						</div>
 						<div className="mt-5">
 							<h3 className="text-white text-[24px] font-bold">{project.title}</h3>
-							<p className="text-pretty mt-2 text-[13px] text-neutral-300">{project.description}</p>
+							<p className="mt-2 text-pretty text-[13px] text-neutral-300">{project.description}</p>
 						</div>
 						<div className="mt-auto flex h-full flex-wrap items-end justify-center gap-2">
 							{project.tags.map((tag) => (
