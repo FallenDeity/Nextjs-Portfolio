@@ -49,7 +49,7 @@ const Achievements = (): React.JSX.Element => {
 			{Boolean(picks.length) && (
 				<Carousel
 					className="mt-10 rounded-2xl shadow-[0_35px_120px_-15px_#211e35]"
-					dynamicHeight={false}
+					dynamicHeight={true}
 					showStatus={false}
 					showThumbs={false}
 					infiniteLoop={true}
