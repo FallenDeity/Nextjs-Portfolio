@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
 import { Decal, Float, OrbitControls, Preload, useTexture } from "@react-three/drei";

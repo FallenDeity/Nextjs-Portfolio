@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
