@@ -13,6 +13,7 @@ const Earth = (): React.JSX.Element => {
 };
 
 const EarthCanvas = (): React.JSX.Element => {
+	useGLTF.preload("./planet/cc.gltf");
 	return (
 		<Canvas
 			shadows
