@@ -16,6 +16,7 @@ const EarthCanvas = (): React.JSX.Element => {
 	useGLTF.preload("./planet/cc.gltf");
 	return (
 		<Canvas
+			className="hidden sm:flex"
 			shadows
 			dpr={[1, 2]}
 			gl={{ preserveDrawingBuffer: false, antialias: false }}

@@ -32,8 +32,7 @@ export default function Hero(): React.JSX.Element {
 					<Typewriter
 						options={{
 							autoStart: true,
-							delay: 50,
-							deleteSpeed: 50,
+							delay: 30,
 							cursor: "",
 						}}
 						onInit={(typewriter): void => {
@@ -48,7 +47,6 @@ export default function Hero(): React.JSX.Element {
 										? "<p class='text-[#fff5d9] font-medium lg:text-[30px] sm:text-[26px] xs:text-[20px] text-[16px] lg:leading-[40px] mt-2'>Welcome to my projects page, <br class='hidden sm:block' /> feel free to explore!</p>"
 										: "<p class='text-[#dfd9ff] font-medium lg:text-[30px] sm:text-[26px] xs:text-[20px] text-[16px] lg:leading-[40px] mt-2'>I'm a Fullstack Developer, I<br class='hidden sm:block' /> love to build things with code</p>"
 								)
-								.pauseFor(2500)
 								.start();
 						}}
 					/>
