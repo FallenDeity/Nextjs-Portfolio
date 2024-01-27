@@ -27,7 +27,7 @@ export default function PostWidget({ slug, categories }: { slug?: string; catego
 	}, [pathname]);
 	return (
 		<div className="mb-8 rounded-lg bg-[#0e0a1f] p-8 pb-6 shadow-[0px_15px_30px_-15px_#211e35]">
-			<h3 className="mb-6 border-b pb-4 text-xl font-semibold">{isRelated ? "Related Posts" : "Recent Posts"}</h3>
+			<h2 className="mb-6 border-b pb-4 text-xl font-semibold">{isRelated ? "Related Posts" : "Recent Posts"}</h2>
 			<div className="flex flex-col gap-2">
 				{posts ? (
 					posts.map((post, index) => (
@@ -40,7 +40,6 @@ export default function PostWidget({ slug, categories }: { slug?: string; catego
 									alt={post.title}
 									height={60}
 									width={60}
-									unoptimized
 									className="h-12 w-12 rounded-full object-cover align-middle"
 									src={post.featuredImage.url}
 								/>

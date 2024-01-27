@@ -29,7 +29,6 @@ export default function PostCard({ post }: { post?: PostResult }): React.JSX.Ele
 					<div className="mb-6 hidden w-full items-center justify-center text-center sm:flex">
 						<div className="mb-4 mr-8 flex w-full items-center justify-center sm:mb-0 sm:w-auto">
 							<Image
-								unoptimized
 								alt={post.author.name}
 								height={30}
 								width={30}

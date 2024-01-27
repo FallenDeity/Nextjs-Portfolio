@@ -5,7 +5,6 @@ import React from "react";
 
 import About from "@/components/About";
 import Achievement from "@/components/Achievement";
-import StarsCanvas from "@/components/canvas/StarsCanvas";
 import Contact from "@/components/Contact";
 import Experience from "@/components/Experience";
 import Hero from "@/components/Hero";
@@ -40,7 +39,6 @@ export default function Home(): React.JSX.Element {
 			<Achievement />
 			<div className="relative z-0">
 				<Contact />
-				<StarsCanvas />
 			</div>
 		</div>
 	);

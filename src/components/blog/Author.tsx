@@ -8,7 +8,6 @@ export default function Author({ author }: { author: PostDetailsResult["author"]
 		<div className="relative mb-8 mt-20 rounded-lg bg-[#0e0a1f] px-12 pb-6 pt-12 text-center shadow-[0px_15px_30px_-15px_#211e35]">
 			<div className="absolute -top-12 left-1/2 -translate-x-1/2 transform">
 				<Image
-					unoptimized
 					alt={author.name}
 					height={120}
 					width={120}

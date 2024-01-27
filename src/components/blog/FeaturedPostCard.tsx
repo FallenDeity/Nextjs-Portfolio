@@ -20,7 +20,6 @@ export default function FeaturedPostCard({ post }: { post: FeaturedPostResult })
 				<p className="text-white text-shadow mb-4 text-center text-2xl font-semibold">{post.title}</p>
 				<div className="absolute bottom-5 flex w-full items-center justify-center">
 					<Image
-						unoptimized
 						alt={post.author.name}
 						height={30}
 						width={30}

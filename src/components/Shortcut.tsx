@@ -26,13 +26,13 @@ export default function Shortcut(): React.JSX.Element {
 				onClick={(): void => setIsOpen((prev) => !prev)}>
 				<FaFolder />
 			</div>
-			<Link href={socialLinks.github} className="github-color">
+			<Link href={socialLinks.github} className="github-color" aria-label="Github">
 				<AiFillGithub />
 			</Link>
-			<Link href={socialLinks.discord} className="discord-color">
+			<Link href={socialLinks.discord} className="discord-color" aria-label="Discord">
 				<BsDiscord />
 			</Link>
-			<Link href={socialLinks.gmail} className="gmail-color">
+			<Link href={socialLinks.gmail} className="gmail-color" aria-label="Gmail">
 				<SiGmail />
 			</Link>
 		</div>
