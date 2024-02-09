@@ -411,3 +411,23 @@
 		filter: blur(12px);
 	}
 }
+
+@layer base {
+	body::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	body::-webkit-scrollbar-track {
+		background: hsl(var(--secondary));
+	}
+
+	body::-webkit-scrollbar-thumb {
+		background: hsl(var(--secondary-foreground) / 0.2);
+	}
+
+	@media (max-width: 380px) {
+		body::-webkit-scrollbar {
+			display: none;
+		}
+	}
+}
