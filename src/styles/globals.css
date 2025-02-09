@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
+@config "../../tailwind.config.js";
+
 @plugin "tailwindcss-animate";
+
+@plugin 'tailwind-scrollbar' {
+	preferredstrategy: "pseudoelements";
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -96,5 +102,12 @@
 	}
 	body {
 		@apply bg-background text-foreground;
+	}
+
+	/* hide scrollbar for body when less than 600px */
+	@media (max-width: 640px) {
+		body {
+			@apply scrollbar-none;
+		}
 	}
 }
