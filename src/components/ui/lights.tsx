@@ -32,8 +32,6 @@ export const Lights: React.FC<{ className?: React.ReactNode }> = ({ className })
 							"--duration": "60s",
 							"--stripes":
 								"repeating-linear-gradient(110deg, var(--background) 0%, var(--background) 7%, transparent 10%, transparent 12%, var(--background) 16%)",
-							"--rainbow":
-								"repeating-linear-gradient(110deg, #60a5fa 10%, #e879f9 15%, #60a5fa 20%, #5eead4 25%, #60a5fa 30%)",
 							transform: "translate3d(0, 0, 0)",
 							backgroundImage: "var(--stripes), var(--rainbow)",
 							backgroundSize: "120%, 200%",

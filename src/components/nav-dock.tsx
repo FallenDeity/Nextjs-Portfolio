@@ -103,7 +103,7 @@ export function NavigationDock(): React.ReactElement {
 									aria-label={item.label}
 									className={cn(
 										buttonVariants({ variant: "ghost", size: "icon" }),
-										"size-10 rounded-full"
+										"size-10 cursor-pointer rounded-full"
 									)}>
 									<item.icon className="size-4" />
 								</Link>
@@ -124,7 +124,7 @@ export function NavigationDock(): React.ReactElement {
 									aria-label={social.name}
 									className={cn(
 										buttonVariants({ variant: "ghost", size: "icon" }),
-										"size-10 rounded-full"
+										"size-10 cursor-pointer rounded-full"
 									)}>
 									<social.icon className="size-4" />
 								</Link>

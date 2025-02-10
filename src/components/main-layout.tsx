@@ -14,7 +14,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }):
 				<CursorSpotlight from="#ff0000" via="#00ff00" to="#0000ff" opacity="50%" filter="blur(65px)" />
 				<Lights />
 				<NavigationDock />
-				<div className="relative z-10 flex w-full flex-1 flex-col items-center justify-center">{children}</div>
+				<div className="flex min-h-screen w-full flex-1 flex-col items-center justify-center">{children}</div>
 			</div>
 		</span>
 	);

@@ -1,14 +1,73 @@
-import React from "react";
+import { BellIcon, CalendarIcon, FileTextIcon, GlobeIcon, InputIcon } from "@radix-ui/react-icons";
 
-export default function Home(): React.JSX.Element {
+import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
+
+interface Feature {
+	Icon: React.ElementType;
+	name: string;
+	description: string;
+	href: string;
+	cta: string;
+	background: React.ReactNode;
+	className: string;
+}
+
+const features: Feature[] = [
+	{
+		Icon: FileTextIcon,
+		name: "Save your files",
+		description: "We automatically save your files as you type.",
+		href: "/",
+		cta: "Learn more",
+		background: <img className="absolute -top-20 -right-20 opacity-60" />,
+		className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
+	},
+	{
+		Icon: InputIcon,
+		name: "Full text search",
+		description: "Search through all your files in one place.",
+		href: "/",
+		cta: "Learn more",
+		background: <img className="absolute -top-20 -right-20 opacity-60" />,
+		className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
+	},
+	{
+		Icon: GlobeIcon,
+		name: "Multilingual",
+		description: "Supports 100+ languages and counting.",
+		href: "/",
+		cta: "Learn more",
+		background: <img className="absolute -top-20 -right-20 opacity-60" />,
+		className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
+	},
+	{
+		Icon: CalendarIcon,
+		name: "Calendar",
+		description: "Use the calendar to filter your files by date.",
+		href: "/",
+		cta: "Learn more",
+		background: <img className="absolute -top-20 -right-20 opacity-60" />,
+		className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2",
+	},
+	{
+		Icon: BellIcon,
+		name: "Notifications",
+		description: "Get notified when someone shares a file or mentions you in a comment.",
+		href: "/",
+		cta: "Learn more",
+		background: <img className="absolute -top-20 -right-20 opacity-60" />,
+		className: "lg:col-start-3 lg:col-end-3 lg:row-start-2 lg:row-end-4",
+	},
+];
+
+export default function BentoDemo(): React.ReactElement {
 	return (
-		<div className="flex min-h-screen flex-col items-center justify-center gap-10">
-			<div className="rounded-lg bg-white p-4 shadow-md dark:bg-gray-900">
-				<h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">Hello World!</h1>
-				<p className="mt-2 text-gray-600 dark:text-gray-400">
-					This is a starter template for your next project.
-				</p>
-			</div>
+		<div className="flex h-full w-full flex-col items-center justify-center space-y-6 px-6 py-12">
+			<BentoGrid className="lg:grid-rows-3">
+				{features.map((feature) => (
+					<BentoCard key={feature.name} {...feature} />
+				))}
+			</BentoGrid>
 		</div>
 	);
 }

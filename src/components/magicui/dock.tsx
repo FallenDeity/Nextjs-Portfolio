@@ -8,6 +8,8 @@ import React, { PropsWithChildren, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
+import { GlowingEffect } from "../aceternity/glowing-effect";
+
 export interface DockProps extends VariantProps<typeof dockVariants> {
 	className?: string;
 	iconSize?: number;
@@ -67,6 +69,15 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
 					"items-center": direction === "middle",
 					"items-end": direction === "bottom",
 				})}>
+				<GlowingEffect
+					blur={0}
+					borderWidth={3}
+					spread={80}
+					glow={true}
+					disabled={false}
+					proximity={64}
+					inactiveZone={0.01}
+				/>
 				{renderChildren()}
 			</motion.div>
 		);
