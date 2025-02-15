@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import React from "react";
 
 import { useMousePosition } from "@/hooks/use-mouse-position";
@@ -9,38 +10,65 @@ export interface CursorSpotlightProps {
 	opacity?: string;
 	filter?: string;
 	className?: string;
+	springConfig?: { stiffness: number; damping: number };
+	size?: number; // Spotlight size
 }
 
-export const CursorSpotlight: React.FC<CursorSpotlightProps> = ({ opacity, filter, className }) => {
-	const cursorRef = React.useRef<HTMLDivElement>(null);
+export const CursorSpotlight: React.FC<CursorSpotlightProps> = ({
+	opacity = "20%",
+	filter = "blur(75px)",
+	className,
+	springConfig = { stiffness: 150, damping: 20 },
+	size = 400,
+}) => {
 	const [mouse] = useMousePosition();
 
-	if (mouse.x == null || mouse.y == null) return null;
+	const x = useMotionValue(0);
+	const y = useMotionValue(0);
 
-	const circle_size = 400;
-	const centerX = mouse.x + window.pageXOffset;
-	const centerY = mouse.y + window.pageYOffset;
+	const smoothX = useSpring(x, springConfig);
+	const smoothY = useSpring(y, springConfig);
 
-	const left = centerX - circle_size / 2;
-	const top = centerY - circle_size / 2;
-	console.log("cursor scrolling", window.pageXOffset, window.pageYOffset);
+	React.useEffect(() => {
+		if (mouse.x == null || mouse.y == null) return;
+
+		const centerX = mouse.x + window.pageXOffset;
+		const centerY = mouse.y + window.pageYOffset;
+		x.set(centerX - size / 2);
+		y.set(centerY - size / 2);
+	}, [mouse.x, mouse.y, x, y, size]);
 
 	return (
-		<div
-			ref={cursorRef}
-			className={cn(
-				"animate-appear pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-0",
-				className
-			)}
+		<motion.div
+			animate={{ rotate: [0, 360], scale: [1, 1.2, 1] }}
+			transition={{
+				scale: {
+					duration: 2, // breathing effect duration
+					ease: "easeInOut",
+					repeat: Infinity,
+					repeatType: "loop",
+				},
+				rotate: {
+					duration: 5, // rotating effect duration (different from breathing)
+					ease: "linear", // continuous rotation without easing
+					repeat: Infinity,
+					repeatType: "loop",
+				},
+			}}
+			className={cn("pointer-events-none fixed -z-1 opacity-0", className)}
 			style={{
-				maskImage: `radial-gradient(${circle_size / 2}px circle at center, white, transparent)`,
-				filter: filter || "blur(75px)",
-				opacity: opacity || "20%",
-				width: `${circle_size}px`,
-				height: `${circle_size}px`,
-				left: `${left}px`,
-				top: `${top}px`,
+				position: "absolute",
+				maskImage: `radial-gradient(${size / 2}px circle at center, white, transparent)`,
+				WebkitMaskImage: `radial-gradient(${size / 2}px circle at center, white, transparent)`,
+				filter,
+				opacity,
+				width: `${size}px`,
+				height: `${size}px`,
 				background: `linear-gradient(135deg, var(--cursor-from), var(--cursor-via), var(--cursor-to), var(--cursor-from))`,
+				left: 0,
+				top: 0,
+				translateX: smoothX,
+				translateY: smoothY,
 			}}
 		/>
 	);

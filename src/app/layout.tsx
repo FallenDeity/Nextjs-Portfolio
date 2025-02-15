@@ -3,15 +3,15 @@ import "@/styles/globals.css";
 import React from "react";
 
 import { ThemeProvider } from "@/components/theme-provider";
+import CursorSpotlight from "@/components/ui/cursor-spotlight";
 
 export default function RootLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
 	return (
-		<html
-			lang="en"
-			className="sm:scrollbar-thin sm:scrollbar-track-background sm:scrollbar-thumb-accent overflow-x-hidden overflow-y-auto">
-			<body>
+		<html lang="en" className="overflow-hidden">
+			<body className="overflow-hidden">
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					{children}
+					<CursorSpotlight opacity="50%" filter="blur(65px)" />
 				</ThemeProvider>
 			</body>
 		</html>

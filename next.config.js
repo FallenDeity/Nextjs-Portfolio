@@ -5,6 +5,14 @@ const nextConfig = {
 			resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
 		},
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "**",
+			},
+		],
+	},
 	reactStrictMode: true,
 	distDir: "dist",
 };

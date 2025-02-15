@@ -5,16 +5,12 @@ import * as React from "react";
 export interface Position {
 	x: number | null;
 	y: number | null;
-	scrollX: number;
-	scrollY: number;
 }
 
 export function useMousePosition(): [Position] {
 	const [state, setState] = React.useState<Position>({
 		x: null,
 		y: null,
-		scrollX: 0,
-		scrollY: 0,
 	});
 
 	React.useLayoutEffect(() => {
@@ -33,21 +29,6 @@ export function useMousePosition(): [Position] {
 		document.addEventListener("mousemove", handleMouseMove);
 
 		return (): void => document.removeEventListener("mousemove", handleMouseMove);
-	}, []);
-
-	React.useLayoutEffect(() => {
-		const handleScroll = (): void => {
-			console.log("scrolling", window.pageXOffset, window.pageYOffset);
-			setState((s) => ({
-				...s,
-				scrollX: window.scrollX,
-				scrollY: window.scrollY,
-			}));
-		};
-
-		window.addEventListener("scroll", handleScroll);
-
-		return (): void => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
 	return [state];

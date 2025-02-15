@@ -103,6 +103,7 @@
 	--radius-lg: var(--radius);
 	--radius-xl: calc(var(--radius) + 4px);
 	--animate-shine: shine var(--duration) infinite linear;
+	--animate-breathe-rotate: breathe-rotate var(--duration) infinite linear;
 
 	@keyframes shine {
 		0% {
@@ -113,6 +114,18 @@
 		}
 		to {
 			background-position: 0% 0%;
+		}
+	}
+
+	@keyframes breathe-rotate {
+		0% {
+			transform: scale(1) rotate(0deg) translateX(var(--translate-x)) translateY(var(--translate-y));
+		}
+		50% {
+			transform: scale(1.1) rotate(180deg) translateX(var(--translate-x)) translateY(var(--translate-y));
+		}
+		100% {
+			transform: scale(1) rotate(360deg) translateX(var(--translate-x)) translateY(var(--translate-y));
 		}
 	}
 }

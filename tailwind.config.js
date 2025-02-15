@@ -132,6 +132,8 @@ module.exports = {
 				appear: "appear 1s 1s forwards",
 				"god-rays": "god-rays var(--duration) cubic-bezier(0.15, 0, 0.85, 1) infinite alternate",
 				shine: "shine var(--duration) infinite linear",
+				breathe: "breathe 2s infinite",
+				rotate: "rotate 2s infinite",
 			},
 		},
 	},

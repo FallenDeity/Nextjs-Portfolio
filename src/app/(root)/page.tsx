@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { ExperienceCard } from "@/components/home/experience-card";
+import { ExperienceTimeline } from "@/components/home/experience-card";
 import ProfileCard from "@/components/home/profile-card";
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
 
@@ -37,7 +37,7 @@ export default function BentoDemo(): React.ReactElement {
 		<div className="flex h-full w-full flex-col items-center justify-start space-y-6 px-6 py-12 pb-30">
 			<BentoGrid className="lg:grid-rows-3">
 				<ProfileCard />
-				<ExperienceCard />
+				<ExperienceTimeline />
 				{features.map((feature) => (
 					<BentoCard key={feature.name} {...feature} />
 				))}
