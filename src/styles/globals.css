@@ -37,6 +37,9 @@
 	--chart-5: hsl(27 87% 67%);
 	--radius: 0.6rem;
 	--rainbow: repeating-linear-gradient(110deg, #e2eefe 15%, #e7a8f1 15%, #8dbcf5 20%, #83f1e1 20%, #89b6ec 30%);
+	--cursor-from: #e2eefe;
+	--cursor-via: #8dbcf5;
+	--cursor-to: #89b6ec;
 }
 
 .dark {
@@ -64,7 +67,10 @@
 	--chart-3: hsl(30 80% 55%);
 	--chart-4: hsl(280 65% 60%);
 	--chart-5: hsl(340 75% 55%);
-	--rainbow: repeating-linear-gradient(110deg, #60a5fa 10%, #e879f9 15%, #60a5fa 20%, #5eead4 25%, #60a5fa 30%);
+	--rainbow: repeating-linear-gradient(110deg, #60a5fa 12%, #e879f9 15%, #60a5fa 20%, #5eead4 25%, #60a5fa 30%);
+	--cursor-from: #6ea9f2;
+	--cursor-via: #e879f9;
+	--cursor-to: #5eead4;
 }
 
 @theme inline {
@@ -96,6 +102,19 @@
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);
 	--radius-xl: calc(var(--radius) + 4px);
+	--animate-shine: shine var(--duration) infinite linear;
+
+	@keyframes shine {
+		0% {
+			background-position: 0% 0%;
+		}
+		50% {
+			background-position: 100% 100%;
+		}
+		to {
+			background-position: 0% 0%;
+		}
+	}
 }
 
 @layer base {
@@ -106,9 +125,8 @@
 		@apply bg-background text-foreground;
 	}
 
-	/* hide scrollbar for body when less than 600px */
 	@media (max-width: 640px) {
-		body {
+		html {
 			@apply scrollbar-none;
 		}
 	}

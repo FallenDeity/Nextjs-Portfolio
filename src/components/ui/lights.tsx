@@ -31,7 +31,7 @@ export const Lights: React.FC<{ className?: React.ReactNode }> = ({ className })
 							// @ts-expect-error custom properties
 							"--duration": "60s",
 							"--stripes":
-								"repeating-linear-gradient(110deg, var(--background) 0%, var(--background) 7%, transparent 10%, transparent 12%, var(--background) 16%)",
+								"repeating-linear-gradient(110deg, var(--background) 0%, var(--background) 7%, transparent 0%, transparent 12%, var(--background) 12%)",
 							transform: "translate3d(0, 0, 0)",
 							backgroundImage: "var(--stripes), var(--rainbow)",
 							backgroundSize: "120%, 200%",

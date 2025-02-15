@@ -37,6 +37,7 @@ export function useMousePosition(): [Position] {
 
 	React.useLayoutEffect(() => {
 		const handleScroll = (): void => {
+			console.log("scrolling", window.pageXOffset, window.pageYOffset);
 			setState((s) => ({
 				...s,
 				scrollX: window.scrollX,

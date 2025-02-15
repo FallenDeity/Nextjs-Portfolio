@@ -6,26 +6,24 @@ import { useMousePosition } from "@/hooks/use-mouse-position";
 import { cn } from "@/lib/utils";
 
 export interface CursorSpotlightProps {
-	from: string;
-	via: string;
-	to: string;
 	opacity?: string;
 	filter?: string;
 	className?: string;
 }
 
-export const CursorSpotlight: React.FC<CursorSpotlightProps> = ({ from, via, to, opacity, filter, className }) => {
+export const CursorSpotlight: React.FC<CursorSpotlightProps> = ({ opacity, filter, className }) => {
 	const cursorRef = React.useRef<HTMLDivElement>(null);
 	const [mouse] = useMousePosition();
 
 	if (mouse.x == null || mouse.y == null) return null;
 
-	const gradientShape = (): string => {
-		if (mouse.x == null || mouse.y == null) return "50% 50%";
-		const x = mouse.x + mouse.scrollX;
-		const y = mouse.y + mouse.scrollY;
-		return `${x}px ${y}px`;
-	};
+	const circle_size = 400;
+	const centerX = mouse.x + window.pageXOffset;
+	const centerY = mouse.y + window.pageYOffset;
+
+	const left = centerX - circle_size / 2;
+	const top = centerY - circle_size / 2;
+	console.log("cursor scrolling", window.pageXOffset, window.pageYOffset);
 
 	return (
 		<div
@@ -35,9 +33,14 @@ export const CursorSpotlight: React.FC<CursorSpotlightProps> = ({ from, via, to,
 				className
 			)}
 			style={{
-				background: `radial-gradient(125px circle at ${gradientShape()}, ${from} 0%, ${via} 33%, ${to} 66%, transparent 100%)`,
+				maskImage: `radial-gradient(${circle_size / 2}px circle at center, white, transparent)`,
 				filter: filter || "blur(75px)",
 				opacity: opacity || "20%",
+				width: `${circle_size}px`,
+				height: `${circle_size}px`,
+				left: `${left}px`,
+				top: `${top}px`,
+				background: `linear-gradient(135deg, var(--cursor-from), var(--cursor-via), var(--cursor-to), var(--cursor-from))`,
 			}}
 		/>
 	);

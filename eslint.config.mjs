@@ -36,7 +36,7 @@ export default [
 			"**/webpack.config.ts",
 			"**/postcss.config.js",
 			"**/tailwind.config.js",
-			"**/next.configjs",
+			"**/next.config.js",
 			"**/next-env.d.ts",
 		],
 	},

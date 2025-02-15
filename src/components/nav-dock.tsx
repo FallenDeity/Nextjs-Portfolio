@@ -92,7 +92,7 @@ export function NavigationDock(): React.ReactElement {
 		<TooltipProvider>
 			<Dock
 				direction="middle"
-				className="bg-background/50 fixed right-0 bottom-10 left-0 z-50 backdrop-blur-lg"
+				className="bg-background/50 fixed right-0 bottom-10 left-0 z-50 shadow-lg backdrop-blur-lg dark:shadow-none"
 				iconDistance={100}>
 				{DATA.navbar.map((item) => (
 					<DockIcon key={item.label}>

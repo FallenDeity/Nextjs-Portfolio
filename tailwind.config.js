@@ -72,20 +72,38 @@ module.exports = {
 			},
 			keyframes: {
 				"accordion-down": {
-					from: { height: 0 },
-					to: { height: "var(--radix-accordion-content-height)" },
+					from: {
+						height: 0,
+					},
+					to: {
+						height: "var(--radix-accordion-content-height)",
+					},
 				},
 				"accordion-up": {
-					from: { height: "var(--radix-accordion-content-height)" },
-					to: { height: 0 },
+					from: {
+						height: "var(--radix-accordion-content-height)",
+					},
+					to: {
+						height: 0,
+					},
 				},
 				moveUp: {
-					"0%": { transform: "translateY(5%)", opacity: "0" },
-					"100%": { transform: "translateY(0%)", opacity: "1" },
+					"0%": {
+						transform: "translateY(5%)",
+						opacity: "0",
+					},
+					"100%": {
+						transform: "translateY(0%)",
+						opacity: "1",
+					},
 				},
 				appear: {
-					from: { opacity: "0" },
-					to: { opacity: "1" },
+					from: {
+						opacity: "0",
+					},
+					to: {
+						opacity: "1",
+					},
 				},
 				"god-rays": {
 					from: {
@@ -95,6 +113,17 @@ module.exports = {
 						transform: "translateX(-50%)",
 					},
 				},
+				shine: {
+					"0%": {
+						"background-position": "0% 0%",
+					},
+					"50%": {
+						"background-position": "100% 100%",
+					},
+					to: {
+						"background-position": "0% 0%",
+					},
+				},
 			},
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
@@ -102,6 +131,7 @@ module.exports = {
 				moveUp: "moveUp 1.4s ease forwards",
 				appear: "appear 1s 1s forwards",
 				"god-rays": "god-rays var(--duration) cubic-bezier(0.15, 0, 0.85, 1) infinite alternate",
+				shine: "shine var(--duration) infinite linear",
 			},
 		},
 	},
