@@ -55,7 +55,7 @@ export const CursorSpotlight: React.FC<CursorSpotlightProps> = ({
 					repeatType: "loop",
 				},
 			}}
-			className={cn("pointer-events-none fixed -z-1 opacity-0", className)}
+			className={cn("pointer-events-none fixed -z-1 hidden opacity-0 sm:block", className)}
 			style={{
 				position: "absolute",
 				maskImage: `radial-gradient(${size / 2}px circle at center, white, transparent)`,

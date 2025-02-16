@@ -34,7 +34,7 @@ const features: Feature[] = [
 
 export default function BentoDemo(): React.ReactElement {
 	return (
-		<div className="flex h-full w-full flex-col items-center justify-start space-y-6 px-6 py-12 pb-30">
+		<div className="flex h-full w-full flex-col items-center justify-start space-y-6 px-6 pt-6 pb-30">
 			<BentoGrid className="lg:grid-rows-3">
 				<ProfileCard />
 				<ExperienceTimeline />

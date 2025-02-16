@@ -97,8 +97,8 @@ export default function ProfileCard(): React.ReactElement {
 						</div>
 					</Button>
 				</div>
-				<div className="mt-6 flex w-full flex-row items-center justify-between space-x-2">
-					<div className="flex w-full flex-col items-start">
+				<div className="mt-6 flex w-full flex-col items-center justify-between space-x-2 sm:flex-row">
+					<div className="flex w-full flex-col sm:items-start">
 						<h3 className="text-md flex items-center justify-center gap-2 font-semibold">
 							<Clock className="h-5 w-5" />
 							My Time
@@ -110,22 +110,22 @@ export default function ProfileCard(): React.ReactElement {
 							<p className="font-semibold">:</p>
 							<AnimatedCounter className="border" value={timeValues[2]} places={2} />
 						</div>
-						<p className="text-muted-foreground mt-1 text-sm">
+						<p className="text-muted-foreground mt-1 text-center text-sm sm:text-start">
 							{time.toDateString()},{" "}
 							<span className="text-muted-foreground text-xs">Local time in India</span>
 						</p>
 					</div>
-					<div className="flex h-full w-full flex-col items-end">
-						<h3 className="text-md flex items-center justify-center gap-2 font-semibold">
+					<div className="mt-6 flex h-full w-full flex-col items-center sm:mt-0 sm:items-end">
+						<h3 className="text-md flex items-center justify-center gap-2 text-right font-semibold">
 							<MapPin className="h-5 w-5" />
 							My Location
 						</h3>
-						<p className="text-muted-foreground mt-3 text-sm">Kolkata, West Bengal, India</p>
+						<p className="text-muted-foreground mt-3 text-right text-sm">Kolkata, West Bengal, India</p>
 					</div>
 				</div>
-				<div className="relative mt-12 -mb-44 block h-[40vh] w-full items-center justify-center pt-12 md:mt-0">
+				<div className="relative -mb-44 block h-[40vh] w-full items-center justify-center pt-12 sm:mt-12 md:mt-0">
 					<div id="functions-hero" className="absolute inset-0 top-10">
-						<div className="animate-in fade-in absolute top-[0%] left-[20%] z-20 flex h-auto w-[70%] flex-1 items-center justify-center transition-opacity duration-1000 ease-in sm:top-[0%] sm:left-[23%] sm:w-[55%] md:top-[5%] md:left-[25%] md:w-[55%] lg:top-[-10%] lg:left-[5%] lg:w-[100%] xl:top-[-5%] xl:left-[8%] xl:w-[90%] 2xl:top-[-5%] 2xl:left-[5%] 2xl:w-[100%]">
+						<div className="animate-in fade-in absolute top-[0%] right-0 left-0 z-20 flex h-auto w-[100%] flex-1 items-center justify-center transition-opacity duration-1000 ease-in sm:top-[0%] sm:left-[6%] sm:w-[90%] md:top-[5%] md:left-[25%] md:w-[55%] lg:top-[0%] lg:left-[5%] lg:w-[100%] xl:top-[-5%] xl:left-[8%] xl:w-[90%] 2xl:top-[-5%] 2xl:left-[5%] 2xl:w-[100%]">
 							<a
 								href="mailto:triyanmukherjee@gmail.com"
 								className="group hover:border-strong bg-alternative group/email flex w-full items-center gap-1 rounded-xl border border-amber-600 px-3 py-2 sm:gap-2">

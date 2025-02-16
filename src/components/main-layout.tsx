@@ -7,7 +7,7 @@ import CommandPalette from "./command-palette";
 
 export default function MainLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
 	return (
-		<main className="sm:scrollbar-thin sm:scrollbar-track-background sm:scrollbar-thumb-accent relative flex h-screen w-full flex-col overflow-x-hidden overflow-y-auto">
+		<main className="scrollbar-none sm:scrollbar-thin sm:scrollbar-track-background sm:scrollbar-thumb-accent relative flex h-screen w-full flex-col overflow-x-hidden overflow-y-auto">
 			<CommandPalette />
 			<div className={"bg-grid-black/[0.05] dark:bg-grid-white/[0.03] relative w-full"}>
 				<Lights />

@@ -8,6 +8,8 @@
 	preferredstrategy: "pseudoelements";
 }
 
+@plugin "tailwind-scrollbar-hide";
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -104,6 +106,8 @@
 	--radius-xl: calc(var(--radius) + 4px);
 	--animate-shine: shine var(--duration) infinite linear;
 	--animate-breathe-rotate: breathe-rotate var(--duration) infinite linear;
+	--animate-marquee: marquee var(--duration) infinite linear;
+	--animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
 
 	@keyframes shine {
 		0% {
@@ -128,6 +132,24 @@
 			transform: scale(1) rotate(360deg) translateX(var(--translate-x)) translateY(var(--translate-y));
 		}
 	}
+
+	@keyframes marquee {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(calc(-100% - var(--gap)));
+		}
+	}
+
+	@keyframes marquee-vertical {
+		from {
+			transform: translateY(0);
+		}
+		to {
+			transform: translateY(calc(-100% - var(--gap)));
+		}
+	}
 }
 
 @layer base {
@@ -136,11 +158,5 @@
 	}
 	body {
 		@apply bg-background text-foreground;
-	}
-
-	@media (max-width: 640px) {
-		html {
-			@apply scrollbar-none;
-		}
 	}
 }

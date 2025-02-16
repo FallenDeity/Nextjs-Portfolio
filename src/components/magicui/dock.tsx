@@ -77,6 +77,7 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
 					disabled={false}
 					proximity={64}
 					inactiveZone={0.01}
+					className="hidden sm:block"
 				/>
 				{renderChildren()}
 			</motion.div>

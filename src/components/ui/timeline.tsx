@@ -28,7 +28,7 @@ export const Timeline = React.forwardRef<React.ElementRef<"ol">, TimelineProps>(
 				ref={ref}
 				role="list"
 				data-orientation={orientation}
-				className={cn("flex", orientation === "vertical" && "flex-col", className)}
+				className={cn("flex w-full", orientation === "vertical" && "flex-col", className)}
 				{...props}
 			/>
 		</TimelineContext.Provider>
