@@ -1,0 +1,34 @@
+[class^="number-slide"],
+[class*=" number-slide"] {
+	background: grey;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 50px;
+	color: #fff;
+	font-weight: 500;
+	height: 160px;
+	max-height: 100vh;
+}
+
+.scene {
+	width: 260px;
+	height: 160px;
+	perspective: 450px;
+	position: relative;
+}
+.scene .carousel.keen-slider {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+	position: absolute;
+	transform: translateZ(-288px);
+	transform-style: preserve-3d;
+}
+.carousel__cell {
+	position: absolute;
+	width: 240px;
+	left: 10px;
+	height: 160px;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+}

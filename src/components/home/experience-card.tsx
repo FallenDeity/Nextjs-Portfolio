@@ -116,9 +116,9 @@ function ExperienceList({ experiences, depth }: { experiences: Experience[]; dep
 }
 
 function ExperienceCard({ experience, depth }: { experience: Experience; depth: number }): React.ReactElement {
-	const [open, setOpen] = React.useState<boolean>(false);
+	const [open, setOpen] = React.useState<boolean>(depth === 1);
 	return (
-		<Collapsible>
+		<Collapsible open={open}>
 			<CollapsibleTrigger className="w-full" onClick={() => setOpen(!open)}>
 				<div className={`flex w-full flex-row items-center justify-between ${!open && depth == 1 && "pb-4"}`}>
 					<div className="flex flex-col items-start justify-start">
@@ -167,9 +167,9 @@ function ExperienceCard({ experience, depth }: { experience: Experience; depth: 
 export function ExperienceTimeline(): React.ReactElement {
 	return (
 		<BentoCard name="Experience" className="pb-6 lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3">
-			<div className="flex h-full w-full flex-col items-start lg:col-span-1">
+			<div className="flex h-full w-full flex-col items-start">
 				<h2 className="my-6 px-6 text-xl font-semibold">Experience</h2>
-				<div className="scrollbar-hide mx-6 h-[50vh] w-[calc(100%-3rem)] overflow-y-auto">
+				<div className="scrollbar-hide mx-6 h-[55vh] w-[calc(100%-3rem)] overflow-y-auto">
 					<ExperienceList experiences={experiences} depth={1} />
 				</div>
 			</div>
