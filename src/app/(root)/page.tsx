@@ -1,8 +1,11 @@
+"use client";
+
 import * as React from "react";
 
 import { ExperienceTimeline } from "@/components/home/experience-card";
 import ProfileCard from "@/components/home/profile-card";
-import { ProjectCard } from "@/components/home/project-card";
+import { ProjectCard } from "@/components/home/project-card-carousel";
+import { TechnologyCard } from "@/components/home/technology-card";
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
 
 interface Feature {
@@ -11,25 +14,9 @@ interface Feature {
 }
 
 const features: Feature[] = [
-	// {
-	// 	name: "Save your files",
-	// 	className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
-	// },
-	// {
-	// 	name: "Full text search",
-	// 	className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
-	// },
 	{
 		name: "Multilingual",
 		className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
-	},
-	// {
-	// 	name: "Calendar",
-	// 	className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2",
-	// },
-	{
-		name: "Notifications",
-		className: "lg:col-start-3 lg:col-end-3 lg:row-start-2 lg:row-end-4",
 	},
 ];
 
@@ -40,6 +27,7 @@ export default function BentoDemo(): React.ReactElement {
 				<ProfileCard />
 				<ExperienceTimeline />
 				<ProjectCard />
+				<TechnologyCard />
 				{features.map((feature) => (
 					<BentoCard key={feature.name} {...feature} />
 				))}
