@@ -5,6 +5,11 @@ const nextConfig = {
 			resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
 		},
 	},
+	logging: {
+		fetches: {
+			fullUrl: true,
+		},
+	},
 	serverExternalPackages: ["pino", "pino-pretty"],
 	images: {
 		dangerouslyAllowSVG: true,
