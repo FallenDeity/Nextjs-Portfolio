@@ -16,14 +16,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					{children}
 					<CursorSpotlight opacity="50%" filter="blur(65px)" />
+					<SanityLive />
+					{(await draftMode()).isEnabled && (
+						<>
+							<DisableDraftMode />
+							<VisualEditing />
+						</>
+					)}
 				</ThemeProvider>
-				<SanityLive />
-				{(await draftMode()).isEnabled && (
-					<>
-						<DisableDraftMode />
-						<VisualEditing />
-					</>
-				)}
 			</body>
 		</html>
 	);

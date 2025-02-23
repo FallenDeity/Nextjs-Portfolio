@@ -15,7 +15,7 @@
 		"build": "next build",
 		"start": "next start",
 		"coverage": "nyc npm run test",
-		"typegen": "sanity schema extract --path=src/sanity/extract.json && sanity typegen generate"
+		"typegen": "sanity schema extract --path=src/sanity/extract.json && sanity typegen generate && rm src/sanity/extract.json"
 	},
 	"pre-commit": [
 		"lint:fix",
