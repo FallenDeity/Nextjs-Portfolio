@@ -108,6 +108,7 @@
 	--animate-breathe-rotate: breathe-rotate var(--duration) infinite linear;
 	--animate-marquee: marquee var(--duration) infinite linear;
 	--animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+	--animate-rotate: rotate var(--duration) infinite linear;
 
 	@keyframes shine {
 		0% {
@@ -118,6 +119,15 @@
 		}
 		to {
 			background-position: 0% 0%;
+		}
+	}
+
+	@keyframes rotate {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
 		}
 	}
 

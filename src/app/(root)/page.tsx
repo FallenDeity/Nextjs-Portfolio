@@ -1,24 +1,11 @@
-"use client";
-
 import * as React from "react";
 
 import { ExperienceTimeline } from "@/components/home/experience-card";
+import { StatusCard } from "@/components/home/github-card";
 import ProfileCard from "@/components/home/profile-card";
 import { ProjectCard } from "@/components/home/project-card-carousel";
 import { TechnologyCard } from "@/components/home/technology-card";
-import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
-
-interface Feature {
-	name: string;
-	className: string;
-}
-
-const features: Feature[] = [
-	{
-		name: "Multilingual",
-		className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
-	},
-];
+import { BentoGrid } from "@/components/magicui/bento-grid";
 
 export default function BentoDemo(): React.ReactElement {
 	return (
@@ -28,9 +15,7 @@ export default function BentoDemo(): React.ReactElement {
 				<ExperienceTimeline />
 				<ProjectCard />
 				<TechnologyCard />
-				{features.map((feature) => (
-					<BentoCard key={feature.name} {...feature} />
-				))}
+				<StatusCard />
 			</BentoGrid>
 		</div>
 	);

@@ -5,6 +5,7 @@ const nextConfig = {
 			resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
 		},
 	},
+	serverExternalPackages: ["pino", "pino-pretty"],
 	images: {
 		dangerouslyAllowSVG: true,
 		remotePatterns: [

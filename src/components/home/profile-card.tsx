@@ -1,36 +1,17 @@
-"use client";
-
-import { Clock, Download, Info, Languages, MapPin } from "lucide-react";
+import { Download, Info, Languages } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
 import { BentoCard } from "@/components/magicui/bento-grid";
 import { StaggerText } from "@/components/magicui/text-animate";
-import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 import { ShineBorder } from "../magicui/shine-border";
+import SpotifyStatusCard from "./spotify-status";
 
 export default function ProfileCard(): React.ReactElement {
-	const [time, setTime] = React.useState(new Date());
-	const [timeValues, setTimeValues] = React.useState([0, 0, 0]);
-
-	React.useEffect(() => {
-		const interval = setInterval(() => {
-			setTime(new Date());
-		}, 1000);
-		return (): void => clearInterval(interval);
-	}, []);
-
-	React.useEffect(() => {
-		const hours = time.getHours();
-		const minutes = time.getMinutes();
-		const seconds = time.getSeconds();
-		setTimeValues([hours, minutes, seconds]);
-	}, [time]);
-
 	return (
 		<BentoCard name="Profile" className="lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-4">
 			<div className="flex h-full flex-col items-center p-6">
@@ -98,30 +79,7 @@ export default function ProfileCard(): React.ReactElement {
 					</Button>
 				</div>
 				<div className="mt-6 flex w-full flex-col items-center justify-between space-x-2 sm:flex-row">
-					<div className="flex w-full flex-col sm:items-start">
-						<h3 className="text-md flex items-center justify-center gap-2 font-semibold">
-							<Clock className="h-5 w-5" />
-							My Time
-						</h3>
-						<div className="mt-3 flex flex-row items-center justify-center space-x-2">
-							<AnimatedCounter className="border" value={timeValues[0]} places={2} />
-							<p className="text-center font-semibold">:</p>
-							<AnimatedCounter className="border" value={timeValues[1]} places={2} />
-							<p className="font-semibold">:</p>
-							<AnimatedCounter className="border" value={timeValues[2]} places={2} />
-						</div>
-						<p className="text-muted-foreground mt-1 text-center text-sm sm:text-start">
-							{time.toDateString()},{" "}
-							<span className="text-muted-foreground text-xs">Local time in India</span>
-						</p>
-					</div>
-					<div className="mt-6 flex h-full w-full flex-col items-center sm:mt-0 sm:items-end">
-						<h3 className="text-md flex items-center justify-center gap-2 text-right font-semibold">
-							<MapPin className="h-5 w-5" />
-							My Location
-						</h3>
-						<p className="text-muted-foreground mt-3 text-right text-sm">Kolkata, West Bengal, India</p>
-					</div>
+					<SpotifyStatusCard />
 				</div>
 				<div className="relative -mb-44 block h-[40vh] w-full items-center justify-center pt-12 sm:mt-12 md:mt-0">
 					<div id="functions-hero" className="absolute inset-0 top-10">
