@@ -13,6 +13,9 @@
  */
 
 // Source: schema.json
+// Query TypeMap
+import "@sanity/client";
+
 export interface SanityImagePaletteSwatch {
 	_type: "sanity.imagePaletteSwatch";
 	background?: string;
@@ -68,6 +71,76 @@ export interface Geopoint {
 	alt?: number;
 }
 
+export type BlockContent = (
+	| {
+			children?: {
+				marks?: string[];
+				text?: string;
+				_type: "span";
+				_key: string;
+			}[];
+			style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+			listItem?: "bullet" | "number";
+			markDefs?: (
+				| {
+						href?: string;
+						_type: "link";
+						_key: string;
+				  }
+				| {
+						reference?:
+							| {
+									_ref: string;
+									_type: "reference";
+									_weak?: boolean;
+									[internalGroqTypeReferenceTo]?: "post";
+							  }
+							| {
+									_ref: string;
+									_type: "reference";
+									_weak?: boolean;
+									[internalGroqTypeReferenceTo]?: "author";
+							  }
+							| {
+									_ref: string;
+									_type: "reference";
+									_weak?: boolean;
+									[internalGroqTypeReferenceTo]?: "category";
+							  };
+						_type: "internalLink";
+						_key: string;
+				  }
+			)[];
+			level?: number;
+			_type: "block";
+			_key: string;
+	  }
+	| {
+			asset?: {
+				_ref: string;
+				_type: "reference";
+				_weak?: boolean;
+				[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+			};
+			hotspot?: SanityImageHotspot;
+			crop?: SanityImageCrop;
+			alt?: string;
+			height?: number;
+			width?: number;
+			_type: "image";
+			_key: string;
+	  }
+	| ({
+			_key: string;
+	  } & Code)
+	| ({
+			_key: string;
+	  } & Latex)
+	| ({
+			_key: string;
+	  } & Mermaid)
+)[];
+
 export interface Post {
 	_id: string;
 	_type: "post";
@@ -102,39 +175,18 @@ export interface Post {
 		[internalGroqTypeReferenceTo]?: "category";
 	}[];
 	publishedAt?: string;
-	body?: (
-		| {
-				children?: {
-					marks?: string[];
-					text?: string;
-					_type: "span";
-					_key: string;
-				}[];
-				style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-				listItem?: "bullet";
-				markDefs?: {
-					href?: string;
-					_type: "link";
-					_key: string;
-				}[];
-				level?: number;
-				_type: "block";
-				_key: string;
-		  }
-		| {
-				asset?: {
-					_ref: string;
-					_type: "reference";
-					_weak?: boolean;
-					[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-				};
-				hotspot?: SanityImageHotspot;
-				crop?: SanityImageCrop;
-				alt?: string;
-				_type: "image";
-				_key: string;
-		  }
-	)[];
+	body?: BlockContent;
+}
+
+export interface Category {
+	_id: string;
+	_type: "category";
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	title?: string;
+	slug?: Slug;
+	description?: string;
 }
 
 export interface Author {
@@ -175,57 +227,6 @@ export interface Author {
 		_key: string;
 	}[];
 }
-
-export interface Category {
-	_id: string;
-	_type: "category";
-	_createdAt: string;
-	_updatedAt: string;
-	_rev: string;
-	title?: string;
-	slug?: Slug;
-	description?: string;
-}
-
-export interface Slug {
-	_type: "slug";
-	current?: string;
-	source?: string;
-}
-
-export type BlockContent = (
-	| {
-			children?: {
-				marks?: string[];
-				text?: string;
-				_type: "span";
-				_key: string;
-			}[];
-			style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-			listItem?: "bullet";
-			markDefs?: {
-				href?: string;
-				_type: "link";
-				_key: string;
-			}[];
-			level?: number;
-			_type: "block";
-			_key: string;
-	  }
-	| {
-			asset?: {
-				_ref: string;
-				_type: "reference";
-				_weak?: boolean;
-				[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-			};
-			hotspot?: SanityImageHotspot;
-			crop?: SanityImageCrop;
-			alt?: string;
-			_type: "image";
-			_key: string;
-	  }
-)[];
 
 export interface SanityImageCrop {
 	_type: "sanity.imageCrop";
@@ -284,20 +285,92 @@ export interface SanityImageMetadata {
 	isOpaque?: boolean;
 }
 
+export interface Slug {
+	_type: "slug";
+	current?: string;
+	source?: string;
+}
+
+export interface Mermaid {
+	_type: "mermaid";
+	graph?: string;
+}
+
+export interface Latex {
+	_type: "latex";
+	body?: string;
+}
+
+export type Markdown = string;
+
+export interface Code {
+	_type: "code";
+	language?: string;
+	filename?: string;
+	code?: string;
+	highlightedLines?: number[];
+}
+
 export type AllSanitySchemaTypes =
 	| SanityImagePaletteSwatch
 	| SanityImagePalette
 	| SanityImageDimensions
 	| SanityFileAsset
 	| Geopoint
-	| Post
-	| Author
-	| Category
-	| Slug
 	| BlockContent
+	| Post
+	| Category
+	| Author
 	| SanityImageCrop
 	| SanityImageHotspot
 	| SanityImageAsset
 	| SanityAssetSourceData
-	| SanityImageMetadata;
+	| SanityImageMetadata
+	| Slug
+	| Mermaid
+	| Latex
+	| Markdown
+	| Code;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./src/sanity/lib/queries.ts
+// Variable: POSTS_QUERY
+// Query: *[_type == "post" && defined(slug.current)]{    _id, title, slug, author, publishedAt, mainImage, categories, body}
+export type POSTS_QUERYResult = {
+	_id: string;
+	title: string | null;
+	slug: Slug | null;
+	author: {
+		_ref: string;
+		_type: "reference";
+		_weak?: boolean;
+		[internalGroqTypeReferenceTo]?: "author";
+	} | null;
+	publishedAt: string | null;
+	mainImage: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+		};
+		hotspot?: SanityImageHotspot;
+		crop?: SanityImageCrop;
+		alt?: string;
+		_type: "image";
+	} | null;
+	categories:
+		| {
+				_ref: string;
+				_type: "reference";
+				_weak?: boolean;
+				_key: string;
+				[internalGroqTypeReferenceTo]?: "category";
+		  }[]
+		| null;
+	body: BlockContent | null;
+}[];
+declare module "@sanity/client" {
+	interface SanityQueries {
+		'*[_type == "post" && defined(slug.current)]{\n    _id, title, slug, author, publishedAt, mainImage, categories, body\n}': POSTS_QUERYResult;
+	}
+}

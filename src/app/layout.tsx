@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "easymde/dist/easymde.min.css";
 
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
