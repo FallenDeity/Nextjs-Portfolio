@@ -7,7 +7,6 @@
 import { codeInput } from "@sanity/code-input";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
-import { presentationTool } from "sanity/presentation";
 import { structureTool } from "sanity/structure";
 import { latexInput } from "sanity-plugin-latex-input";
 import { markdownSchema } from "sanity-plugin-markdown";
@@ -34,12 +33,5 @@ export default defineConfig({
 		// Vision is for querying with GROQ from inside the Studio
 		// https://www.sanity.io/docs/the-vision-plugin
 		visionTool({ defaultApiVersion: apiVersion }),
-		presentationTool({
-			previewUrl: {
-				previewMode: {
-					enable: "/api/draft-mode/enable",
-				},
-			},
-		}),
 	],
 });

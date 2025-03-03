@@ -42,6 +42,103 @@ export interface SanityImageDimensions {
 	aspectRatio?: number;
 }
 
+export interface Geopoint {
+	_type: "geopoint";
+	lat?: number;
+	lng?: number;
+	alt?: number;
+}
+
+export interface Project {
+	_id: string;
+	_type: "project";
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	title?: string;
+	description?: string;
+	tags?: {
+		_ref: string;
+		_type: "reference";
+		_weak?: boolean;
+		_key: string;
+		[internalGroqTypeReferenceTo]?: "category";
+	}[];
+	publishedAt?: string;
+	source?: string;
+	demo?: string;
+	image?: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+		};
+		hotspot?: SanityImageHotspot;
+		crop?: SanityImageCrop;
+		_type: "image";
+	};
+}
+
+export interface Profile {
+	_id: string;
+	_type: "profile";
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	name?: string;
+	caption?: string;
+	bio?: string;
+	image?: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+		};
+		hotspot?: SanityImageHotspot;
+		crop?: SanityImageCrop;
+		_type: "image";
+	};
+	languages?: string[];
+	resume?: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+		};
+		_type: "file";
+	};
+	contact?: {
+		discord?: string;
+		linkedin?: string;
+		email?: string;
+	};
+	education?: {
+		_ref: string;
+		_type: "reference";
+		_weak?: boolean;
+		_key: string;
+		[internalGroqTypeReferenceTo]?: "education";
+	}[];
+	experience?: {
+		_ref: string;
+		_type: "reference";
+		_weak?: boolean;
+		_key: string;
+		[internalGroqTypeReferenceTo]?: "experience";
+	}[];
+	projects?: {
+		_ref: string;
+		_type: "reference";
+		_weak?: boolean;
+		_key: string;
+		[internalGroqTypeReferenceTo]?: "project";
+	}[];
+	technologies?: string[];
+}
+
 export interface SanityFileAsset {
 	_id: string;
 	_type: "sanity.fileAsset";
@@ -64,11 +161,60 @@ export interface SanityFileAsset {
 	source?: SanityAssetSourceData;
 }
 
-export interface Geopoint {
-	_type: "geopoint";
-	lat?: number;
-	lng?: number;
-	alt?: number;
+export interface Experience {
+	_id: string;
+	_type: "experience";
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	company?: string;
+	role?: string;
+	startDate?: string;
+	endDate?: string;
+	description?: string;
+	points?: string[];
+	icon?: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+		};
+		hotspot?: SanityImageHotspot;
+		crop?: SanityImageCrop;
+		_type: "image";
+	};
+	subExperiences?: {
+		_ref: string;
+		_type: "reference";
+		_weak?: boolean;
+		_key: string;
+		[internalGroqTypeReferenceTo]?: "experience";
+	}[];
+}
+
+export interface Education {
+	_id: string;
+	_type: "education";
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	institution?: string;
+	degree?: string;
+	startDate?: string;
+	endDate?: string;
+	description?: string;
+	icon?: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+		};
+		hotspot?: SanityImageHotspot;
+		crop?: SanityImageCrop;
+		_type: "image";
+	};
 }
 
 export type BlockContent = (
@@ -315,8 +461,12 @@ export type AllSanitySchemaTypes =
 	| SanityImagePaletteSwatch
 	| SanityImagePalette
 	| SanityImageDimensions
-	| SanityFileAsset
 	| Geopoint
+	| Project
+	| Profile
+	| SanityFileAsset
+	| Experience
+	| Education
 	| BlockContent
 	| Post
 	| Category
@@ -334,7 +484,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: POSTS_QUERY
-// Query: *[_type == "post" && defined(slug.current)]{    _id, title, slug, author, publishedAt, mainImage, categories, body}
+// Query: *[_type == "post"    && defined(slug.current)    && (!defined($search) || $search == "" || (title match $search || body match $search))    && (!defined($tags) || count($tags) == 0 || count((categories[]->slug.current)[@ in $tags]) > 0)]    {        _id, title, slug, author, publishedAt, mainImage, categories, body    }
 export type POSTS_QUERYResult = {
 	_id: string;
 	title: string | null;
@@ -369,8 +519,54 @@ export type POSTS_QUERYResult = {
 		| null;
 	body: BlockContent | null;
 }[];
+// Variable: RECENT_POSTS_QUERY
+// Query: *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {        _id, title, slug, author, publishedAt, mainImage, categories, body    }
+export type RECENT_POSTS_QUERYResult = {
+	_id: string;
+	title: string | null;
+	slug: Slug | null;
+	author: {
+		_ref: string;
+		_type: "reference";
+		_weak?: boolean;
+		[internalGroqTypeReferenceTo]?: "author";
+	} | null;
+	publishedAt: string | null;
+	mainImage: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+		};
+		hotspot?: SanityImageHotspot;
+		crop?: SanityImageCrop;
+		alt?: string;
+		_type: "image";
+	} | null;
+	categories:
+		| {
+				_ref: string;
+				_type: "reference";
+				_weak?: boolean;
+				_key: string;
+				[internalGroqTypeReferenceTo]?: "category";
+		  }[]
+		| null;
+	body: BlockContent | null;
+}[];
+// Variable: CATEGORIES_QUERY
+// Query: *[_type == "category"] {        _id, title, slug, description    }
+export type CATEGORIES_QUERYResult = {
+	_id: string;
+	title: string | null;
+	slug: Slug | null;
+	description: string | null;
+}[];
 declare module "@sanity/client" {
 	interface SanityQueries {
-		'*[_type == "post" && defined(slug.current)]{\n    _id, title, slug, author, publishedAt, mainImage, categories, body\n}': POSTS_QUERYResult;
+		'\n    *[_type == "post"\n    && defined(slug.current)\n    && (!defined($search) || $search == "" || (title match $search || body match $search))\n    && (!defined($tags) || count($tags) == 0 || count((categories[]->slug.current)[@ in $tags]) > 0)]\n    {\n        _id, title, slug, author, publishedAt, mainImage, categories, body\n    }': POSTS_QUERYResult;
+		'\n    *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {\n        _id, title, slug, author, publishedAt, mainImage, categories, body\n    }': RECENT_POSTS_QUERYResult;
+		'\n    *[_type == "category"] {\n        _id, title, slug, description\n    }': CATEGORIES_QUERYResult;
 	}
 }

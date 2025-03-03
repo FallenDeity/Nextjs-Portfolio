@@ -75,7 +75,7 @@ const DATA = {
 		social: {
 			Discord: {
 				name: "Discord",
-				url: "#",
+				url: "https://discord.com/users/656838010532265994",
 				icon: Icons.discord,
 			},
 			LinkedIn: {
