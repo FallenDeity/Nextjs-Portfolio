@@ -9,6 +9,11 @@ export const POSTS_QUERY = defineQuery(`
         _id, title, slug, author, publishedAt, mainImage, categories, body
     }`);
 
+export const POST_QUERY = defineQuery(`
+    *[_type == "post" && slug.current == $slug] {
+        _id, title, slug, author, publishedAt, mainImage, categories, body
+    }`);
+
 export const RECENT_POSTS_QUERY = defineQuery(`
     *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {
         _id, title, slug, author, publishedAt, mainImage, categories, body

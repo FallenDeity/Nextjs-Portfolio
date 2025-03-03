@@ -519,6 +519,42 @@ export type POSTS_QUERYResult = {
 		| null;
 	body: BlockContent | null;
 }[];
+// Variable: POST_QUERY
+// Query: *[_type == "post" && slug.current == $slug] {        _id, title, slug, author, publishedAt, mainImage, categories, body    }
+export type POST_QUERYResult = {
+	_id: string;
+	title: string | null;
+	slug: Slug | null;
+	author: {
+		_ref: string;
+		_type: "reference";
+		_weak?: boolean;
+		[internalGroqTypeReferenceTo]?: "author";
+	} | null;
+	publishedAt: string | null;
+	mainImage: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+		};
+		hotspot?: SanityImageHotspot;
+		crop?: SanityImageCrop;
+		alt?: string;
+		_type: "image";
+	} | null;
+	categories:
+		| {
+				_ref: string;
+				_type: "reference";
+				_weak?: boolean;
+				_key: string;
+				[internalGroqTypeReferenceTo]?: "category";
+		  }[]
+		| null;
+	body: BlockContent | null;
+}[];
 // Variable: RECENT_POSTS_QUERY
 // Query: *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {        _id, title, slug, author, publishedAt, mainImage, categories, body    }
 export type RECENT_POSTS_QUERYResult = {
@@ -566,6 +602,7 @@ export type CATEGORIES_QUERYResult = {
 declare module "@sanity/client" {
 	interface SanityQueries {
 		'\n    *[_type == "post"\n    && defined(slug.current)\n    && (!defined($search) || $search == "" || (title match $search || body match $search))\n    && (!defined($tags) || count($tags) == 0 || count((categories[]->slug.current)[@ in $tags]) > 0)]\n    {\n        _id, title, slug, author, publishedAt, mainImage, categories, body\n    }': POSTS_QUERYResult;
+		'\n    *[_type == "post" && slug.current == $slug] {\n        _id, title, slug, author, publishedAt, mainImage, categories, body\n    }': POST_QUERYResult;
 		'\n    *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {\n        _id, title, slug, author, publishedAt, mainImage, categories, body\n    }': RECENT_POSTS_QUERYResult;
 		'\n    *[_type == "category"] {\n        _id, title, slug, description\n    }': CATEGORIES_QUERYResult;
 	}

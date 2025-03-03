@@ -30,6 +30,7 @@ export async function PostList({ query, tags }: PostListProps): Promise<React.Re
 	const posts = await sanityFetch({
 		query: POSTS_QUERY,
 		params: { search: query, tags },
+		tags: ["post", "author", "category"],
 	});
 
 	return (
