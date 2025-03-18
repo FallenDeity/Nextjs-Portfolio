@@ -55,19 +55,19 @@ export interface Project {
 	_createdAt: string;
 	_updatedAt: string;
 	_rev: string;
-	title?: string;
-	description?: string;
-	tags?: {
+	title: string;
+	description: string;
+	tags: {
 		_ref: string;
 		_type: "reference";
 		_weak?: boolean;
 		_key: string;
 		[internalGroqTypeReferenceTo]?: "category";
 	}[];
-	publishedAt?: string;
+	publishedAt: string;
 	source?: string;
 	demo?: string;
-	image?: {
+	image: {
 		asset?: {
 			_ref: string;
 			_type: "reference";
@@ -86,10 +86,10 @@ export interface Profile {
 	_createdAt: string;
 	_updatedAt: string;
 	_rev: string;
-	name?: string;
-	caption?: string;
-	bio?: string;
-	image?: {
+	name: string;
+	caption: string;
+	bio: string;
+	image: {
 		asset?: {
 			_ref: string;
 			_type: "reference";
@@ -100,8 +100,8 @@ export interface Profile {
 		crop?: SanityImageCrop;
 		_type: "image";
 	};
-	languages?: string[];
-	resume?: {
+	languages: string[];
+	resume: {
 		asset?: {
 			_ref: string;
 			_type: "reference";
@@ -110,33 +110,33 @@ export interface Profile {
 		};
 		_type: "file";
 	};
-	contact?: {
+	contact: {
 		discord?: string;
-		linkedin?: string;
-		email?: string;
+		linkedin: string;
+		email: string;
 	};
-	education?: {
+	education: {
 		_ref: string;
 		_type: "reference";
 		_weak?: boolean;
 		_key: string;
 		[internalGroqTypeReferenceTo]?: "education";
 	}[];
-	experience?: {
+	experience: {
 		_ref: string;
 		_type: "reference";
 		_weak?: boolean;
 		_key: string;
 		[internalGroqTypeReferenceTo]?: "experience";
 	}[];
-	projects?: {
+	projects: {
 		_ref: string;
 		_type: "reference";
 		_weak?: boolean;
 		_key: string;
 		[internalGroqTypeReferenceTo]?: "project";
 	}[];
-	technologies?: string[];
+	technologies: string[];
 }
 
 export interface SanityFileAsset {
@@ -167,13 +167,13 @@ export interface Experience {
 	_createdAt: string;
 	_updatedAt: string;
 	_rev: string;
-	company?: string;
-	role?: string;
-	startDate?: string;
+	company: string;
+	role: string;
+	startDate: string;
 	endDate?: string;
 	description?: string;
 	points?: string[];
-	icon?: {
+	icon: {
 		asset?: {
 			_ref: string;
 			_type: "reference";
@@ -199,12 +199,12 @@ export interface Education {
 	_createdAt: string;
 	_updatedAt: string;
 	_rev: string;
-	institution?: string;
-	degree?: string;
-	startDate?: string;
+	institution: string;
+	degree: string;
+	startDate: string;
 	endDate?: string;
 	description?: string;
-	icon?: {
+	icon: {
 		asset?: {
 			_ref: string;
 			_type: "reference";
@@ -216,76 +216,6 @@ export interface Education {
 		_type: "image";
 	};
 }
-
-export type BlockContent = (
-	| {
-			children?: {
-				marks?: string[];
-				text?: string;
-				_type: "span";
-				_key: string;
-			}[];
-			style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-			listItem?: "bullet" | "number";
-			markDefs?: (
-				| {
-						href?: string;
-						_type: "link";
-						_key: string;
-				  }
-				| {
-						reference?:
-							| {
-									_ref: string;
-									_type: "reference";
-									_weak?: boolean;
-									[internalGroqTypeReferenceTo]?: "post";
-							  }
-							| {
-									_ref: string;
-									_type: "reference";
-									_weak?: boolean;
-									[internalGroqTypeReferenceTo]?: "author";
-							  }
-							| {
-									_ref: string;
-									_type: "reference";
-									_weak?: boolean;
-									[internalGroqTypeReferenceTo]?: "category";
-							  };
-						_type: "internalLink";
-						_key: string;
-				  }
-			)[];
-			level?: number;
-			_type: "block";
-			_key: string;
-	  }
-	| {
-			asset?: {
-				_ref: string;
-				_type: "reference";
-				_weak?: boolean;
-				[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-			};
-			hotspot?: SanityImageHotspot;
-			crop?: SanityImageCrop;
-			alt?: string;
-			height?: number;
-			width?: number;
-			_type: "image";
-			_key: string;
-	  }
-	| ({
-			_key: string;
-	  } & Code)
-	| ({
-			_key: string;
-	  } & Latex)
-	| ({
-			_key: string;
-	  } & Mermaid)
-)[];
 
 export interface Post {
 	_id: string;
@@ -293,15 +223,15 @@ export interface Post {
 	_createdAt: string;
 	_updatedAt: string;
 	_rev: string;
-	title?: string;
-	slug?: Slug;
-	author?: {
+	title: string;
+	slug: Slug;
+	author: {
 		_ref: string;
 		_type: "reference";
 		_weak?: boolean;
 		[internalGroqTypeReferenceTo]?: "author";
 	};
-	mainImage?: {
+	mainImage: {
 		asset?: {
 			_ref: string;
 			_type: "reference";
@@ -310,29 +240,18 @@ export interface Post {
 		};
 		hotspot?: SanityImageHotspot;
 		crop?: SanityImageCrop;
-		alt?: string;
+		alt: string;
 		_type: "image";
 	};
-	categories?: {
+	categories: {
 		_ref: string;
 		_type: "reference";
 		_weak?: boolean;
 		_key: string;
 		[internalGroqTypeReferenceTo]?: "category";
 	}[];
-	publishedAt?: string;
-	body?: BlockContent;
-}
-
-export interface Category {
-	_id: string;
-	_type: "category";
-	_createdAt: string;
-	_updatedAt: string;
-	_rev: string;
-	title?: string;
-	slug?: Slug;
-	description?: string;
+	publishedAt: string;
+	body: string;
 }
 
 export interface Author {
@@ -341,9 +260,9 @@ export interface Author {
 	_createdAt: string;
 	_updatedAt: string;
 	_rev: string;
-	name?: string;
-	slug?: Slug;
-	image?: {
+	name: string;
+	slug: Slug;
+	image: {
 		asset?: {
 			_ref: string;
 			_type: "reference";
@@ -354,7 +273,7 @@ export interface Author {
 		crop?: SanityImageCrop;
 		_type: "image";
 	};
-	bio?: {
+	bio: {
 		children?: {
 			marks?: string[];
 			text?: string;
@@ -431,31 +350,24 @@ export interface SanityImageMetadata {
 	isOpaque?: boolean;
 }
 
+export interface Category {
+	_id: string;
+	_type: "category";
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	title: string;
+	slug: Slug;
+	description?: string;
+}
+
 export interface Slug {
 	_type: "slug";
-	current?: string;
+	current: string;
 	source?: string;
 }
 
-export interface Mermaid {
-	_type: "mermaid";
-	graph?: string;
-}
-
-export interface Latex {
-	_type: "latex";
-	body?: string;
-}
-
 export type Markdown = string;
-
-export interface Code {
-	_type: "code";
-	language?: string;
-	filename?: string;
-	code?: string;
-	highlightedLines?: number[];
-}
 
 export type AllSanitySchemaTypes =
 	| SanityImagePaletteSwatch
@@ -467,35 +379,25 @@ export type AllSanitySchemaTypes =
 	| SanityFileAsset
 	| Experience
 	| Education
-	| BlockContent
 	| Post
-	| Category
 	| Author
 	| SanityImageCrop
 	| SanityImageHotspot
 	| SanityImageAsset
 	| SanityAssetSourceData
 	| SanityImageMetadata
+	| Category
 	| Slug
-	| Mermaid
-	| Latex
-	| Markdown
-	| Code;
+	| Markdown;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: POSTS_QUERY
-// Query: *[_type == "post"    && defined(slug.current)    && (!defined($search) || $search == "" || (title match $search || body match $search))    && (!defined($tags) || count($tags) == 0 || count((categories[]->slug.current)[@ in $tags]) > 0)]    {        _id, title, slug, author, publishedAt, mainImage, categories, body    }
+// Query: *[_type == "post"    && defined(slug.current)    && (!defined($search) || $search == "" || (title match $search || body match $search))    && (!defined($tags) || count($tags) == 0 || array::intersects(categories[]->slug.current, $tags))    ] {        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}    }
 export type POSTS_QUERYResult = {
 	_id: string;
-	title: string | null;
-	slug: Slug | null;
-	author: {
-		_ref: string;
-		_type: "reference";
-		_weak?: boolean;
-		[internalGroqTypeReferenceTo]?: "author";
-	} | null;
-	publishedAt: string | null;
+	title: string;
+	slug: Slug;
+	publishedAt: string;
 	mainImage: {
 		asset?: {
 			_ref: string;
@@ -505,33 +407,36 @@ export type POSTS_QUERYResult = {
 		};
 		hotspot?: SanityImageHotspot;
 		crop?: SanityImageCrop;
-		alt?: string;
+		alt: string;
 		_type: "image";
-	} | null;
-	categories:
-		| {
+	};
+	author: {
+		name: string;
+		image: {
+			asset?: {
 				_ref: string;
 				_type: "reference";
 				_weak?: boolean;
-				_key: string;
-				[internalGroqTypeReferenceTo]?: "category";
-		  }[]
-		| null;
-	body: BlockContent | null;
+				[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+			};
+			hotspot?: SanityImageHotspot;
+			crop?: SanityImageCrop;
+			_type: "image";
+		};
+	};
+	categories: {
+		title: string;
+		slug: Slug;
+		description: string | null;
+	}[];
 }[];
 // Variable: POST_QUERY
-// Query: *[_type == "post" && slug.current == $slug] {        _id, title, slug, author, publishedAt, mainImage, categories, body    }
+// Query: *[_type == "post" && slug.current == $slug] {        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body[] {            ...,            markDefs[] {                ...,                _type == "internalLink" => {                    "slug": @.reference->slug.current                }            }        }    }
 export type POST_QUERYResult = {
 	_id: string;
-	title: string | null;
-	slug: Slug | null;
-	author: {
-		_ref: string;
-		_type: "reference";
-		_weak?: boolean;
-		[internalGroqTypeReferenceTo]?: "author";
-	} | null;
-	publishedAt: string | null;
+	title: string;
+	slug: Slug;
+	publishedAt: string;
 	mainImage: {
 		asset?: {
 			_ref: string;
@@ -541,33 +446,43 @@ export type POST_QUERYResult = {
 		};
 		hotspot?: SanityImageHotspot;
 		crop?: SanityImageCrop;
-		alt?: string;
+		alt: string;
 		_type: "image";
-	} | null;
-	categories:
-		| {
+	};
+	author: {
+		name: string;
+		image: {
+			asset?: {
 				_ref: string;
 				_type: "reference";
 				_weak?: boolean;
-				_key: string;
-				[internalGroqTypeReferenceTo]?: "category";
-		  }[]
-		| null;
-	body: BlockContent | null;
+				[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+			};
+			hotspot?: SanityImageHotspot;
+			crop?: SanityImageCrop;
+			_type: "image";
+		};
+	};
+	categories: {
+		title: string;
+		slug: Slug;
+		description: string | null;
+	}[];
+	body: null;
 }[];
 // Variable: RECENT_POSTS_QUERY
-// Query: *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {        _id, title, slug, author, publishedAt, mainImage, categories, body    }
+// Query: *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {        _id, title, slug, author, publishedAt, mainImage, categories[]->{title, slug, description}    }
 export type RECENT_POSTS_QUERYResult = {
 	_id: string;
-	title: string | null;
-	slug: Slug | null;
+	title: string;
+	slug: Slug;
 	author: {
 		_ref: string;
 		_type: "reference";
 		_weak?: boolean;
 		[internalGroqTypeReferenceTo]?: "author";
-	} | null;
-	publishedAt: string | null;
+	};
+	publishedAt: string;
 	mainImage: {
 		asset?: {
 			_ref: string;
@@ -577,33 +492,28 @@ export type RECENT_POSTS_QUERYResult = {
 		};
 		hotspot?: SanityImageHotspot;
 		crop?: SanityImageCrop;
-		alt?: string;
+		alt: string;
 		_type: "image";
-	} | null;
-	categories:
-		| {
-				_ref: string;
-				_type: "reference";
-				_weak?: boolean;
-				_key: string;
-				[internalGroqTypeReferenceTo]?: "category";
-		  }[]
-		| null;
-	body: BlockContent | null;
+	};
+	categories: {
+		title: string;
+		slug: Slug;
+		description: string | null;
+	}[];
 }[];
 // Variable: CATEGORIES_QUERY
 // Query: *[_type == "category"] {        _id, title, slug, description    }
 export type CATEGORIES_QUERYResult = {
 	_id: string;
-	title: string | null;
-	slug: Slug | null;
+	title: string;
+	slug: Slug;
 	description: string | null;
 }[];
 declare module "@sanity/client" {
 	interface SanityQueries {
-		'\n    *[_type == "post"\n    && defined(slug.current)\n    && (!defined($search) || $search == "" || (title match $search || body match $search))\n    && (!defined($tags) || count($tags) == 0 || count((categories[]->slug.current)[@ in $tags]) > 0)]\n    {\n        _id, title, slug, author, publishedAt, mainImage, categories, body\n    }': POSTS_QUERYResult;
-		'\n    *[_type == "post" && slug.current == $slug] {\n        _id, title, slug, author, publishedAt, mainImage, categories, body\n    }': POST_QUERYResult;
-		'\n    *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {\n        _id, title, slug, author, publishedAt, mainImage, categories, body\n    }': RECENT_POSTS_QUERYResult;
+		'\n    *[_type == "post"\n    && defined(slug.current)\n    && (!defined($search) || $search == "" || (title match $search || body match $search))\n    && (!defined($tags) || count($tags) == 0 || array::intersects(categories[]->slug.current, $tags))\n    ] {\n        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}\n    }': POSTS_QUERYResult;
+		'\n    *[_type == "post" && slug.current == $slug] {\n        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body[] {\n            ...,\n            markDefs[] {\n                ...,\n                _type == "internalLink" => {\n                    "slug": @.reference->slug.current\n                }\n            }\n        }\n    }': POST_QUERYResult;
+		'\n    *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {\n        _id, title, slug, author, publishedAt, mainImage, categories[]->{title, slug, description}\n    }': RECENT_POSTS_QUERYResult;
 		'\n    *[_type == "category"] {\n        _id, title, slug, description\n    }': CATEGORIES_QUERYResult;
 	}
 }

@@ -11,16 +11,19 @@ export const educationType = defineType({
 			name: "institution",
 			title: "Institution",
 			type: "string",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "degree",
 			title: "Degree",
 			type: "string",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "startDate",
 			title: "Start Date",
 			type: "date",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "endDate",
@@ -39,6 +42,7 @@ export const educationType = defineType({
 			options: {
 				hotspot: true,
 			},
+			validation: (Rule) => Rule.required(),
 		}),
 	],
 	initialValue: {

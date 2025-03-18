@@ -4,19 +4,27 @@ export const POSTS_QUERY = defineQuery(`
     *[_type == "post"
     && defined(slug.current)
     && (!defined($search) || $search == "" || (title match $search || body match $search))
-    && (!defined($tags) || count($tags) == 0 || count((categories[]->slug.current)[@ in $tags]) > 0)]
-    {
-        _id, title, slug, author, publishedAt, mainImage, categories, body
+    && (!defined($tags) || count($tags) == 0 || array::intersects(categories[]->slug.current, $tags))
+    ] {
+        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}
     }`);
 
 export const POST_QUERY = defineQuery(`
     *[_type == "post" && slug.current == $slug] {
-        _id, title, slug, author, publishedAt, mainImage, categories, body
+        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body[] {
+            ...,
+            markDefs[] {
+                ...,
+                _type == "internalLink" => {
+                    "slug": @.reference->slug.current
+                }
+            }
+        }
     }`);
 
 export const RECENT_POSTS_QUERY = defineQuery(`
     *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {
-        _id, title, slug, author, publishedAt, mainImage, categories, body
+        _id, title, slug, author, publishedAt, mainImage, categories[]->{title, slug, description}
     }`);
 
 export const CATEGORIES_QUERY = defineQuery(`

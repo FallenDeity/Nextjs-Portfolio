@@ -10,6 +10,7 @@ export const authorType = defineType({
 		defineField({
 			name: "name",
 			type: "string",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "slug",
@@ -17,6 +18,7 @@ export const authorType = defineType({
 			options: {
 				source: "name",
 			},
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "image",
@@ -24,6 +26,7 @@ export const authorType = defineType({
 			options: {
 				hotspot: true,
 			},
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "bio",
@@ -35,6 +38,7 @@ export const authorType = defineType({
 					lists: [],
 				}),
 			],
+			validation: (Rule) => Rule.required(),
 		}),
 	],
 	preview: {

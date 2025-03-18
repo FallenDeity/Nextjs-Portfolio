@@ -10,6 +10,7 @@ export const postType = defineType({
 		defineField({
 			name: "title",
 			type: "string",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "slug",
@@ -17,11 +18,13 @@ export const postType = defineType({
 			options: {
 				source: "title",
 			},
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "author",
 			type: "reference",
 			to: { type: "author" },
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "mainImage",
@@ -34,21 +37,27 @@ export const postType = defineType({
 					name: "alt",
 					type: "string",
 					title: "Alternative text",
+					validation: (Rule) => Rule.required(),
 				}),
 			],
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "categories",
 			type: "array",
 			of: [defineArrayMember({ type: "reference", to: { type: "category" } })],
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "publishedAt",
 			type: "datetime",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "body",
-			type: "blockContent",
+			title: "Body",
+			type: "markdown",
+			validation: (Rule) => Rule.required(),
 		}),
 	],
 	preview: {

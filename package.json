@@ -16,7 +16,7 @@
 		"start": "next start",
 		"coverage": "nyc npm run test",
 		"analyze": "cross-env ANALYZE=true next build",
-		"typegen": "sanity schema extract --path=src/sanity/extract.json && sanity typegen generate && rimraf src/sanity/extract.json && yarn lint:fix"
+		"typegen": "sanity schema extract --path=src/sanity/extract.json --enforce-required-fields && sanity typegen generate && rimraf src/sanity/extract.json && yarn lint:fix"
 	},
 	"pre-commit": [
 		"lint:fix",
@@ -67,7 +67,6 @@
 	},
 	"dependencies": {
 		"@neondatabase/serverless": "^0.10.4",
-		"@portabletext/react": "^3.2.1",
 		"@radix-ui/react-avatar": "^1.1.3",
 		"@radix-ui/react-checkbox": "^1.1.4",
 		"@radix-ui/react-collapsible": "^1.1.3",
@@ -79,7 +78,7 @@
 		"@radix-ui/react-separator": "^1.1.2",
 		"@radix-ui/react-slot": "^1.1.2",
 		"@radix-ui/react-tooltip": "^1.1.8",
-		"@sanity/code-input": "^5.1.2",
+		"@sanity/asset-utils": "^2.2.1",
 		"@sanity/icons": "^3.6.0",
 		"@sanity/image-url": "1",
 		"@sanity/vision": "3",
@@ -87,6 +86,7 @@
 		"clsx": "^2.1.1",
 		"cmdk": "1.0.0",
 		"colorthief": "^2.6.0",
+		"date-fns": "^4.1.0",
 		"easymde": "2",
 		"framer-motion": "^12.4.3",
 		"keen-slider": "^6.8.6",
@@ -102,7 +102,6 @@
 		"react-dom": "^19.0.0",
 		"react-icons": "^5.4.0",
 		"sanity": "3",
-		"sanity-plugin-latex-input": "^2.0.5",
 		"sanity-plugin-markdown": "^5.0.0",
 		"simplex-noise": "^4.0.3",
 		"styled-components": "6",
@@ -123,5 +122,6 @@
 		"plugins": [
 			"prettier-plugin-tailwindcss"
 		]
-	}
+	},
+	"repository": "https://github.com/FallenDeity/react-next-tailwind-template"
 }

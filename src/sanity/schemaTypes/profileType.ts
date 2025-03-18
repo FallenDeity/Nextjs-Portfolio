@@ -11,16 +11,19 @@ export const profileType = defineType({
 			name: "name",
 			title: "Name",
 			type: "string",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "caption",
 			title: "Caption",
 			type: "string",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "bio",
 			title: "Bio",
 			type: "text",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "image",
@@ -29,6 +32,7 @@ export const profileType = defineType({
 			options: {
 				hotspot: true,
 			},
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "languages",
@@ -39,11 +43,13 @@ export const profileType = defineType({
 					type: "string",
 				}),
 			],
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "resume",
 			title: "Resume",
 			type: "file",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "contact",
@@ -59,13 +65,16 @@ export const profileType = defineType({
 					name: "linkedin",
 					title: "LinkedIn",
 					type: "url",
+					validation: (Rule) => Rule.required(),
 				}),
 				defineField({
 					name: "email",
 					title: "Email",
 					type: "string",
+					validation: (Rule) => Rule.required(),
 				}),
 			],
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "education",
@@ -77,6 +86,7 @@ export const profileType = defineType({
 					to: [{ type: "education" }],
 				}),
 			],
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "experience",
@@ -88,6 +98,7 @@ export const profileType = defineType({
 					to: [{ type: "experience" }],
 				}),
 			],
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "projects",
@@ -99,6 +110,7 @@ export const profileType = defineType({
 					to: [{ type: "project" }],
 				}),
 			],
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "technologies",
@@ -109,6 +121,7 @@ export const profileType = defineType({
 					type: "string",
 				}),
 			],
+			validation: (Rule) => Rule.required(),
 		}),
 	],
 });

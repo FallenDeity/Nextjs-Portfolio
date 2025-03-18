@@ -11,16 +11,19 @@ export const experienceType = defineType({
 			name: "company",
 			title: "Company",
 			type: "string",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "role",
 			title: "Role",
 			type: "string",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "startDate",
 			title: "Start Date",
 			type: "date",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "endDate",
@@ -49,6 +52,7 @@ export const experienceType = defineType({
 			options: {
 				hotspot: true,
 			},
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "subExperiences",

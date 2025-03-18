@@ -11,11 +11,13 @@ export const projectType = defineType({
 			name: "title",
 			title: "Title",
 			type: "string",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "description",
 			title: "Description",
 			type: "text",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "tags",
@@ -27,11 +29,13 @@ export const projectType = defineType({
 					to: [{ type: "category" }],
 				}),
 			],
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "publishedAt",
 			title: "Published At",
 			type: "datetime",
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "source",
@@ -50,6 +54,7 @@ export const projectType = defineType({
 			options: {
 				hotspot: true,
 			},
+			validation: (Rule) => Rule.required(),
 		}),
 	],
 	initialValue: {
