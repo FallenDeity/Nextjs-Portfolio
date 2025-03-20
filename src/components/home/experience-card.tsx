@@ -1,11 +1,34 @@
 "use client";
 
-import { Code } from "lucide-react";
+import { getImageDimensions } from "@sanity/asset-utils";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
-import { BentoCard } from "@/components/magicui/bento-grid";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import {
+	Timeline,
+	TimelineConnector,
+	TimelineContent,
+	TimelineDescription,
+	TimelineDot,
+	TimelineItem,
+	TimelineSeparator,
+	TimelineTitle,
+} from "@/components/ui/timeline";
 
-import { Experience, ExperienceList } from "./components/experience-list";
+import { BentoCard } from "../magicui/bento-grid";
+
+interface Experience {
+	id: string;
+	company: string;
+	role: string;
+	duration: string;
+	description: string;
+	points?: string[];
+	icon?: string;
+	subExperiences?: Experience[];
+}
 
 const experiences: Experience[] = [
 	{
@@ -27,7 +50,6 @@ const experiences: Experience[] = [
 				role: "Tech Lead",
 				duration: "Jun 2021 - Present",
 				description: "Spearheading the development of our flagship product.",
-				icon: Code,
 				points: [
 					"Implemented a new CI/CD pipeline that reduced deployment time by 50%.",
 					"Led a team of 5 developers to deliver a major release ahead of schedule.",
@@ -64,15 +86,93 @@ const experiences: Experience[] = [
 	},
 ];
 
-export function ExperienceTimeline(): React.ReactElement {
+const ExperienceList: React.FC<{ experiences: Experience[] }> = ({ experiences }) => {
+	const [open, setOpen] = React.useState<boolean>(false);
 	return (
-		<BentoCard name="Experience" className="pb-6 lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3">
-			<div className="flex h-full w-full flex-col items-start">
-				<h2 className="my-6 px-6 text-xl font-semibold">Experience</h2>
+		<Timeline orientation="vertical">
+			{experiences.map((experience) => (
+				<TimelineItem key={experience.id}>
+					<TimelineSeparator>
+						<TimelineDot>
+							{experience.icon && (
+								<Image
+									src={experience.icon}
+									alt={"icon"}
+									width={getImageDimensions(experience.icon).width}
+									height={getImageDimensions(experience.icon).height}
+									layout="fixed"
+								/>
+							)}
+						</TimelineDot>
+						<TimelineConnector />
+					</TimelineSeparator>
+					<TimelineContent>
+						<Collapsible>
+							<CollapsibleTrigger className="w-full">
+								<div className="flex w-full flex-row items-center justify-between">
+									<div className="flex flex-col items-start justify-start">
+										<TimelineTitle className="text-md font-semibold">
+											{experience.role}
+										</TimelineTitle>
+										<TimelineDescription className="text-muted-foreground text-xs">
+											{experience.company} | {experience.duration}
+										</TimelineDescription>
+										<TimelineDescription className="text-muted-foreground text-xs">
+											{experience.description}
+										</TimelineDescription>
+									</div>
+									<div className="flex items-center">
+										{experience.points && (
+											<div
+												className="flex cursor-pointer items-center"
+												onClick={() => setOpen(!open)}>
+												{open ? (
+													<ChevronUp className="h-4 w-4" />
+												) : (
+													<ChevronDown className="h-4 w-4" />
+												)}
+											</div>
+										)}
+									</div>
+								</div>
+							</CollapsibleTrigger>
+							<CollapsibleContent>
+								{experience.points && (
+									<ul className="mt-2 list-inside list-disc">
+										{experience.points.map((point) => (
+											<li
+												key={point}
+												className="text-foreground/70 text-[13px] tracking-tighter text-pretty">
+												{point}
+											</li>
+										))}
+									</ul>
+								)}
+								{experience.subExperiences && (
+									<Timeline className="mt-4" orientation="vertical">
+										<ExperienceList experiences={experience.subExperiences} />
+									</Timeline>
+								)}
+							</CollapsibleContent>
+						</Collapsible>
+					</TimelineContent>
+				</TimelineItem>
+			))}
+		</Timeline>
+	);
+};
+
+// timeline with collapsible points for each experience and sub-experience
+// sub-experiences are rendered as nested timelines
+export const ExperienceTimeline: React.FC = () => {
+	return (
+		<BentoCard name="Experience" className="lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3">
+			<div className="flex h-full w-full flex-col items-start lg:col-span-1">
+				<h2 className="my-4 px-6 text-xl font-semibold">Experience</h2>
 				<div className="scrollbar-hide mx-6 h-[55vh] w-[calc(100%-3rem)] overflow-y-auto">
-					<ExperienceList experiences={experiences} depth={1} />
+					<ExperienceList experiences={experiences} />
 				</div>
 			</div>
 		</BentoCard>
 	);
-}
+};

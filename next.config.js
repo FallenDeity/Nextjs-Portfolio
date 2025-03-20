@@ -10,6 +10,7 @@ const nextConfig = {
 			resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
 		},
 	},
+	transpilePackages: ["next-mdx-remote"],
 	logging: {
 		fetches: {
 			fullUrl: true,

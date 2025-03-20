@@ -37,12 +37,13 @@
 		}
 	},
 	"include": [
-		"src/**/*",
-		"tests/**/*",
 		"dist/types/**/*.ts",
 		"eslint.config.mjs",
+		"sanity.cli.ts",
 		"sanity.config.ts",
-		"sanity.cli.ts"
+		"src/**/*",
+		"tests/**/*",
+		".next/types/**/*.ts"
 	],
-	"exclude": ["node_modules", "dist", "types"]
+	"exclude": ["node_modules", "dist", "types/**/*"]
 }

@@ -431,7 +431,7 @@ export type POSTS_QUERYResult = {
 	}[];
 }[];
 // Variable: POST_QUERY
-// Query: *[_type == "post" && slug.current == $slug] {        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body[] {            ...,            markDefs[] {                ...,                _type == "internalLink" => {                    "slug": @.reference->slug.current                }            }        }    }
+// Query: *[_type == "post" && slug.current == $slug][0] {        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body    }
 export type POST_QUERYResult = {
 	_id: string;
 	title: string;
@@ -468,8 +468,8 @@ export type POST_QUERYResult = {
 		slug: Slug;
 		description: string | null;
 	}[];
-	body: null;
-}[];
+	body: string;
+} | null;
 // Variable: RECENT_POSTS_QUERY
 // Query: *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {        _id, title, slug, author, publishedAt, mainImage, categories[]->{title, slug, description}    }
 export type RECENT_POSTS_QUERYResult = {
@@ -512,7 +512,7 @@ export type CATEGORIES_QUERYResult = {
 declare module "@sanity/client" {
 	interface SanityQueries {
 		'\n    *[_type == "post"\n    && defined(slug.current)\n    && (!defined($search) || $search == "" || (title match $search || body match $search))\n    && (!defined($tags) || count($tags) == 0 || array::intersects(categories[]->slug.current, $tags))\n    ] {\n        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}\n    }': POSTS_QUERYResult;
-		'\n    *[_type == "post" && slug.current == $slug] {\n        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body[] {\n            ...,\n            markDefs[] {\n                ...,\n                _type == "internalLink" => {\n                    "slug": @.reference->slug.current\n                }\n            }\n        }\n    }': POST_QUERYResult;
+		'\n    *[_type == "post" && slug.current == $slug][0] {\n        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body\n    }': POST_QUERYResult;
 		'\n    *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {\n        _id, title, slug, author, publishedAt, mainImage, categories[]->{title, slug, description}\n    }': RECENT_POSTS_QUERYResult;
 		'\n    *[_type == "category"] {\n        _id, title, slug, description\n    }': CATEGORIES_QUERYResult;
 	}

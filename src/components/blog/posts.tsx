@@ -2,6 +2,7 @@ import { getImageDimensions } from "@sanity/asset-utils";
 import { formatDistanceToNow } from "date-fns";
 import { Calendar } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { sanityFetch } from "@/sanity/lib/client";
@@ -24,7 +25,7 @@ interface PostCardProps {
 
 function PostCard({ post }: PostCardProps): React.ReactElement {
 	return (
-		<article className="bg-card/40 transform-gpu overflow-hidden rounded-lg [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] backdrop-blur-xl backdrop-filter dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] dark:[border:1px_solid_rgba(255,255,255,.1)]">
+		<div className="bg-card/40 transform-gpu cursor-pointer overflow-hidden rounded-lg [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] backdrop-blur-xl backdrop-filter dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] dark:[border:1px_solid_rgba(255,255,255,.1)]">
 			<Image
 				src={urlFor(post.mainImage).url() || ""}
 				alt={post.mainImage.alt || "Image"}
@@ -32,7 +33,7 @@ function PostCard({ post }: PostCardProps): React.ReactElement {
 				blurDataURL={urlFor(post.mainImage).width(16).height(9).dpr(2).blur(20).url() || ""}
 				width={getImageDimensions(post.mainImage.asset?._ref ?? "").width}
 				height={getImageDimensions(post.mainImage.asset?._ref ?? "").height}
-				className="h-96 max-h-96 w-full rounded-lg object-cover transition-transform duration-300 ease-in-out hover:translate-y-[-1px] hover:scale-[1.05]"
+				className="h-96 max-h-96 w-full rounded-lg object-cover"
 				sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
 			/>
 			<div className="p-4">
@@ -72,7 +73,7 @@ function PostCard({ post }: PostCardProps): React.ReactElement {
 					</div>
 				</div>
 			</div>
-		</article>
+		</div>
 	);
 }
 
@@ -87,7 +88,9 @@ export async function PostList({ query, tags }: PostListProps): Promise<React.Re
 		<ul className="flex h-full w-full flex-1 flex-col gap-10">
 			{posts.map((post) => (
 				<li key={post._id}>
-					<PostCard post={post} />
+					<Link href={`/blog/${post.slug.current}`}>
+						<PostCard post={post} />
+					</Link>
 				</li>
 			))}
 		</ul>

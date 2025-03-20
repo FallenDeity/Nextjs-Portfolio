@@ -10,16 +10,8 @@ export const POSTS_QUERY = defineQuery(`
     }`);
 
 export const POST_QUERY = defineQuery(`
-    *[_type == "post" && slug.current == $slug] {
-        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body[] {
-            ...,
-            markDefs[] {
-                ...,
-                _type == "internalLink" => {
-                    "slug": @.reference->slug.current
-                }
-            }
-        }
+    *[_type == "post" && slug.current == $slug][0] {
+        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body
     }`);
 
 export const RECENT_POSTS_QUERY = defineQuery(`

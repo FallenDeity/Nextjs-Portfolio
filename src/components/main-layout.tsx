@@ -4,6 +4,7 @@ import { NavigationDock } from "@/components/nav-dock";
 import { Lights } from "@/components/ui/lights";
 
 import CommandPalette from "./command-palette";
+import { Toaster } from "./ui/sonner";
 
 export default function MainLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
 	return (
@@ -12,7 +13,10 @@ export default function MainLayout({ children }: { children: React.ReactNode }):
 			<div className={"bg-grid-black/[0.05] dark:bg-grid-white/[0.03] relative w-full"}>
 				<Lights />
 				<NavigationDock />
-				<div className="flex min-h-screen w-full flex-1 flex-col items-center justify-center">{children}</div>
+				<div className="flex min-h-screen w-full flex-1 flex-col items-center justify-center">
+					{children}
+					<Toaster />
+				</div>
 			</div>
 		</main>
 	);
