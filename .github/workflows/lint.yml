@@ -1,7 +1,6 @@
 name: Lint
 on:
     push:
-    pull_request:
 
 jobs:
     lint:
@@ -27,6 +26,9 @@ jobs:
 
             - name: Build with next
               run: yarn build
+              env:
+                  NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+                  NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
 
             - name: Test with mocha
               run: yarn test
