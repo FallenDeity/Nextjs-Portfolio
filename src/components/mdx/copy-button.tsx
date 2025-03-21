@@ -26,7 +26,7 @@ export default function Pre({
 	};
 
 	return (
-		<pre ref={preRef} {...props} className="group relative mt-6 mb-4 overflow-x-auto rounded-lg border p-2">
+		<pre ref={preRef} {...props} className="group relative overflow-x-auto rounded-lg border p-2">
 			<button
 				disabled={isCopied}
 				// eslint-disable-next-line @typescript-eslint/no-misused-promises

@@ -12,6 +12,26 @@ html.dark {
 		color: var(--shiki-dark);
 		background-color: var(--shiki-dark-bg);
 	}
+
+	[data-highlighted-line] {
+		background: rgba(200, 200, 255, 0.1) !important;
+		border-left: 4px solid rgba(67, 192, 245, 0.55) !important;
+	}
+
+	[data-highlighted-chars] {
+		background-color: rgba(82, 82, 91, 0.5);
+		box-shadow: 0 0 0 0.125rem rgba(82, 82, 91, 0.5);
+	}
+
+	[data-highlighted-line][data-highlighted-line-id="add"] {
+		background: rgba(0, 255, 0, 0.1) !important;
+		border-left: 4px solid rgba(47, 115, 47, 0.55) !important;
+	}
+
+	[data-highlighted-line][data-highlighted-line-id="sub"] {
+		background: rgba(255, 0, 0, 0.1) !important;
+		border-left: 4px solid rgba(141, 35, 35, 0.55) !important;
+	}
 }
 
 figure[data-rehype-pretty-code-figure] {
@@ -67,9 +87,48 @@ pre > code {
 	border-bottom-right-radius: 0;
 }
 
+code span.gfm-color-chip {
+	display: inline-block;
+	width: 0.7rem;
+	height: 0.7rem;
+	border-radius: 0.15rem;
+	margin-left: 0.25rem;
+	border: 1px solid var(--muted-foreground);
+}
+
+code:has(span.gfm-color-chip) {
+	display: inline-flex;
+	align-items: center;
+	width: fit-content;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
 [data-highlighted-line] {
-	background: rgba(200, 200, 255, 0.1) !important;
+	background: rgba(183, 183, 248, 0.2) !important;
 	border-left: 4px solid rgba(100, 206, 251, 0.55) !important;
+}
+
+[data-highlighted-line][data-highlighted-line-id="add"] {
+	background: rgba(0, 255, 0, 0.1) !important;
+	border-left: 4px solid rgba(0, 255, 0, 0.55) !important;
+}
+
+[data-highlighted-line][data-highlighted-line-id="sub"] {
+	background: rgba(255, 0, 0, 0.1) !important;
+	border-left: 4px solid rgba(255, 0, 0, 0.55) !important;
+}
+
+[data-highlighted-line][data-highlighted-line-id="add"] > span:first-child:before {
+	content: "+";
+	margin-right: 0.75rem;
+	color: var(--muted-foreground);
+}
+
+[data-highlighted-line][data-highlighted-line-id="sub"] > span:first-child:before {
+	content: "-";
+	margin-right: 0.75rem;
+	color: var(--muted-foreground);
 }
 
 span[data-highlighted-line] span {
@@ -77,9 +136,9 @@ span[data-highlighted-line] span {
 }
 
 [data-highlighted-chars] {
-	background-color: rgba(82, 82, 91, 0.5);
+	background-color: rgba(142, 142, 144, 0.3);
+	box-shadow: 0 0 0 0.125rem rgba(142, 142, 144, 0.3);
 	border-radius: 0.25rem;
-	box-shadow: 0 0 0 0.125rem rgba(82, 82, 91, 0.5);
 	z-index: 100;
 }
 
@@ -139,4 +198,9 @@ figure {
 	mask-repeat: no-repeat;
 	mask-size: contain;
 	transition: transform 0.2s;
+}
+
+a[data-footnote-backref] {
+	font-family: ui-sans-serif, system-ui, sans-serif, "Segoe UI Symbol", "Noto Color Emoji";
+	font-size: 0.875rem;
 }

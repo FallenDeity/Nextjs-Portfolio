@@ -13,7 +13,7 @@ const Alert = ({ type, children }: { type: string; children: React.ReactNode }):
 	return (
 		<div
 			className={cn(
-				"border-l-4 p-4",
+				"my-4 border-l-4 p-4",
 				{
 					"border-blue-500 bg-blue-50 dark:bg-blue-900/30": type.toUpperCase() === "NOTE",
 					"border-green-500 bg-green-50 dark:bg-green-900/30": type.toUpperCase() === "TIP",
@@ -35,7 +35,7 @@ const ResponsiveImage = (props: React.ImgHTMLAttributes<HTMLImageElement>): Reac
 
 const components: MDXComponents = {
 	h1: ({ className, ...props }: React.HTMLProps<HTMLHeadingElement>): React.ReactElement => (
-		<h1 className={cn("mt-2 scroll-m-20 text-4xl font-bold tracking-tight", className)} {...props} />
+		<h1 className={cn("scroll-m-20 text-4xl font-bold tracking-tight", className)} {...props} />
 	),
 	h2: ({ className, ...props }: React.HTMLProps<HTMLHeadingElement>): React.ReactElement => (
 		<h2
