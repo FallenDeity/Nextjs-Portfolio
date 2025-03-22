@@ -87,7 +87,7 @@ const experiences: Experience[] = [
 ];
 
 const ExperienceList: React.FC<{ experiences: Experience[] }> = ({ experiences }) => {
-	const [open, setOpen] = React.useState<boolean>(false);
+	const [open, setOpen] = React.useState<boolean>(true);
 	return (
 		<Timeline orientation="vertical">
 			{experiences.map((experience) => (

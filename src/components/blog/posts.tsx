@@ -1,5 +1,4 @@
 import { getImageDimensions } from "@sanity/asset-utils";
-import { formatDistanceToNow } from "date-fns";
 import { Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -53,23 +52,41 @@ function PostCard({ post }: PostCardProps): React.ReactElement {
 							</AvatarFallback>
 						</Avatar>
 						<div className="flex flex-col gap-1">
-							<h2 className="text-lg font-semibold">{post.title}</h2>
-							<div className="flex flex-row gap-2">
-								{post.categories.slice(0, 2).map((category) => (
-									<span
-										key={category.slug.current}
-										className="text-muted-foreground bg-muted rounded-full px-2 py-1 text-xs">
-										{category.title}
-									</span>
-								))}
-							</div>
+							<h2 className="text-lg font-semibold">
+								{post.title}
+								<span className="text-muted-foreground ml-1 text-xs font-normal">
+									{" "}
+									by {post.author.name}
+								</span>
+							</h2>
+							<p className="text-muted-foreground line-clamp-1 text-xs text-ellipsis">{post.excerpt}</p>
 						</div>
 					</div>
-					<div className="flex flex-row">
-						<p className="text-muted-foreground text-sm">
-							{formatDistanceToNow(new Date(post.publishedAt), { addSuffix: true })}
-						</p>
-						<Calendar className="ml-2 h-5 w-5" />
+					<div className="flex flex-col items-end gap-3">
+						<div className="flex flex-row">
+							<p className="text-muted-foreground text-sm">
+								{new Date(post.publishedAt).toLocaleDateString("en-US", {
+									year: "numeric",
+									month: "long",
+									day: "numeric",
+								})}
+							</p>
+							<Calendar className="ml-2 h-5 w-5" />
+						</div>
+						<div className="flex flex-row gap-2">
+							{post.categories.slice(0, 3).map((category) => (
+								<span
+									key={category.slug.current}
+									className="text-muted-foreground bg-muted rounded-full px-1.5 py-0.5 font-mono text-xs lowercase">
+									#{category.slug.current}
+								</span>
+							))}
+							{post.categories.length > 3 && (
+								<span className="text-muted-foreground bg-muted rounded-full px-1.5 py-0.5 font-mono text-xs lowercase">
+									+{post.categories.length - 3}
+								</span>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>

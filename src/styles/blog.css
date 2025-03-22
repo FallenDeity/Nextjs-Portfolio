@@ -131,6 +131,19 @@ code:has(span.gfm-color-chip) {
 	color: var(--muted-foreground);
 }
 
+/* if no first child, then it's a blank line, we put it as first child */
+[data-highlighted-line][data-highlighted-line-id="add"]:not(:has(span))::after {
+	content: "+";
+	margin-left: -0.5rem;
+	color: var(--muted-foreground);
+}
+
+[data-highlighted-line][data-highlighted-line-id="sub"]:not(:has(span))::after {
+	content: "-";
+	color: var(--muted-foreground);
+	margin-left: -0.5rem;
+}
+
 span[data-highlighted-line] span {
 	background-color: transparent !important;
 }

@@ -99,7 +99,7 @@ export default function SpotifyStatusCard(): React.ReactElement {
 			setStatus(status);
 		};
 
-		if (status && status.is_playing && progress >= 100) {
+		if (status && status.is_playing && progress >= 100 && progress % 100 === 0) {
 			void updateStatus();
 			return;
 		}
