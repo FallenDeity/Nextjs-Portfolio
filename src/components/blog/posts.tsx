@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+import { formatDate } from "@/lib/utils";
 import { sanityFetch } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { POSTS_QUERY } from "@/sanity/lib/queries";
@@ -64,13 +65,7 @@ function PostCard({ post }: PostCardProps): React.ReactElement {
 					</div>
 					<div className="flex flex-col items-end gap-3">
 						<div className="flex flex-row">
-							<p className="text-muted-foreground text-sm">
-								{new Date(post.publishedAt).toLocaleDateString("en-US", {
-									year: "numeric",
-									month: "long",
-									day: "numeric",
-								})}
-							</p>
+							<p className="text-muted-foreground text-sm">{formatDate(post.publishedAt)}</p>
 							<Calendar className="ml-2 h-5 w-5" />
 						</div>
 						<div className="flex flex-row gap-2">

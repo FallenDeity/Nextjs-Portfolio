@@ -46,7 +46,7 @@ export const educationType = defineType({
 		}),
 	],
 	initialValue: {
-		startDate: new Date().toISOString(),
-		endDate: new Date().toISOString(),
+		startDate: new Date().toISOString().split("T")[0],
+		endDate: new Date().toISOString().split("T")[0],
 	},
 });

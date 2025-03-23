@@ -173,7 +173,7 @@ export interface Experience {
 	endDate?: string;
 	description?: string;
 	points?: string[];
-	icon: {
+	icon?: {
 		asset?: {
 			_ref: string;
 			_type: "reference";
@@ -538,6 +538,124 @@ export type CATEGORIES_QUERYResult = {
 	slug: Slug;
 	description: string | null;
 }[];
+// Variable: PROFILE_QUERY
+// Query: *[_type == "profile"][0] {        name,        caption,        bio,        image,        languages,        resume,        contact,        education[]->{institution, degree, startDate, endDate, description, icon},        experience[]->{_id, company, role, startDate, endDate, description, points, icon, subExperiences[]->{_id, company, role, startDate, endDate, description, points, icon}},        projects[]->{title, description, tags[]->{title, slug, description}, publishedAt, source, demo, image},        technologies,        _updatedAt    }
+export type PROFILE_QUERYResult = {
+	name: string;
+	caption: string;
+	bio: string;
+	image: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+		};
+		hotspot?: SanityImageHotspot;
+		crop?: SanityImageCrop;
+		_type: "image";
+	};
+	languages: string[];
+	resume: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+		};
+		_type: "file";
+	};
+	contact: {
+		discord?: string;
+		linkedin: string;
+		email: string;
+	};
+	education: {
+		institution: string;
+		degree: string;
+		startDate: string;
+		endDate: string | null;
+		description: string | null;
+		icon: {
+			asset?: {
+				_ref: string;
+				_type: "reference";
+				_weak?: boolean;
+				[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+			};
+			hotspot?: SanityImageHotspot;
+			crop?: SanityImageCrop;
+			_type: "image";
+		};
+	}[];
+	experience: {
+		_id: string;
+		company: string;
+		role: string;
+		startDate: string;
+		endDate: string | null;
+		description: string | null;
+		points: string[] | null;
+		icon: {
+			asset?: {
+				_ref: string;
+				_type: "reference";
+				_weak?: boolean;
+				[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+			};
+			hotspot?: SanityImageHotspot;
+			crop?: SanityImageCrop;
+			_type: "image";
+		} | null;
+		subExperiences:
+			| {
+					_id: string;
+					company: string;
+					role: string;
+					startDate: string;
+					endDate: string | null;
+					description: string | null;
+					points: string[] | null;
+					icon: {
+						asset?: {
+							_ref: string;
+							_type: "reference";
+							_weak?: boolean;
+							[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+						};
+						hotspot?: SanityImageHotspot;
+						crop?: SanityImageCrop;
+						_type: "image";
+					} | null;
+			  }[]
+			| null;
+	}[];
+	projects: {
+		title: string;
+		description: string;
+		tags: {
+			title: string;
+			slug: Slug;
+			description: string | null;
+		}[];
+		publishedAt: string;
+		source: string | null;
+		demo: string | null;
+		image: {
+			asset?: {
+				_ref: string;
+				_type: "reference";
+				_weak?: boolean;
+				[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+			};
+			hotspot?: SanityImageHotspot;
+			crop?: SanityImageCrop;
+			_type: "image";
+		};
+	}[];
+	technologies: string[];
+	_updatedAt: string;
+} | null;
 declare module "@sanity/client" {
 	interface SanityQueries {
 		'\n    *[_type == "post"\n    && defined(slug.current)\n    && (!defined($search) || $search == "" || (title match $search || body match $search))\n    && (!defined($tags) || count($tags) == 0 || array::intersects(categories[]->slug.current, $tags))\n    ] | order(publishedAt desc) {\n        _id, title, slug, publishedAt, mainImage, excerpt, author->{name, image}, categories[]->{title, slug, description}\n    }': POSTS_QUERYResult;
@@ -545,5 +663,6 @@ declare module "@sanity/client" {
 		'\n    *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {\n        "prev": *[_type == "post" && defined(slug.current) && defined(publishedAt) && publishedAt < ^.publishedAt]\n            | order(publishedAt desc)[0] {\n                _id, title, slug, excerpt, publishedAt\n        },\n        "next": *[_type == "post" && defined(slug.current) && defined(publishedAt) && publishedAt > ^.publishedAt]\n            | order(publishedAt asc)[0] {\n                _id, title, slug, excerpt, publishedAt\n        }\n    }\n': PREV_NEXT_POSTS_QUERYResult;
 		'\n    *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {\n        _id, title, slug, publishedAt, mainImage, categories[]->{title, slug, description}, excerpt, author->{name, image}\n    }': RECENT_POSTS_QUERYResult;
 		'\n    *[_type == "category"] {\n        _id, title, slug, description\n    }': CATEGORIES_QUERYResult;
+		'\n    *[_type == "profile"][0] {\n        name,\n        caption,\n        bio,\n        image,\n        languages,\n        resume,\n        contact,\n        education[]->{institution, degree, startDate, endDate, description, icon},\n        experience[]->{_id, company, role, startDate, endDate, description, points, icon, subExperiences[]->{_id, company, role, startDate, endDate, description, points, icon}},\n        projects[]->{title, description, tags[]->{title, slug, description}, publishedAt, source, demo, image},\n        technologies,\n        _updatedAt\n    }': PROFILE_QUERYResult;
 	}
 }

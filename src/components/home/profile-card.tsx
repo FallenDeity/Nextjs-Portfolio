@@ -1,17 +1,30 @@
+import { formatDistanceToNow } from "date-fns";
 import { Download, Info, Languages } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import * as React from "react";
 
 import { BentoCard } from "@/components/magicui/bento-grid";
 import { StaggerText } from "@/components/magicui/text-animate";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 import { ShineBorder } from "../magicui/shine-border";
+import { Button } from "../ui/button";
 import SpotifyStatusCard from "./spotify-status";
 
-export default function ProfileCard(): React.ReactElement {
+interface ProfileCardProps {
+	name: string;
+	caption: string;
+	bio: string;
+	resume: string;
+	languages: string[];
+	image: string;
+	updateAt: Date;
+	mailto: string;
+}
+
+export default function ProfileCard(props: ProfileCardProps): React.ReactElement {
 	return (
 		<BentoCard name="Profile" className="lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-4">
 			<div className="flex h-full flex-col items-center p-6">
@@ -23,14 +36,12 @@ export default function ProfileCard(): React.ReactElement {
 						color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
 					/>
 					<Avatar className="ml-1 h-30 w-30 rounded-full shadow-md dark:shadow-none">
-						<AvatarImage src="/profile.jpg" />
+						<AvatarImage src={props.image} alt={props.name} />
 						<AvatarFallback>T</AvatarFallback>
 					</Avatar>
 					<div className="flex w-full flex-col items-center justify-center space-y-2">
-						<h3 className="text-xl font-semibold">Triyan Mukherjee</h3>
-						<p className="text-muted-foreground text-center tracking-tight">
-							CCE @ MIT, Manipal | Coding Head @ Robomanipal
-						</p>
+						<h3 className="text-xl font-semibold">{props.name}</h3>
+						<p className="text-muted-foreground text-center tracking-tight">{props.caption}</p>
 					</div>
 				</div>
 				<div className="mt-4 flex w-full flex-col items-start justify-center">
@@ -38,45 +49,42 @@ export default function ProfileCard(): React.ReactElement {
 						<Info className="h-5 w-5" />
 						About Me
 					</h3>
-					<p className="text-card-foreground/80 mt-3 text-justify text-sm text-pretty">
-						Hi! I'm Triyan, a Computer and Communication Engineering student at MIT, Manipal. I'm also the
-						Coding Head at Robomanipal. I'm a software developer, and I love building things with code. I'm
-						passionate about technology, and I'm always looking for new ways to learn and grow.
-					</p>
+					<p className="text-card-foreground/80 mt-3 text-justify text-sm text-pretty">{props.bio}</p>
 				</div>
 				<div className="mt-4 flex w-full flex-row items-center justify-center space-x-2">
-					<Badge
-						variant={"outline"}
-						className="border-primary/70 hover:bg-primary/10 min-w-20 cursor-pointer gap-1 px-1.5 py-1 shadow-md transition-all duration-300 ease-in dark:shadow-none">
-						<Languages className="-ms-0.5 opacity-60" size={12} strokeWidth={2} aria-hidden="true" />
-						English
-					</Badge>
-					<Badge
-						variant={"outline"}
-						className="border-primary/70 hover:bg-primary/10 min-w-20 cursor-pointer gap-1 px-1.5 py-1 shadow-md transition-all duration-300 ease-in dark:shadow-none">
-						<Languages className="-ms-0.5 opacity-60" size={12} strokeWidth={2} aria-hidden="true" />
-						Hindi
-					</Badge>
-					<Badge
-						variant={"outline"}
-						className="border-primary/70 hover:bg-primary/10 min-w-20 cursor-pointer gap-1 px-1.5 py-1 shadow-md transition-all duration-300 ease-in dark:shadow-none">
-						<Languages className="-ms-0.5 opacity-60" size={12} strokeWidth={2} aria-hidden="true" />
-						Bengali
-					</Badge>
+					{props.languages.map((language) => (
+						<Badge
+							key={language}
+							variant={"outline"}
+							className="border-primary/70 hover:bg-primary/10 min-w-20 cursor-pointer gap-1 px-1.5 py-1 shadow-md transition-all duration-300 ease-in dark:shadow-none">
+							<Languages className="-ms-0.5 opacity-60" size={12} strokeWidth={2} aria-hidden="true" />
+							{language}
+						</Badge>
+					))}
 				</div>
 				<div className="mt-6 flex w-full flex-row items-center justify-center space-x-2">
-					<Button
-						variant="outline"
-						className="bg-card/70 flex w-full cursor-pointer flex-row-reverse items-center justify-between p-8 transition-all duration-300 ease-in-out">
-						<Download className="ml-2 h-8 w-8" />
-						<div className="flex w-full flex-row-reverse items-center justify-center space-x-2">
-							<div className="flex w-full flex-col items-start justify-center">
-								<p className="text-sm font-semibold">Download Resume</p>
-								<p className="text-muted-foreground text-xs">Last updated on 23rd August 2021</p>
+					<Link
+						href={props.resume}
+						passHref
+						aria-label="Download Resume"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="w-full">
+						<Button
+							variant={"outline"}
+							className="bg-card/70 flex w-full cursor-pointer flex-row-reverse items-center justify-between p-8 transition-all duration-300 ease-in-out">
+							<Download className="ml-2 h-8 w-8" />
+							<div className="flex w-full flex-row-reverse items-center justify-center space-x-2">
+								<div className="flex w-full flex-col items-start justify-center">
+									<p className="text-sm font-semibold">Download Resume</p>
+									<div className="text-muted-foreground text-xs">
+										Last updated {formatDistanceToNow(props.updateAt, { addSuffix: true })}
+									</div>
+								</div>
+								<Image className="mr-2" src="/pdf.png" alt="pdf" width={24} height={24} />
 							</div>
-							<Image className="mr-2" src="/pdf.png" alt="pdf" width={24} height={24} />
-						</div>
-					</Button>
+						</Button>
+					</Link>
 				</div>
 				<div className="mt-6 flex w-full flex-col items-center justify-between space-x-2 sm:flex-row">
 					<SpotifyStatusCard />
@@ -85,7 +93,8 @@ export default function ProfileCard(): React.ReactElement {
 					<div id="functions-hero" className="absolute inset-0 top-10">
 						<div className="animate-in fade-in absolute top-[0%] right-0 left-0 z-20 flex h-auto w-[100%] flex-1 items-center justify-center transition-opacity duration-1000 ease-in sm:top-[0%] sm:left-[6%] sm:w-[90%] md:top-[5%] md:left-[25%] md:w-[55%] lg:top-[0%] lg:left-[5%] lg:w-[100%] xl:top-[-5%] xl:left-[8%] xl:w-[90%] 2xl:top-[-5%] 2xl:left-[5%] 2xl:w-[100%]">
 							<a
-								href="mailto:triyanmukherjee@gmail.com"
+								href={`mailto:${props.mailto.replace("mailto:", "")}`}
+								aria-label="Contact Me"
 								className="group hover:border-strong bg-alternative group/email flex w-full items-center gap-1 rounded-xl border border-amber-600 px-3 py-2 sm:gap-2">
 								<div className="text-foreground-muted relative font-mono text-sm text-amber-400">
 									<svg

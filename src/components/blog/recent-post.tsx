@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import { CARD_STYLE_STRING, cn } from "@/lib/utils";
+import { CARD_STYLE_STRING, cn, formatDate } from "@/lib/utils";
 import { sanityFetch } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { CATEGORIES_QUERY, RECENT_POSTS_QUERY } from "@/sanity/lib/queries";
@@ -42,13 +42,7 @@ export async function RecentPosts(): Promise<React.ReactElement> {
 							/>
 							<div className="flex w-full flex-col">
 								<div className="flex w-full flex-row items-center gap-1 text-[10px]">
-									<p className="text-muted-foreground">
-										{new Date(post.publishedAt).toLocaleDateString("en-US", {
-											year: "numeric",
-											month: "long",
-											day: "numeric",
-										})}
-									</p>
+									<p className="text-muted-foreground">{formatDate(post.publishedAt)}</p>
 									<span className="text-muted-foreground text-xs">&bull;</span>
 									<p className="text-muted-foreground">
 										{formatDistanceToNow(new Date(post.publishedAt), { addSuffix: true })}

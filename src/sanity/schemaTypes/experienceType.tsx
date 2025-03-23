@@ -52,7 +52,6 @@ export const experienceType = defineType({
 			options: {
 				hotspot: true,
 			},
-			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			name: "subExperiences",
@@ -73,7 +72,7 @@ export const experienceType = defineType({
 		},
 	},
 	initialValue: {
-		startDate: new Date().toISOString(),
-		endDate: new Date().toISOString(),
+		startDate: new Date().toISOString().split("T")[0],
+		endDate: new Date().toISOString().split("T")[0],
 	},
 });

@@ -36,3 +36,19 @@ export const CATEGORIES_QUERY = defineQuery(`
     *[_type == "category"] {
         _id, title, slug, description
     }`);
+
+export const PROFILE_QUERY = defineQuery(`
+    *[_type == "profile"][0] {
+        name,
+        caption,
+        bio,
+        image,
+        languages,
+        resume,
+        contact,
+        education[]->{institution, degree, startDate, endDate, description, icon},
+        experience[]->{_id, company, role, startDate, endDate, description, points, icon, subExperiences[]->{_id, company, role, startDate, endDate, description, points, icon}},
+        projects[]->{title, description, tags[]->{title, slug, description}, publishedAt, source, demo, image},
+        technologies,
+        _updatedAt
+    }`);

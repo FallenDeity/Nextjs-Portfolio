@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 import { CustomMDX } from "@/components/mdx/mdx-remote";
-import { CARD_STYLE_STRING, cn } from "@/lib/utils";
+import { CARD_STYLE_STRING, cn, formatDate } from "@/lib/utils";
 import { sanityFetch } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { POST_QUERY, POSTS_QUERY, PREV_NEXT_POSTS_QUERY } from "@/sanity/lib/queries";
@@ -81,13 +81,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 						</div>
 					</div>
 					<div className="flex flex-col items-end gap-4">
-						<p className="text-muted-foreground text-sm">
-							{new Date(post.publishedAt).toLocaleDateString("en-US", {
-								year: "numeric",
-								month: "long",
-								day: "numeric",
-							})}
-						</p>
+						<p className="text-muted-foreground text-sm">{formatDate(post.publishedAt)}</p>
 						<div className="hidden flex-row gap-2 md:flex">
 							{post.categories.map((category) => (
 								<span

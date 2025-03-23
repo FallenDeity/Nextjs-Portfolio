@@ -18,7 +18,7 @@ jobs:
               uses: actions/cache@v4
               with:
                 path: ${{ github.workspace }}/dist/cache
-                key: nextjs-${{ runner.os }}-${{ hashFiles('**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.json', '**/*.mjs') }}
+                key: nextjs-${{ runner.os }}-${{ hashFiles('**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx') }}
                 restore-keys: |
                   nextjs-${{ runner.os }}-
 

@@ -171,10 +171,10 @@ export function SearchBar({ tags }: SearchBarProps): React.ReactElement {
 								<TagIcon size={16} />
 							</button>
 						</PopoverTrigger>
-						<PopoverContent className={cn("w-[200px] p-0", CARD_STYLE_STRING)} align="end">
+						<PopoverContent className={cn("w-[224px] p-0", CARD_STYLE_STRING)} align="end">
 							<Command className="bg-transparent">
 								<CommandInput placeholder="Search tags..." />
-								<CommandList>
+								<CommandList className="scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-primary/5 max-h-64 overflow-y-auto">
 									<CommandEmpty>No tags found</CommandEmpty>
 									<CommandGroup>
 										{tags.map((category) => (

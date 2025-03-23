@@ -55,3 +55,12 @@ export function colorFromString(text: string, theme?: "dark" | "light"): string 
 	const hex = `#${string_to_color(text, theme === "dark" ? 10 : -15)}`;
 	return hex;
 }
+
+export const formatDate = (date: string, showDay = false): string => {
+	const d = new Date(date);
+	return d.toLocaleDateString("en-US", {
+		year: "numeric",
+		month: "long",
+		day: showDay ? "numeric" : undefined,
+	});
+};

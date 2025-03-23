@@ -13,79 +13,30 @@ import {
 	TimelineSeparator,
 	TimelineTitle,
 } from "@/components/ui/timeline";
+import { formatDate } from "@/lib/utils";
+import { urlFor } from "@/sanity/lib/image";
+import { PROFILE_QUERYResult } from "@/sanity/sanity.types";
 
-const slugs = [
-	"typescript",
-	"javascript",
-	"dart",
-	"rust",
-	"react",
-	"flutter",
-	"android",
-	"html5",
-	"css3",
-	"nodedotjs",
-	"express",
-	"nextdotjs",
-	"prisma",
-	"amazonwebservices",
-	"postgresql",
-	"firebase",
-	"nginx",
-	"vercel",
-	"testinglibrary",
-	"jest",
-	"cypress",
-	"docker",
-	"git",
-	"jira",
-	"github",
-	"gitlab",
-	"jetbrains",
-	"androidstudio",
-	"sonarqube",
-	"figma",
-];
-
-interface Education {
-	id: string;
-	institution: string;
-	degree: string;
-	duration: string;
-	description: string;
-	icon: string;
+interface TechnologyCardProps {
+	technologies: string[];
+	educations: NonNullable<PROFILE_QUERYResult>["education"];
 }
 
-const educations: Education[] = [
-	{
-		id: "1",
-		institution: "University of Technology",
-		degree: "Bachelor of Science in Computer Science",
-		duration: "2014 - 2018",
-		icon: "https://cdn.simpleicons.org/accenture",
-		description: "Graduated with honors and a passion for software development.",
-	},
-	{
-		id: "2",
-		institution: "High School of Technology",
-		degree: "High School Diploma",
-		duration: "2010 - 2014",
-		icon: "https://cdn.simpleicons.org/4chan",
-		description: "Graduated with honors and a passion for technology.",
-	},
-];
-
-function EducationList({ educations }: { educations: Education[] }): React.ReactElement {
+function EducationList({
+	educations,
+}: {
+	educations: NonNullable<PROFILE_QUERYResult>["education"];
+}): React.ReactElement {
 	return (
 		<Timeline orientation="vertical">
 			{educations.map((education) => (
-				<TimelineItem key={education.id}>
+				<TimelineItem key={education.institution}>
 					<TimelineSeparator>
 						<TimelineDot className="h-10 w-10 lg:h-7 lg:w-7">
 							<Image
 								width={40}
 								height={40}
-								src={education.icon}
+								src={urlFor(education.icon).url() ?? ""}
 								alt="icon"
 								className="h-10 w-10 object-contain lg:h-7 lg:w-7"
 							/>
@@ -93,13 +44,20 @@ function EducationList({ educations }: { educations: Education[] }): React.React
 						<TimelineConnector />
 					</TimelineSeparator>
 					<TimelineContent>
-						<div className="flex w-full flex-row items-center justify-between pb-4">
+						<div className="flex w-full flex-row items-center justify-between pb-2">
 							<div className="flex flex-col items-start justify-start">
 								<TimelineTitle className="text-md text-start font-semibold">
 									{education.degree}
 								</TimelineTitle>
 								<TimelineDescription className="text-muted-foreground text-start text-xs">
-									{education.institution} | {education.duration}
+									{education.institution}
+									<span className="text-muted-foreground/40 mx-2">&bull;</span>
+									<span className="text-muted-foreground/70">
+										{formatDate(education.startDate)} -{" "}
+										{education.startDate === education.endDate
+											? "Present"
+											: formatDate(education.endDate ?? new Date().toISOString())}
+									</span>
 								</TimelineDescription>
 								<TimelineDescription className="text-muted-foreground text-start text-xs">
 									{education.description}
@@ -113,7 +71,8 @@ function EducationList({ educations }: { educations: Education[] }): React.React
 	);
 }
 
-export function TechnologyCard(): React.ReactElement {
+export function TechnologyCard({ technologies, educations }: TechnologyCardProps): React.ReactElement {
+	const slugs = technologies.map((tech) => tech.toLowerCase());
 	const firstRow = slugs.slice(0, slugs.length / 2);
 	const secondRow = slugs.slice(slugs.length / 2);
 	return (
@@ -121,11 +80,11 @@ export function TechnologyCard(): React.ReactElement {
 			<div className="flex w-full flex-col">
 				<div className="flex w-full flex-col items-start">
 					<h2 className="my-6 px-6 text-xl font-semibold">Education</h2>
-					<div className="mx-6 flex w-full flex-col">
-						<EducationList educations={educations} />
+					<div className="mx-6 flex w-[calc(100%-3rem)] flex-col">
+						<EducationList educations={educations.sort((a, b) => b.startDate.localeCompare(a.startDate))} />
 					</div>
 				</div>
-				<div className="flex w-full flex-col items-start">
+				<div className="flex w-full flex-col items-start pb-6">
 					<h2 className="my-6 px-6 text-xl font-semibold">Technologies</h2>
 					<Marquee className="[--duration:20s]">
 						{firstRow.map((slug) => (
