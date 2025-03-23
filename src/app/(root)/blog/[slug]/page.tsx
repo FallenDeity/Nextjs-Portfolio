@@ -7,6 +7,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
+import Comments from "@/components/blog/comments";
 import { CustomMDX } from "@/components/mdx/mdx-remote";
 import { CARD_STYLE_STRING, cn, formatDate } from "@/lib/utils";
 import { sanityFetch } from "@/sanity/lib/client";
@@ -44,6 +45,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 		const textLength = body.split(" ").length;
 		return Math.ceil(textLength / wordsPerMinute);
 	};
+	const repo = (process.env.COMMENTS_REPO || "") as `${string}/${string}`;
+	const repoId = process.env.COMMENTS_REPO_ID || "";
+	const category = process.env.COMMENTS_CATEGORY || "";
+	const categoryId = process.env.COMMENTS_CATEGORY_ID || "";
 
 	if (!post) {
 		return redirect("/404");
@@ -109,7 +114,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 				</div>
 			</article>
 			<div
-				className={`mx-auto mt-6 mb-96 flex w-full max-w-3xl flex-col gap-6 md:mt-0 md:justify-between ${next_prev && !next_prev.prev ? "md:flex-row-reverse" : "md:flex-row"}`}>
+				className={`mx-auto mt-6 flex w-full max-w-3xl flex-col gap-6 md:mt-0 md:justify-between ${next_prev && !next_prev.prev ? "md:flex-row-reverse" : "md:flex-row"}`}>
 				{next_prev && next_prev.prev && (
 					<Link
 						href={`/blog/${next_prev.prev.slug.current}`}
@@ -141,6 +146,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 					</Link>
 				)}
 			</div>
+			<section className="z-10 mx-auto mt-16 mb-96 w-full max-w-3xl md:mb-64 lg:mb-36">
+				<Comments repo={repo} repoId={repoId} category={category} categoryId={categoryId} />
+			</section>
 		</>
 	);
 }

@@ -9,8 +9,13 @@ import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { PROFILE_QUERYResult } from "@/sanity/sanity.types";
 
 import ModeToggle from "./mode-toggle";
+
+interface NavigationDockProps {
+	data: NonNullable<PROFILE_QUERYResult>["contact"];
+}
 
 export type IconProps = React.HTMLAttributes<SVGElement>;
 
@@ -71,28 +76,13 @@ const DATA = {
 		{ href: "#", icon: Folders, label: "Projects" },
 		{ href: "#", icon: PencilIcon, label: "Blog" },
 	],
-	contact: {
-		social: {
-			Discord: {
-				name: "Discord",
-				url: "https://discord.com/users/656838010532265994",
-				icon: Icons.discord,
-			},
-			LinkedIn: {
-				name: "LinkedIn",
-				url: "https://www.linkedin.com/in/triyan-mukherjee/",
-				icon: Icons.linkedin,
-			},
-			email: {
-				name: "Send Email",
-				url: "mailto:triyanmukherjee@gmail.com",
-				icon: Icons.email,
-			},
-		},
-	},
 };
 
-export function NavigationDock(): React.ReactElement {
+export function NavigationDock({ data }: NavigationDockProps): React.ReactElement {
+	const getIcon = (name: keyof typeof data): React.ReactElement => {
+		const Icon = Icons[name];
+		return <Icon className="size-4" />;
+	};
 	return (
 		<TooltipProvider>
 			<Dock
@@ -120,22 +110,22 @@ export function NavigationDock(): React.ReactElement {
 					</DockIcon>
 				))}
 				<Separator orientation="vertical" className="h-full" />
-				{Object.entries(DATA.contact.social).map(([name, social]) => (
+				{Object.entries(data).map(([name, social]) => (
 					<DockIcon key={name}>
 						<Tooltip>
 							<TooltipTrigger asChild>
 								<Link
-									href={social.url}
-									aria-label={social.name}
+									href={social}
+									aria-label={name}
 									className={cn(
 										buttonVariants({ variant: "ghost", size: "icon" }),
 										"size-10 cursor-pointer rounded-full"
 									)}>
-									<social.icon className="size-4" />
+									{getIcon(name as keyof typeof data)}
 								</Link>
 							</TooltipTrigger>
 							<TooltipContent>
-								<p>{name}</p>
+								<p>{name.charAt(0).toUpperCase() + name.slice(1)}</p>
 							</TooltipContent>
 						</Tooltip>
 					</DockIcon>
