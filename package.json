@@ -10,7 +10,6 @@
 		"lint:fix": "eslint --fix src",
 		"prettier": "prettier --check src",
 		"prettier:fix": "prettier --write src",
-		"prebuild": "yarn typegen",
 		"dev": "next dev --turbo",
 		"build": "next build",
 		"start": "next start",
