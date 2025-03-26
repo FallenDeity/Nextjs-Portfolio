@@ -14,8 +14,22 @@ export const projectType = defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
+			name: "slug",
+			type: "slug",
+			options: {
+				source: "title",
+			},
+			validation: (Rule) => Rule.required(),
+		}),
+		defineField({
 			name: "description",
 			title: "Description",
+			type: "text",
+			validation: (Rule) => Rule.required(),
+		}),
+		defineField({
+			name: "excerpt",
+			title: "Excerpt",
 			type: "text",
 			validation: (Rule) => Rule.required(),
 		}),
@@ -55,6 +69,39 @@ export const projectType = defineType({
 				hotspot: true,
 			},
 			validation: (Rule) => Rule.required(),
+		}),
+		defineField({
+			name: "features",
+			title: "Features",
+			type: "array",
+			of: [
+				defineArrayMember({
+					type: "string",
+				}),
+			],
+		}),
+		defineField({
+			name: "technologies",
+			title: "Technologies",
+			type: "array",
+			of: [
+				defineArrayMember({
+					type: "string",
+				}),
+			],
+		}),
+		defineField({
+			name: "screenshots",
+			title: "Screenshots",
+			type: "array",
+			of: [
+				defineArrayMember({
+					type: "image",
+					options: {
+						hotspot: true,
+					},
+				}),
+			],
 		}),
 	],
 	initialValue: {

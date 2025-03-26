@@ -172,3 +172,7 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+.lg-react-element {
+	@apply inline-flex gap-4;
+}

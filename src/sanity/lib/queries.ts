@@ -48,7 +48,30 @@ export const PROFILE_QUERY = defineQuery(`
         contact,
         education[]->{institution, degree, startDate, endDate, description, icon},
         experience[]->{_id, company, role, startDate, endDate, description, points, icon, subExperiences[]->{_id, company, role, startDate, endDate, description, points, icon}},
-        projects[]->{title, description, tags[]->{title, slug, description}, publishedAt, source, demo, image},
+        projects[]->{title, slug, image},
         technologies,
         _updatedAt
     }`);
+
+export const PROJECTS_QUERY = defineQuery(`
+    *[_type == "project"] | order(publishedAt desc) {
+        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies
+    }`);
+
+export const PROJECT_QUERY = defineQuery(`
+    *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {
+        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies
+    }`);
+
+export const NEXT_PREV_PROJECTS_QUERY = defineQuery(`
+    *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {
+        "prev": *[_type == "project" && defined(slug.current) && defined(publishedAt) && publishedAt < ^.publishedAt]
+            | order(publishedAt desc)[0] {
+                _id, slug, title, excerpt, publishedAt
+        },
+        "next": *[_type == "project" && defined(slug.current) && defined(publishedAt) && publishedAt > ^.publishedAt]
+            | order(publishedAt asc)[0] {
+                _id, slug, title, excerpt, publishedAt
+        }
+    }
+`);

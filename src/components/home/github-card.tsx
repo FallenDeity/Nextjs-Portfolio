@@ -2,6 +2,7 @@
 
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { ExternalLink, GitCommit, GitFork, Star, Users } from "lucide-react";
+import Image from "next/image";
 import * as React from "react";
 
 import { BentoCard } from "@/components/magicui/bento-grid";
@@ -42,6 +43,13 @@ export function StatusCard(): React.ReactElement {
 						<div className="text-muted-foreground text-sm">FallenDeity</div>
 					</div>
 					<ExternalLink className="absolute top-3 right-3" />
+					<Image
+						src="/cat.jpg"
+						alt="profile"
+						fill
+						className="absolute top-0 left-0 z-[-1] h-full w-full rounded-md object-cover"
+					/>
+					<div className="to-background via-background/20 absolute top-0 left-0 z-[-1] h-full w-full bg-gradient-to-bl from-transparent" />
 				</div>
 				<div className="mt-4 flex w-full flex-row flex-wrap items-center justify-between border-t px-6 pt-6">
 					<div className="flex flex-col items-center justify-between space-y-2">
