@@ -3,11 +3,13 @@
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { ExternalLink, GitCommit, GitFork, Star, Users } from "lucide-react";
 import Image from "next/image";
-import * as React from "react";
+import React from "react";
+import { preconnect } from "react-dom";
 
 import { BentoCard } from "@/components/magicui/bento-grid";
 
 export function StatusCard(): React.ReactElement {
+	preconnect("https://api.github.com");
 	const [stars, setStars] = React.useState<number>(0);
 	const [repos, setRepos] = React.useState<number>(0);
 	const [followers, setFollowers] = React.useState<number>(0);

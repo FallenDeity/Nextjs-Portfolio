@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
+import { domAnimation, LazyMotion } from "motion/react";
+import * as m from "motion/react-m";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -141,7 +142,7 @@ export default function ProjectsAdvancedCarousel({ projects }: ProjectCarouselPr
 									</div>
 									<div className="flex flex-wrap gap-4">
 										{project.source && (
-											<Link href={project.source}>
+											<Link href={project.source} prefetch={false}>
 												<Button
 													variant={"outline"}
 													className="text-foreground flex cursor-pointer items-center gap-1 px-3 py-1.5 text-sm transition-all duration-300 ease-in-out">
@@ -151,7 +152,7 @@ export default function ProjectsAdvancedCarousel({ projects }: ProjectCarouselPr
 											</Link>
 										)}
 										{project.demo && (
-											<Link href={project.demo}>
+											<Link href={project.demo} prefetch={false}>
 												<Button
 													variant={"outline"}
 													className="text-foreground flex cursor-pointer items-center gap-1 px-3 py-1.5 text-sm transition-all duration-300 ease-in-out">
@@ -174,22 +175,26 @@ export default function ProjectsAdvancedCarousel({ projects }: ProjectCarouselPr
 						))}
 					</div>
 
-					<motion.button
-						onClick={prevSlide}
-						whileHover={{ scale: 1.1 }}
-						className="group-hover:animate-in group-hover:slide-in-from-left absolute top-1/2 left-4 hidden -translate-y-1/2 cursor-pointer rounded-full bg-black/50 p-2 text-white backdrop-blur-sm backdrop-filter group-hover:block"
-						aria-label="Previous slide"
-						disabled={isAnimating}>
-						<ChevronLeft size={24} />
-					</motion.button>
-					<motion.button
-						onClick={nextSlide}
-						whileHover={{ scale: 1.1 }}
-						className="group-hover:animate-in group-hover:slide-in-from-right absolute top-1/2 right-4 hidden -translate-y-1/2 cursor-pointer rounded-full bg-black/50 p-2 text-white backdrop-blur-sm backdrop-filter group-hover:block"
-						aria-label="Next slide"
-						disabled={isAnimating}>
-						<ChevronRight size={24} />
-					</motion.button>
+					<LazyMotion features={domAnimation}>
+						<m.button
+							onClick={prevSlide}
+							whileHover={{ scale: 1.1 }}
+							className="group-hover:animate-in group-hover:slide-in-from-left absolute top-1/2 left-4 hidden -translate-y-1/2 cursor-pointer rounded-full bg-black/50 p-2 text-white backdrop-blur-sm backdrop-filter group-hover:block"
+							aria-label="Previous slide"
+							disabled={isAnimating}>
+							<ChevronLeft size={24} />
+						</m.button>
+					</LazyMotion>
+					<LazyMotion features={domAnimation}>
+						<m.button
+							onClick={nextSlide}
+							whileHover={{ scale: 1.1 }}
+							className="group-hover:animate-in group-hover:slide-in-from-right absolute top-1/2 right-4 hidden -translate-y-1/2 cursor-pointer rounded-full bg-black/50 p-2 text-white backdrop-blur-sm backdrop-filter group-hover:block"
+							aria-label="Next slide"
+							disabled={isAnimating}>
+							<ChevronRight size={24} />
+						</m.button>
+					</LazyMotion>
 
 					{/* Indicators */}
 					<div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-2">

@@ -1,18 +1,22 @@
 import { getFileAsset } from "@sanity/asset-utils";
-import * as React from "react";
+import dynamic from "next/dynamic";
+import React from "react";
 
-import { ExperienceTimeline } from "@/components/home/experience-card";
-import { StatusCard } from "@/components/home/github-card";
-import ProfileCard from "@/components/home/profile-card";
-import { ProjectCard } from "@/components/home/project-card-carousel";
-import { TechnologyCard } from "@/components/home/technology-card";
 import { BentoGrid } from "@/components/magicui/bento-grid";
 import { dataset, projectId } from "@/sanity/env";
 import { sanityFetch } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { PROFILE_QUERY } from "@/sanity/lib/queries";
 
-export default async function BentoDemo(): Promise<React.ReactElement> {
+const ExperienceTimeline = dynamic(() =>
+	import("@/components/home/experience-card").then((mod) => mod.ExperienceTimeline)
+);
+const StatusCard = dynamic(() => import("@/components/home/github-card").then((mod) => mod.StatusCard));
+const ProfileCard = dynamic(() => import("@/components/home/profile-card").then((mod) => mod.ProfileCard));
+const ProjectCard = dynamic(() => import("@/components/home/project-card-carousel").then((mod) => mod.ProjectCard));
+const TechnologyCard = dynamic(() => import("@/components/home/technology-card").then((mod) => mod.TechnologyCard));
+
+export default async function HomePage(): Promise<React.ReactElement> {
 	const profile = await sanityFetch({
 		query: PROFILE_QUERY,
 		tags: ["profile", "education", "experience", "project"],
@@ -30,7 +34,7 @@ export default async function BentoDemo(): Promise<React.ReactElement> {
 							: ""
 					}
 					languages={profile?.languages ?? []}
-					image={profile?.image ? urlFor(profile.image).url() : ""}
+					image={profile?.image ? urlFor(profile.image).width(120).height(120).url() : ""}
 					updateAt={profile?._updatedAt ? new Date(profile._updatedAt) : new Date()}
 					mailto={profile?.contact?.email ?? ""}
 				/>

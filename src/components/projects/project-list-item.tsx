@@ -46,6 +46,7 @@ export function ProjectListItem({ project }: { project: Project }): React.ReactE
 						<div className="flex gap-3">
 							{project.source && (
 								<Link
+									prefetch={false}
 									href={project.source}
 									className="text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out">
 									<Github size={18} />
@@ -53,6 +54,7 @@ export function ProjectListItem({ project }: { project: Project }): React.ReactE
 							)}
 							{project.demo && (
 								<Link
+									prefetch={false}
 									href={project.demo}
 									className="text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out">
 									<ExternalLink size={18} />

@@ -94,6 +94,7 @@ export function NavigationDock({ data }: NavigationDockProps): React.ReactElemen
 						<Tooltip>
 							<TooltipTrigger asChild>
 								<Link
+									prefetch={false}
 									href={item.href}
 									aria-label={item.label}
 									className={cn(
@@ -115,6 +116,7 @@ export function NavigationDock({ data }: NavigationDockProps): React.ReactElemen
 						<Tooltip>
 							<TooltipTrigger asChild>
 								<Link
+									prefetch={false}
 									href={social}
 									aria-label={name}
 									className={cn(

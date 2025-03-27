@@ -130,7 +130,6 @@ export function KeenCarousel({ images }: { images: string[] }): React.ReactEleme
 			<div className="carousel keen-slider" ref={sliderRef}>
 				{images.map((src, idx) => (
 					<Image
-						quality={100}
 						key={idx}
 						className="carousel__cell number-slide rounded-md shadow-md"
 						src={src}

@@ -5,7 +5,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // @ts-expect-error no types for colorthief
 import ColorThief from "colorthief/dist/color-thief.mjs";
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion } from "motion/react";
+import * as m from "motion/react-m";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import React from "react";
@@ -62,26 +63,28 @@ function AudioVisualizer({
 	const lerp = (a: number, b: number, t: number): number => a * (1 - t) + b * t;
 
 	return (
-		<motion.div
-			className={cn(className, "flex h-full w-full items-center justify-center")}
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}>
-			{values.map((value, i) => (
-				<motion.div
-					key={i}
-					initial={{ height: 0 }}
-					animate={{ height: `${lerp(0, barHeight, value)}px` }}
-					exit={{ height: 0 }}
-					transition={{ duration: 0.3 }}
-					style={{
-						width: barWidth,
-						marginRight: gap,
-						backgroundColor: barColor,
-					}}
-				/>
-			))}
-		</motion.div>
+		<LazyMotion features={domAnimation}>
+			<m.div
+				className={cn(className, "flex h-full w-full items-center justify-center")}
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0 }}>
+				{values.map((value, i) => (
+					<m.div
+						key={i}
+						initial={{ height: 0 }}
+						animate={{ height: `${lerp(0, barHeight, value)}px` }}
+						exit={{ height: 0 }}
+						transition={{ duration: 0.3 }}
+						style={{
+							width: barWidth,
+							marginRight: gap,
+							backgroundColor: barColor,
+						}}
+					/>
+				))}
+			</m.div>
+		</LazyMotion>
 	);
 }
 

@@ -1,7 +1,6 @@
 "use client";
 
-import { Variants } from "framer-motion";
-import { HTMLMotionProps, motion, Transition, useInView } from "motion/react";
+import { HTMLMotionProps, motion, Transition, useInView, Variants } from "motion/react";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";

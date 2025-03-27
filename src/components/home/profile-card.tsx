@@ -2,7 +2,7 @@ import { formatDistanceToNow } from "date-fns";
 import { Download, Info, Languages } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import * as React from "react";
+import React from "react";
 
 import { BentoCard } from "@/components/magicui/bento-grid";
 import { StaggerText } from "@/components/magicui/text-animate";
@@ -24,7 +24,7 @@ interface ProfileCardProps {
 	mailto: string;
 }
 
-export default function ProfileCard(props: ProfileCardProps): React.ReactElement {
+export function ProfileCard(props: ProfileCardProps): React.ReactElement {
 	return (
 		<BentoCard name="Profile" className="lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-4">
 			<div className="flex h-full flex-col items-center p-6">
@@ -64,6 +64,7 @@ export default function ProfileCard(props: ProfileCardProps): React.ReactElement
 				</div>
 				<div className="mt-6 flex w-full flex-row items-center justify-center space-x-2">
 					<Link
+						prefetch={false}
 						href={props.resume}
 						passHref
 						aria-label="Download Resume"

@@ -28,6 +28,7 @@ export function ProjectCard({ project }: { project: Project }): React.ReactEleme
 						<div className="flex gap-2">
 							{project.source && (
 								<Link
+									prefetch={false}
 									href={project.source}
 									className="text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out">
 									<Github size={18} />
@@ -35,6 +36,7 @@ export function ProjectCard({ project }: { project: Project }): React.ReactEleme
 							)}
 							{project.demo && (
 								<Link
+									prefetch={false}
 									href={project.demo}
 									className="text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out">
 									<ExternalLink size={18} />

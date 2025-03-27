@@ -46,7 +46,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 						</div>
 						<div className="flex gap-4">
 							{project.source && (
-								<Link href={project.source}>
+								<Link href={project.source} prefetch={false}>
 									<Button
 										variant={"outline"}
 										className="text-foreground flex cursor-pointer items-center gap-1 px-3 py-1.5 text-sm transition-all duration-300 ease-in-out">
@@ -56,7 +56,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 								</Link>
 							)}
 							{project.demo && (
-								<Link href={project.demo}>
+								<Link href={project.demo} prefetch={false}>
 									<Button
 										variant={"outline"}
 										className="text-foreground flex cursor-pointer items-center gap-1 px-3 py-1.5 text-sm transition-all duration-300 ease-in-out">
@@ -99,6 +99,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 										<div className="mt-2 flex gap-3">
 											{project.source && (
 												<Link
+													prefetch={false}
 													href={project.source}
 													className="text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out">
 													<Github size={18} />
@@ -106,6 +107,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 											)}
 											{project.demo && (
 												<Link
+													prefetch={false}
 													href={project.demo}
 													className="text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out">
 													<ExternalLink size={18} />

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { domAnimation, LazyMotion, useMotionValue, useSpring } from "motion/react";
+import * as m from "motion/react-m";
 import React from "react";
 
 import { useMousePosition } from "@/hooks/use-mouse-position";
@@ -39,38 +40,40 @@ export const CursorSpotlight: React.FC<CursorSpotlightProps> = ({
 	}, [mouse.x, mouse.y, x, y, size]);
 
 	return (
-		<motion.div
-			animate={{ rotate: [0, 360], scale: [1, 1.2, 1] }}
-			transition={{
-				scale: {
-					duration: 2, // breathing effect duration
-					ease: "easeInOut",
-					repeat: Infinity,
-					repeatType: "loop",
-				},
-				rotate: {
-					duration: 5, // rotating effect duration (different from breathing)
-					ease: "linear", // continuous rotation without easing
-					repeat: Infinity,
-					repeatType: "loop",
-				},
-			}}
-			className={cn("pointer-events-none fixed -z-1 hidden opacity-0 sm:block", className)}
-			style={{
-				position: "absolute",
-				maskImage: `radial-gradient(${size / 2}px circle at center, white, transparent)`,
-				WebkitMaskImage: `radial-gradient(${size / 2}px circle at center, white, transparent)`,
-				filter,
-				opacity,
-				width: `${size}px`,
-				height: `${size}px`,
-				background: `linear-gradient(135deg, var(--cursor-from), var(--cursor-via), var(--cursor-to), var(--cursor-from))`,
-				left: 0,
-				top: 0,
-				translateX: smoothX,
-				translateY: smoothY,
-			}}
-		/>
+		<LazyMotion features={domAnimation}>
+			<m.div
+				animate={{ rotate: [0, 360], scale: [1, 1.2, 1] }}
+				transition={{
+					scale: {
+						duration: 2, // breathing effect duration
+						ease: "easeInOut",
+						repeat: Infinity,
+						repeatType: "loop",
+					},
+					rotate: {
+						duration: 5, // rotating effect duration (different from breathing)
+						ease: "linear", // continuous rotation without easing
+						repeat: Infinity,
+						repeatType: "loop",
+					},
+				}}
+				className={cn("pointer-events-none fixed -z-1 hidden opacity-0 sm:block", className)}
+				style={{
+					position: "absolute",
+					maskImage: `radial-gradient(${size / 2}px circle at center, white, transparent)`,
+					WebkitMaskImage: `radial-gradient(${size / 2}px circle at center, white, transparent)`,
+					filter,
+					opacity,
+					width: `${size}px`,
+					height: `${size}px`,
+					background: `linear-gradient(135deg, var(--cursor-from), var(--cursor-via), var(--cursor-to), var(--cursor-from))`,
+					left: 0,
+					top: 0,
+					translateX: smoothX,
+					translateY: smoothY,
+				}}
+			/>
+		</LazyMotion>
 	);
 };
 
