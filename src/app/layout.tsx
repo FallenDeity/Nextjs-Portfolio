@@ -5,10 +5,11 @@ import React from "react";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import CursorSpotlight from "@/components/ui/cursor-spotlight";
+import { roboto } from "@/lib/fonts";
 
 export default function RootLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
 	return (
-		<html lang="en" className="overflow-hidden">
+		<html lang="en" className={`overflow-hidden ${roboto.className}`}>
 			<body className="overflow-hidden">
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					{children}

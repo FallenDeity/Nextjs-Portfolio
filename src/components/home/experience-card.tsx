@@ -113,7 +113,9 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({ experien
 	return (
 		<BentoCard name="Experience" className="lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3">
 			<div className="flex h-full w-full flex-col items-start lg:col-span-1">
-				<h2 className="my-4 px-6 text-xl font-semibold">Experience</h2>
+				<div className="my-4 flex items-center justify-center gap-2 px-6">
+					<h2 className="text-xl font-semibold">Experience</h2>
+				</div>
 				<div className="scrollbar-hide mx-6 h-[55vh] w-[calc(100%-3rem)] overflow-y-auto">
 					<ExperienceList experiences={experiences.sort((a, b) => b.startDate.localeCompare(a.startDate))} />
 				</div>

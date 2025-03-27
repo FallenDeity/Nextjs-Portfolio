@@ -99,12 +99,15 @@ export default function SpotifyStatusCard(): React.ReactElement {
 			setStatus(status);
 		};
 
-		if (status && status.is_playing && progress >= 100 && progress % 100 === 0) {
+		if (status && status.is_playing && progress >= 100) {
 			void updateStatus();
 			return;
 		}
 
-		void updateStatus();
+		if (!status || !status.is_playing) {
+			void updateStatus();
+			return;
+		}
 	}, [progress]);
 
 	React.useEffect(() => {
@@ -211,7 +214,7 @@ export default function SpotifyStatusCard(): React.ReactElement {
 								</div>
 							</div>
 							<div className="flex w-full flex-row items-center justify-between">
-								<Progress value={progress} className="h-1 w-[75%]" />
+								<Progress value={progress} className="h-1 w-[70%] md:w-[75%]" />
 								<div className="text-muted-foreground text-xs">
 									{formatProgress((progress / 100) * status.item.duration_ms)} /{" "}
 									{formatProgress(status.item.duration_ms)}
@@ -249,7 +252,7 @@ export default function SpotifyStatusCard(): React.ReactElement {
 								<div className="text-muted-foreground text-xs">Spotify</div>
 							</div>
 							<div className="flex w-full flex-row items-center justify-between">
-								<Progress value={0} className="h-1 w-[75%]" />
+								<Progress value={0} className="h-1 w-[70%] md:w-[75%]" />
 								<span className="text-muted-foreground text-xs">0:00 / 0:00</span>
 							</div>
 						</div>

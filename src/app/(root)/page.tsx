@@ -18,7 +18,7 @@ export default async function BentoDemo(): Promise<React.ReactElement> {
 		tags: ["profile", "education", "experience", "project"],
 	});
 	return (
-		<div className="flex h-full w-full flex-col items-center justify-start space-y-6 px-6 pt-6 pb-96 md:pb-64 lg:pb-36">
+		<div className="flex h-full w-full flex-col items-center justify-start space-y-6 px-2 pt-2 pb-44 md:px-6 md:pt-6 md:pb-36">
 			<BentoGrid className="lg:grid-rows-3">
 				<ProfileCard
 					name={profile?.name ?? ""}

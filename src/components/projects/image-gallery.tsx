@@ -20,9 +20,11 @@ import React from "react";
 
 import { CARD_STYLE_STRING, cn } from "@/lib/utils";
 
+import { Marquee } from "../magicui/marquee";
+
 export function Gallery({ images }: { images: GalleryItem[] }): React.ReactElement {
 	return (
-		<div className="scrollbar-hide max-w-5xl overflow-x-auto">
+		<Marquee pauseOnHover className="scrollbar-hide relative max-w-5xl overflow-x-auto">
 			<LightGallery plugins={[lgThumbnail, lgZoom, lgRotate, lgFullscreen, lgPager]}>
 				{images.map((image, index) => {
 					const thumbnailWidth = 480; // Set your desired thumbnail width
@@ -47,6 +49,6 @@ export function Gallery({ images }: { images: GalleryItem[] }): React.ReactEleme
 					);
 				})}
 			</LightGallery>
-		</div>
+		</Marquee>
 	);
 }

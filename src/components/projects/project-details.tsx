@@ -21,8 +21,8 @@ interface ProjectDetailProps {
 
 export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps): React.ReactElement {
 	return (
-		<div className="mb-96 flex flex-col items-center justify-center md:m-6 md:mb-64 lg:mb-36">
-			<div className={cn("mx-auto max-w-5xl md:m-6 md:rounded-xl", CARD_STYLE_STRING)}>
+		<div className="mx-auto mb-44 flex w-full max-w-5xl flex-col items-center justify-center md:m-6 md:mb-36">
+			<div className={cn("flex w-full flex-col md:m-6 md:rounded-xl", CARD_STYLE_STRING)}>
 				<div className="dark relative mb-8 h-[300px] overflow-hidden md:h-[400px] md:rounded-xl">
 					<Image
 						priority
@@ -86,7 +86,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 						<div>
 							<h2 className="mb-4 text-xl font-semibold">Project Details</h2>
 							<div className="space-y-4">
-								<div className="grid grid-flow-col grid-cols-2 gap-4">
+								<div className="grid grid-flow-col grid-cols-2 gap-6">
 									<div className="col-span-1 flex flex-col">
 										<h3 className="font-semibold">Date</h3>
 										<p className="text-muted-foreground flex items-center text-sm">
@@ -144,15 +144,15 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 						{(project.features ?? []).map((feature, index) => (
 							<li key={index} className="flex items-center">
 								<div className="mr-2 text-blue-500">•</div>
-								<span className="text-muted-foreground text-sm">{feature}</span>
+								<span className="text-muted-foreground text-sm tracking-tight">{feature}</span>
 							</li>
 						))}
 					</ul>
 				</div>
 
-				<div className="mb-12 px-6">
-					<h2 className="mb-4 text-xl font-semibold">Screenshots</h2>
-					{project.screenshots && (
+				{project.screenshots && project.screenshots.length > 0 && (
+					<div className="mb-12 px-6">
+						<h2 className="mb-4 text-xl font-semibold">Screenshots</h2>
 						<Gallery
 							images={project.screenshots.map((image) => ({
 								src: urlFor(image).url(),
@@ -162,11 +162,11 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 								height: getImageDimensions(image.asset?._ref ?? "").height.toString(),
 							}))}
 						/>
-					)}
-				</div>
+					</div>
+				)}
 			</div>
 			<div
-				className={`mx-6 mt-6 flex max-w-5xl flex-col gap-6 md:mt-0 md:justify-between ${nextPrev && !nextPrev.prev ? "md:flex-row-reverse" : "md:flex-row"}`}>
+				className={`mx-6 mt-6 flex w-full max-w-5xl flex-col gap-6 md:mt-0 md:justify-between ${nextPrev && !nextPrev.prev ? "md:flex-row-reverse" : "md:flex-row"}`}>
 				{nextPrev && nextPrev.prev && (
 					<Link
 						href={`/projects/${nextPrev.prev.slug.current}`}

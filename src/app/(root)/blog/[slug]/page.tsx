@@ -146,7 +146,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 					</Link>
 				)}
 			</div>
-			<section className="z-10 mx-auto mt-16 mb-96 w-full max-w-3xl md:mb-64 lg:mb-36">
+			<section className="z-10 mx-auto mt-16 mb-44 w-full max-w-3xl md:mb-36">
 				<Comments repo={repo} repoId={repoId} category={category} categoryId={categoryId} />
 			</section>
 		</>

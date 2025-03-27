@@ -55,12 +55,12 @@ export const PROFILE_QUERY = defineQuery(`
 
 export const PROJECTS_QUERY = defineQuery(`
     *[_type == "project"] | order(publishedAt desc) {
-        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies
+        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies, featured
     }`);
 
 export const PROJECT_QUERY = defineQuery(`
     *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {
-        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies
+        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies, featured
     }`);
 
 export const NEXT_PREV_PROJECTS_QUERY = defineQuery(`

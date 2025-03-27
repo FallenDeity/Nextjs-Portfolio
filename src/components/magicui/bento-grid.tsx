@@ -78,7 +78,7 @@ function BentoCard({ name, className, ...props }: BentoCardProps): React.ReactEl
 		<div
 			key={name}
 			className={cn(
-				"group bg-card/40 relative col-span-3 flex flex-col justify-between overflow-hidden rounded-xl backdrop-blur-xl backdrop-filter",
+				"gbg-card/40 relative col-span-3 flex flex-col justify-between overflow-hidden rounded-xl backdrop-blur-xl backdrop-filter",
 				// light styles
 				"[box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
 				// dark styles

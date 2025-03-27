@@ -18,7 +18,7 @@ interface ProjectCarouselProps {
 	projects: Project[];
 }
 
-export default function ProjectsAdvancedCarousel({ projects }: ProjectCarouselProps): React.ReactElement {
+export default function ProjectsAdvancedCarousel({ projects }: ProjectCarouselProps): React.ReactElement | null {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [autoplay, setAutoplay] = useState(true);
 	const [isAnimating, setIsAnimating] = useState(false);
@@ -91,6 +91,8 @@ export default function ProjectsAdvancedCarousel({ projects }: ProjectCarouselPr
 		window.addEventListener("keydown", handleKeyDown);
 		return (): void => window.removeEventListener("keydown", handleKeyDown);
 	}, [nextSlide, prevSlide]);
+
+	if (featuredProjects.length === 0) return null;
 
 	return (
 		<div className="mb-12">

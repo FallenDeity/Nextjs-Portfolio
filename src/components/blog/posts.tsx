@@ -33,7 +33,7 @@ function PostCard({ post }: PostCardProps): React.ReactElement {
 				blurDataURL={urlFor(post.mainImage).width(16).height(9).dpr(2).blur(20).url() || ""}
 				width={getImageDimensions(post.mainImage.asset?._ref ?? "").width}
 				height={getImageDimensions(post.mainImage.asset?._ref ?? "").height}
-				className="h-96 max-h-96 w-full rounded-lg object-cover"
+				className="max-h-48 w-full rounded-lg object-cover md:max-h-96"
 				sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
 			/>
 			<div className="p-4">

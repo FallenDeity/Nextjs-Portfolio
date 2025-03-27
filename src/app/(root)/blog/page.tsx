@@ -23,7 +23,7 @@ export default async function BlogPage(props: { searchParams: Promise<BlogPagePr
 	});
 
 	return (
-		<div className="relative mb-96 flex min-h-screen w-full flex-col gap-6 p-6 md:mb-64 lg:mb-36 lg:grid lg:grid-cols-4">
+		<div className="relative mb-44 flex min-h-screen w-full flex-col gap-6 p-6 md:mb-36 lg:grid lg:grid-cols-4">
 			<div className="col-span-1 hidden lg:flex" />
 			<div className="relative col-span-2 flex flex-col gap-6">
 				<SearchBar tags={categories} />

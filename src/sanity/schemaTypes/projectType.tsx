@@ -103,8 +103,14 @@ export const projectType = defineType({
 				}),
 			],
 		}),
+		defineField({
+			name: "featured",
+			title: "Featured",
+			type: "boolean",
+		}),
 	],
 	initialValue: {
 		publishedAt: new Date().toISOString(),
+		featured: false,
 	},
 });

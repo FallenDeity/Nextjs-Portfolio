@@ -94,6 +94,7 @@ export interface Project {
 		_type: "image";
 		_key: string;
 	}[];
+	featured?: boolean;
 }
 
 export interface Profile {
@@ -665,7 +666,7 @@ export type PROFILE_QUERYResult = {
 	_updatedAt: string;
 } | null;
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project"] | order(publishedAt desc) {        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies    }
+// Query: *[_type == "project"] | order(publishedAt desc) {        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies, featured    }
 export type PROJECTS_QUERYResult = {
 	_id: string;
 	slug: Slug;
@@ -707,9 +708,10 @@ export type PROJECTS_QUERYResult = {
 		  }[]
 		| null;
 	technologies: string[] | null;
+	featured: boolean | null;
 }[];
 // Variable: PROJECT_QUERY
-// Query: *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies    }
+// Query: *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies, featured    }
 export type PROJECT_QUERYResult = {
 	_id: string;
 	slug: Slug;
@@ -751,6 +753,7 @@ export type PROJECT_QUERYResult = {
 		  }[]
 		| null;
 	technologies: string[] | null;
+	featured: boolean | null;
 } | null;
 // Variable: NEXT_PREV_PROJECTS_QUERY
 // Query: *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {        "prev": *[_type == "project" && defined(slug.current) && defined(publishedAt) && publishedAt < ^.publishedAt]            | order(publishedAt desc)[0] {                _id, slug, title, excerpt, publishedAt        },        "next": *[_type == "project" && defined(slug.current) && defined(publishedAt) && publishedAt > ^.publishedAt]            | order(publishedAt asc)[0] {                _id, slug, title, excerpt, publishedAt        }    }
@@ -778,8 +781,8 @@ declare module "@sanity/client" {
 		'\n    *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {\n        _id, title, slug, publishedAt, mainImage, categories[]->{title, slug, description}, excerpt, author->{name, image}\n    }': RECENT_POSTS_QUERYResult;
 		'\n    *[_type == "category"] {\n        _id, title, slug, description\n    }': CATEGORIES_QUERYResult;
 		'\n    *[_type == "profile"][0] {\n        name,\n        caption,\n        bio,\n        image,\n        languages,\n        resume,\n        contact,\n        education[]->{institution, degree, startDate, endDate, description, icon},\n        experience[]->{_id, company, role, startDate, endDate, description, points, icon, subExperiences[]->{_id, company, role, startDate, endDate, description, points, icon}},\n        projects[]->{title, slug, image},\n        technologies,\n        _updatedAt\n    }': PROFILE_QUERYResult;
-		'\n    *[_type == "project"] | order(publishedAt desc) {\n        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies\n    }': PROJECTS_QUERYResult;
-		'\n    *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {\n        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies\n    }': PROJECT_QUERYResult;
+		'\n    *[_type == "project"] | order(publishedAt desc) {\n        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies, featured\n    }': PROJECTS_QUERYResult;
+		'\n    *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {\n        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies, featured\n    }': PROJECT_QUERYResult;
 		'\n    *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {\n        "prev": *[_type == "project" && defined(slug.current) && defined(publishedAt) && publishedAt < ^.publishedAt]\n            | order(publishedAt desc)[0] {\n                _id, slug, title, excerpt, publishedAt\n        },\n        "next": *[_type == "project" && defined(slug.current) && defined(publishedAt) && publishedAt > ^.publishedAt]\n            | order(publishedAt asc)[0] {\n                _id, slug, title, excerpt, publishedAt\n        }\n    }\n': NEXT_PREV_PROJECTS_QUERYResult;
 	}
 }

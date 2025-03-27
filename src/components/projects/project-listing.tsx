@@ -18,13 +18,13 @@ export default function ProjectListing({ projects }: ProjectListingProps): React
 	return (
 		<Tabs
 			defaultValue="grid"
-			className="z-10 m-6 mx-auto mb-96 min-h-screen w-full max-w-5xl overflow-hidden p-4 md:mb-64 lg:mb-36">
+			className="z-10 m-6 mx-auto mb-44 min-h-screen w-full max-w-5xl overflow-hidden p-4 md:pb-36">
 			<div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row">
 				<div>
 					<h1 className="text-6xl font-bold">Projects</h1>
 					<p className="text-muted-foreground mt-4">A collection of my work and side projects</p>
 				</div>
-				<div className="flex flex-row items-center justify-end gap-4">
+				<div className="hidden flex-row items-center justify-end gap-4 md:flex">
 					<div className="w-full md:w-auto">
 						<TabsList className="bg-background/40 flex gap-2 border backdrop-blur-xl backdrop-filter">
 							<TabsTrigger value="grid" className="data-[state=active]:bg-accent">
@@ -41,7 +41,7 @@ export default function ProjectListing({ projects }: ProjectListingProps): React
 			</div>
 			<div className="w-full">
 				<TabsContent value="grid" className="mt-0">
-					<ProjectsAdvancedCarousel projects={projects} />
+					<ProjectsAdvancedCarousel projects={projects.filter((project) => project.featured)} />
 
 					<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 						{projects.map((project, index) => (
