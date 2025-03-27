@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import { CARD_STYLE_STRING, cn } from "@/lib/utils";
+import { CARD_STYLE_STRING, cn, CUSTOM_LOGOS } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { NEXT_PREV_PROJECTS_QUERYResult, PROJECT_QUERYResult } from "@/sanity/sanity.types";
 
@@ -121,7 +121,11 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 											<Image
 												className="bg-primary/10 rounded-full p-1"
 												key={index}
-												src={`https://cdn.simpleicons.org/${tech}`}
+												src={
+													CUSTOM_LOGOS.includes(tech)
+														? `/${tech}.svg`
+														: `https://cdn.simpleicons.org/${tech}`
+												}
 												alt={tech}
 												width={26}
 												height={26}

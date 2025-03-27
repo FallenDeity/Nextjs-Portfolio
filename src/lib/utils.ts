@@ -64,3 +64,5 @@ export const formatDate = (date: string, showDay = false): string => {
 		day: showDay ? "numeric" : undefined,
 	});
 };
+
+export const CUSTOM_LOGOS = ["java"];

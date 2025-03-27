@@ -18,25 +18,34 @@ import LightGallery from "lightgallery/react";
 import Image from "next/image";
 import React from "react";
 
+import { CARD_STYLE_STRING, cn } from "@/lib/utils";
+
 export function Gallery({ images }: { images: GalleryItem[] }): React.ReactElement {
 	return (
 		<div className="scrollbar-hide max-w-5xl overflow-x-auto">
 			<LightGallery plugins={[lgThumbnail, lgZoom, lgRotate, lgFullscreen, lgPager]}>
-				{images.map((image, index) => (
-					<a
-						key={index}
-						href={image.src}
-						data-lg-size={`${image.width}-${image.height}`}
-						className="w-[480px]">
-						<Image
-							src={image.thumb ?? ""}
-							alt={image.alt ?? ""}
-							width={480}
-							height={128}
-							className="h-full w-full rounded-md object-contain"
-						/>
-					</a>
-				))}
+				{images.map((image, index) => {
+					const thumbnailWidth = 480; // Set your desired thumbnail width
+					const aspectRatio = parseFloat(image.width as string) / parseFloat(image.height as string);
+					const thumbnailHeight = thumbnailWidth / aspectRatio;
+
+					return (
+						<a
+							key={index}
+							href={image.src}
+							data-lg-size={`${image.width}-${image.height}`}
+							style={{ width: `${thumbnailWidth}px`, height: `${thumbnailHeight}px` }} // Dynamic thumbnail size
+							className={cn("block max-h-56", CARD_STYLE_STRING)}>
+							<Image
+								src={image.thumb ?? ""}
+								alt={image.alt ?? ""}
+								width={thumbnailWidth}
+								height={thumbnailHeight}
+								className="h-full w-full rounded-md object-contain"
+							/>
+						</a>
+					);
+				})}
 			</LightGallery>
 		</div>
 	);

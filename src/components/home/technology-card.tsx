@@ -13,7 +13,7 @@ import {
 	TimelineSeparator,
 	TimelineTitle,
 } from "@/components/ui/timeline";
-import { formatDate } from "@/lib/utils";
+import { CUSTOM_LOGOS, formatDate } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { PROFILE_QUERYResult } from "@/sanity/sanity.types";
 
@@ -86,24 +86,28 @@ export function TechnologyCard({ technologies, educations }: TechnologyCardProps
 				</div>
 				<div className="flex w-full flex-col items-start pb-6">
 					<h2 className="my-6 px-6 text-xl font-semibold">Technologies</h2>
-					<Marquee className="[--duration:20s]">
+					<Marquee pauseOnHover className="[--duration:20s]">
 						{firstRow.map((slug) => (
 							<Image
 								className="bg-accent/60 mx-4 rounded-lg p-3"
 								key={slug}
-								src={`https://cdn.simpleicons.org/${slug}`}
+								src={
+									CUSTOM_LOGOS.includes(slug) ? `/${slug}.svg` : `https://cdn.simpleicons.org/${slug}`
+								}
 								alt={slug}
 								width={64}
 								height={64}
 							/>
 						))}
 					</Marquee>
-					<Marquee reverse className="[--duration:20s]">
+					<Marquee pauseOnHover reverse className="[--duration:20s]">
 						{secondRow.map((slug) => (
 							<Image
 								className="bg-accent/60 mx-4 rounded-lg p-3"
 								key={slug}
-								src={`https://cdn.simpleicons.org/${slug}`}
+								src={
+									CUSTOM_LOGOS.includes(slug) ? `/${slug}.svg` : `https://cdn.simpleicons.org/${slug}`
+								}
 								alt={slug}
 								width={64}
 								height={64}
