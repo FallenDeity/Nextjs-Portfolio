@@ -5,9 +5,10 @@ import React from "react";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import CursorSpotlight from "@/components/ui/cursor-spotlight";
-import { metadataConfig } from "@/lib/metadata";
+import { metadataConfig, viewportConfig } from "@/lib/metadata";
 
 export const metadata = metadataConfig;
+export const viewport = viewportConfig;
 
 export default function RootLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
 	return (
