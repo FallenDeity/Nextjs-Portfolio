@@ -119,7 +119,7 @@ export default function ProjectsAdvancedCarousel({ projects }: ProjectCarouselPr
 								className="relative h-full min-w-full"
 								aria-hidden={currentSlide !== index}>
 								<Image
-									src={urlFor(project.image).url() || "/placeholder.svg?height=400&width=800"}
+									src={urlFor(project.image).height(400).url()}
 									alt={project.title}
 									fill
 									className="object-cover"

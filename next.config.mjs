@@ -28,7 +28,7 @@ const nextConfig = {
 			},
 		],
 	},
-	reactStrictMode: true,
+	reactStrictMode: false,
 	distDir: "dist",
 };
 

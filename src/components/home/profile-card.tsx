@@ -82,7 +82,7 @@ export function ProfileCard(props: ProfileCardProps): React.ReactElement {
 										Last updated {formatDistanceToNow(props.updateAt, { addSuffix: true })}
 									</div>
 								</div>
-								<Image className="mr-2" src="/pdf.png" alt="pdf" width={24} height={24} />
+								<Image className="mr-2" src="/pdf.webp" alt="pdf" width={24} height={24} />
 							</div>
 						</Button>
 					</Link>
@@ -249,7 +249,6 @@ export function ProfileCard(props: ProfileCardProps): React.ReactElement {
 							alt="globe wireframe"
 							width="400"
 							height="400"
-							decoding="async"
 							data-nimg="1"
 							className="block h-full w-full"
 							style={{ color: "transparent" }}
@@ -259,7 +258,6 @@ export function ProfileCard(props: ProfileCardProps): React.ReactElement {
 							alt="globe wireframe"
 							width="400"
 							height="400"
-							decoding="async"
 							data-nimg="1"
 							className="hidden h-full w-full"
 							style={{ color: "transparent" }}

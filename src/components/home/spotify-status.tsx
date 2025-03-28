@@ -94,7 +94,16 @@ export default function SpotifyStatusCard(): React.ReactElement {
 	const [progress, setProgress] = React.useState(0);
 	const [colorPalette, setColorPalette] = React.useState<number[][] | undefined>(undefined);
 	const [gradientColor, setGradientColor] = React.useState<string | undefined>(undefined);
-	const colorThief = new ColorThief();
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+	const colorThief = React.useMemo(() => new ColorThief(), []);
+
+	const extractColors = async (img: HTMLImageElement): Promise<void> => {
+		const palette = await new Promise<number[][]>((resolve) => {
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+			setTimeout(() => resolve(colorThief.getPalette(img, 10)), 0);
+		});
+		setColorPalette(palette);
+	};
 
 	React.useEffect(() => {
 		const updateStatus = async (): Promise<void> => {
@@ -189,10 +198,7 @@ export default function SpotifyStatusCard(): React.ReactElement {
 						<Image
 							src={status.item.album.images[0].url}
 							alt={status.item.album.name}
-							onLoadingComplete={(img): void => {
-								const palette = colorThief.getPalette(img, 20) as number[][];
-								setColorPalette(palette);
-							}}
+							onLoadingComplete={(img) => void extractColors(img)}
 							className="h-16 w-16 rounded-md"
 							width={64}
 							height={64}
@@ -243,13 +249,13 @@ export default function SpotifyStatusCard(): React.ReactElement {
 								barWidth={2}
 								gap={1}
 								pause
-								barColor={resolvedTheme === "dark" ? "white" : "black"}
+								barColor={resolvedTheme === "dark" ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)"}
 								className="top-0 right-0 h-11"
 							/>
 						</div>
 						<div className="flex h-full w-full flex-col items-start justify-between">
 							<div className="flex h-full w-full flex-col">
-								<span className="text-md line-clamp-1 w-[60%] font-bold text-ellipsis">
+								<span className="text-md text-foreground/70 line-clamp-1 w-[60%] font-bold text-ellipsis">
 									Not Playing
 								</span>
 								<div className="text-muted-foreground text-xs">Spotify</div>
