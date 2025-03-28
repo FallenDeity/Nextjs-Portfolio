@@ -1,4 +1,7 @@
 {
+    "origins": [
+        "https://nextjs-portfolio-git-dev-fallendeitys-projects.vercel.app/"
+    ],
     "originsRegex": [
         "http://localhost:[0-9]+"
     ]
