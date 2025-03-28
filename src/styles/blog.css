@@ -217,3 +217,29 @@ a[data-footnote-backref] {
 	font-family: ui-sans-serif, system-ui, sans-serif, "Segoe UI Symbol", "Noto Color Emoji";
 	font-size: 0.875rem;
 }
+
+/* Unordered List Styles */
+ul {
+	list-style-type: disc; /* 1st level */
+}
+
+ul ul {
+	list-style-type: circle; /* 2nd level */
+}
+
+ul ul ul {
+	list-style-type: square; /* 3rd level */
+}
+
+/* Ordered List Styles */
+ol {
+	list-style-type: decimal; /* 1st level */
+}
+
+ol ol {
+	list-style-type: lower-alpha; /* 2nd level */
+}
+
+ol ol ol {
+	list-style-type: lower-roman; /* 3rd level */
+}

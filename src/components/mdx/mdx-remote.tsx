@@ -1,3 +1,4 @@
+import { Info, Lightbulb, MessageSquareWarning, OctagonAlert, TriangleAlert } from "lucide-react";
 import { MDXComponents } from "mdx/types";
 import Image from "next/image";
 import React from "react";
@@ -10,20 +11,31 @@ import { mdSerialize } from "./mdx-serializer";
 import { Mermaid } from "./mermaid";
 
 const Alert = ({ type, children }: { type: string; children: React.ReactNode }): React.ReactElement => {
+	const IconMap = {
+		note: <Info className="h-4 w-4 text-blue-500" />,
+		tip: <Lightbulb className="h-4 w-4 text-green-500" />,
+		important: <MessageSquareWarning className="h-4 w-4 text-purple-500" />,
+		warning: <TriangleAlert className="h-4 w-4 text-amber-500" />,
+		caution: <OctagonAlert className="h-4 w-4 text-red-500" />,
+	};
 	return (
 		<div
 			className={cn(
-				"my-4 border-l-4 p-4",
+				"my-4 flex flex-col border-l-4 p-4",
 				{
 					"border-blue-500 bg-blue-50 dark:bg-blue-900/30": type.toUpperCase() === "NOTE",
 					"border-green-500 bg-green-50 dark:bg-green-900/30": type.toUpperCase() === "TIP",
-					"border-yellow-500 bg-yellow-50 dark:bg-yellow-900/30": type.toUpperCase() === "IMPORTANT",
-					"border-red-500 bg-red-50 dark:bg-red-900/30": type.toUpperCase() === "WARNING",
-					"border-amber-500 bg-orange-50 dark:bg-amber-900/30": type.toUpperCase() === "CAUTION",
+					"border-purple-500 bg-purple-50 dark:bg-purple-900/30": type.toUpperCase() === "IMPORTANT",
+					"border-amber-500 bg-amber-50 dark:bg-amber-900/30": type.toUpperCase() === "WARNING",
+					"border-red-500 bg-red-50 dark:bg-red-900/30": type.toUpperCase() === "CAUTION",
 				},
 				"rounded-md"
 			)}>
-			{children}
+			<div className="flex items-center space-x-2">
+				{IconMap[type.toLowerCase() as keyof typeof IconMap]}
+				<span className="text-sm font-semibold text-gray-900 capitalize dark:text-gray-100">{type}</span>
+			</div>
+			<div className="mt-2 text-sm text-gray-700 dark:text-gray-300">{children}</div>
 		</div>
 	);
 };
@@ -65,15 +77,42 @@ const components: MDXComponents = {
 		<p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)} {...props} />
 	),
 	ul: ({ className, ...props }: React.HTMLProps<HTMLUListElement>): React.ReactElement => (
-		<ul className={cn("mt-2 ml-6 list-disc", className)} {...props} />
+		<ul className={cn("mt-2 ml-6", className)} {...props} />
 	),
 	ol: ({ className, ...props }: React.HTMLProps<HTMLOListElement>): React.ReactElement => (
 		// @ts-expect-error - Missing properties
-		<ol className={cn("mt-2 ml-6 list-decimal", className)} {...props} />
+		<ol className={cn("mt-2 ml-6", className)} {...props} />
 	),
-	li: ({ className, ...props }: React.HTMLProps<HTMLLIElement>): React.ReactElement => (
-		<li className={cn("my-2", className)} {...props} />
-	),
+	li: ({ children, className, ...props }: React.HTMLProps<HTMLLIElement>): React.ReactElement => {
+		// if classname includes task-list-item, then add label for checkbox
+		const firstChild = React.Children.toArray(children)[0] as React.ReactElement;
+		const isCheckbox =
+			firstChild?.type === "input" &&
+			(firstChild?.props as React.InputHTMLAttributes<HTMLInputElement>)?.type === "checkbox";
+		if (className?.includes("task-list-item") && isCheckbox) {
+			return (
+				<li className={cn("my-2", className)} {...props}>
+					<input
+						type="checkbox"
+						className="border-muted bg-primary text-primary-foreground mr-2 h-3 w-3 rounded-lg"
+						{...(firstChild?.props ?? {})}
+						aria-label="checkbox"
+					/>
+					{React.Children.map(children, (child) => {
+						if (React.isValidElement(child) && child.type === "input") {
+							return null;
+						}
+						return child;
+					})}
+				</li>
+			);
+		}
+		return (
+			<li className={cn("my-2", className)} {...props}>
+				{children}
+			</li>
+		);
+	},
 	blockquote: ({ className, ...props }: React.HTMLProps<HTMLElement>): React.ReactElement => (
 		// @ts-expect-error - Missing properties
 		<blockquote className={cn("[&>*]:text-muted-foreground mt-6 border-l-2 pl-6 italic", className)} {...props} />

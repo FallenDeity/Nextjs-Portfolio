@@ -100,7 +100,7 @@ export async function PostList({ query, tags }: PostListProps): Promise<React.Re
 		<ul className="flex h-full w-full flex-1 flex-col gap-10">
 			{posts.map((post) => (
 				<li key={post._id}>
-					<Link href={`/blog/${post.slug.current}`}>
+					<Link href={`/blog/${post.slug.current}`} prefetch={false} aria-label={post.title}>
 						<PostCard post={post} />
 					</Link>
 				</li>

@@ -131,7 +131,7 @@ export function KeenCarousel({ images }: { images: string[] }): React.ReactEleme
 				{images.map((src, idx) => (
 					<Image
 						key={idx}
-						className="carousel__cell number-slide rounded-md shadow-md"
+						className="carousel__cell number-slide rounded-md object-cover shadow-md"
 						src={src}
 						alt="project"
 						width={260}

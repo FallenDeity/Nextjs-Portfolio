@@ -142,7 +142,7 @@ export default function ProjectsAdvancedCarousel({ projects }: ProjectCarouselPr
 									</div>
 									<div className="flex flex-wrap gap-4">
 										{project.source && (
-											<Link href={project.source} prefetch={false}>
+											<Link href={project.source} prefetch={false} aria-label="View source code">
 												<Button
 													variant={"outline"}
 													className="text-foreground flex cursor-pointer items-center gap-1 px-3 py-1.5 text-sm transition-all duration-300 ease-in-out">
@@ -152,7 +152,7 @@ export default function ProjectsAdvancedCarousel({ projects }: ProjectCarouselPr
 											</Link>
 										)}
 										{project.demo && (
-											<Link href={project.demo} prefetch={false}>
+											<Link href={project.demo} prefetch={false} aria-label="View live demo">
 												<Button
 													variant={"outline"}
 													className="text-foreground flex cursor-pointer items-center gap-1 px-3 py-1.5 text-sm transition-all duration-300 ease-in-out">
@@ -161,7 +161,9 @@ export default function ProjectsAdvancedCarousel({ projects }: ProjectCarouselPr
 												</Button>
 											</Link>
 										)}
-										<Link href={`/projects/${project.slug.current}`}>
+										<Link
+											href={`/projects/${project.slug.current}`}
+											aria-label="View project details">
 											<Button
 												variant={"link"}
 												className="flex cursor-pointer items-center gap-1 px-3 py-1.5 text-sm">

@@ -20,7 +20,7 @@ export function ProjectCard({ projects }: ProjectCardProps): React.ReactElement 
 			<div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden pb-6">
 				<div className="my-6 flex w-full items-center justify-between gap-2 px-6">
 					<h2 className="text-start text-xl font-semibold">Projects</h2>
-					<Link href="/projects" prefetch={false}>
+					<Link href="/projects" prefetch={false} aria-label="View all projects">
 						<ExternalLink className="hover:text-foreground text-muted-foreground h-4 w-4 cursor-pointer transition-colors duration-300 ease-in-out" />
 					</Link>
 				</div>

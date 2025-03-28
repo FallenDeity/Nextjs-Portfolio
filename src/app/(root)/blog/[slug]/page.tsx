@@ -117,6 +117,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 				className={`mx-auto mt-6 flex w-full max-w-3xl flex-col gap-6 md:mt-0 md:justify-between ${next_prev && !next_prev.prev ? "md:flex-row-reverse" : "md:flex-row"}`}>
 				{next_prev && next_prev.prev && (
 					<Link
+						aria-label="View previous post"
 						href={`/blog/${next_prev.prev.slug.current}`}
 						className={cn("flex w-full justify-start rounded-lg p-4 md:w-1/2", CARD_STYLE_STRING)}>
 						<div className="flex w-full flex-row items-center justify-between gap-2">
@@ -132,6 +133,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 				)}
 				{next_prev && next_prev.next && (
 					<Link
+						aria-label="View next post"
 						href={`/blog/${next_prev.next.slug.current}`}
 						className={cn("flex w-full justify-end rounded-lg p-4 md:w-1/2", CARD_STYLE_STRING)}>
 						<div className="flex w-full flex-row items-center justify-between gap-2">

@@ -24,10 +24,11 @@ export function ProjectCard({ project }: { project: Project }): React.ReactEleme
 			<div className="flex h-auto flex-col justify-between p-4">
 				<div className="flex flex-col">
 					<div className="mb-3 flex items-start justify-between">
-						<h3 className="text-xl font-bold">{project.title}</h3>
+						<p className="text-xl font-bold">{project.title}</p>
 						<div className="flex gap-2">
 							{project.source && (
 								<Link
+									aria-label="View source code"
 									prefetch={false}
 									href={project.source}
 									className="text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out">
@@ -36,6 +37,7 @@ export function ProjectCard({ project }: { project: Project }): React.ReactEleme
 							)}
 							{project.demo && (
 								<Link
+									aria-label="View live demo"
 									prefetch={false}
 									href={project.demo}
 									className="text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out">
@@ -67,6 +69,8 @@ export function ProjectCard({ project }: { project: Project }): React.ReactEleme
 							{formatDistanceToNow(new Date(project.publishedAt), { addSuffix: true })}
 						</div>
 						<Link
+							aria-label="View project details"
+							prefetch={false}
 							href={`/projects/${project.slug.current}`}
 							className="text-sm text-blue-400 transition-colors duration-300 ease-in-out hover:text-blue-300">
 							View Details

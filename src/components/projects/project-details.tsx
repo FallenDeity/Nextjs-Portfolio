@@ -46,7 +46,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 						</div>
 						<div className="flex gap-4">
 							{project.source && (
-								<Link href={project.source} prefetch={false}>
+								<Link href={project.source} prefetch={false} aria-label="View source code">
 									<Button
 										variant={"outline"}
 										className="text-foreground flex cursor-pointer items-center gap-1 px-3 py-1.5 text-sm transition-all duration-300 ease-in-out">
@@ -56,7 +56,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 								</Link>
 							)}
 							{project.demo && (
-								<Link href={project.demo} prefetch={false}>
+								<Link href={project.demo} prefetch={false} aria-label="View live demo">
 									<Button
 										variant={"outline"}
 										className="text-foreground flex cursor-pointer items-center gap-1 px-3 py-1.5 text-sm transition-all duration-300 ease-in-out">
@@ -99,6 +99,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 										<div className="mt-2 flex gap-3">
 											{project.source && (
 												<Link
+													aria-label="View source code"
 													prefetch={false}
 													href={project.source}
 													className="text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out">
@@ -107,6 +108,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 											)}
 											{project.demo && (
 												<Link
+													aria-label="View live demo"
 													prefetch={false}
 													href={project.demo}
 													className="text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out">
@@ -171,6 +173,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 				className={`mx-6 mt-6 flex w-full max-w-5xl flex-col gap-6 md:mt-0 md:justify-between ${nextPrev && !nextPrev.prev ? "md:flex-row-reverse" : "md:flex-row"}`}>
 				{nextPrev && nextPrev.prev && (
 					<Link
+						aria-label="View previous project"
 						href={`/projects/${nextPrev.prev.slug.current}`}
 						className={cn("flex w-full justify-start rounded-lg p-4 md:w-1/2", CARD_STYLE_STRING)}>
 						<div className="flex w-full flex-row items-center justify-between gap-2">
@@ -186,6 +189,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 				)}
 				{nextPrev && nextPrev.next && (
 					<Link
+						aria-label="View next project"
 						href={`/projects/${nextPrev.next.slug.current}`}
 						className={cn("flex w-full justify-end rounded-lg p-4 md:w-1/2", CARD_STYLE_STRING)}>
 						<div className="flex w-full flex-row items-center justify-between gap-2">

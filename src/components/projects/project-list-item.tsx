@@ -23,7 +23,7 @@ export function ProjectListItem({ project }: { project: Project }): React.ReactE
 				</div>
 				<div className="flex flex-1 flex-col p-6">
 					<div className="mb-2 flex items-start justify-between">
-						<h3 className="text-xl font-bold">{project.title}</h3>
+						<p className="text-xl font-bold">{project.title}</p>
 						<div className="text-muted-foreground flex items-center text-sm">
 							<Calendar size={14} className="mr-1" />
 							{formatDistanceToNow(new Date(project.publishedAt), { addSuffix: true })}
@@ -46,6 +46,7 @@ export function ProjectListItem({ project }: { project: Project }): React.ReactE
 						<div className="flex gap-3">
 							{project.source && (
 								<Link
+									aria-label="View source code"
 									prefetch={false}
 									href={project.source}
 									className="text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out">
@@ -54,6 +55,7 @@ export function ProjectListItem({ project }: { project: Project }): React.ReactE
 							)}
 							{project.demo && (
 								<Link
+									aria-label="View live demo"
 									prefetch={false}
 									href={project.demo}
 									className="text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out">
@@ -62,6 +64,8 @@ export function ProjectListItem({ project }: { project: Project }): React.ReactE
 							)}
 						</div>
 						<Link
+							prefetch={false}
+							aria-label="View project details"
 							href={`/projects/${project.slug.current}`}
 							className="flex items-center text-sm text-blue-400 transition-colors duration-300 ease-in-out hover:text-blue-300">
 							View Details

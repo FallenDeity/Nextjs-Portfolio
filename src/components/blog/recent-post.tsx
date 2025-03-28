@@ -30,6 +30,7 @@ export async function RecentPosts(): Promise<React.ReactElement> {
 				<div className="flex flex-col gap-1 px-2">
 					{recentPosts.map((post) => (
 						<Link
+							aria-label={`Read ${post.title}`}
 							key={post._id}
 							href={`/blog/${post.slug.current}`}
 							className="hover:bg-primary/10 flex flex-row items-center gap-4 rounded-md p-2 transition-all duration-300 ease-in-out">

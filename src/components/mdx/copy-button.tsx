@@ -28,6 +28,8 @@ export default function Pre({
 	return (
 		<pre ref={preRef} {...props} className="group relative overflow-x-auto rounded-lg border p-2">
 			<button
+				aria-label="Copy code"
+				type="button"
 				disabled={isCopied}
 				// eslint-disable-next-line @typescript-eslint/no-misused-promises
 				onClick={handleClickCopy}

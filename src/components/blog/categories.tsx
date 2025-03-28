@@ -38,6 +38,7 @@ export default function Categories({ categories }: { categories: CATEGORIES_QUER
 			<div className="mt-2 flex flex-wrap gap-2.5">
 				{categories.slice(0, displayCount).map((category) => (
 					<Link
+						aria-label={`View posts in ${category.slug.current}`}
 						prefetch={false}
 						href={`/blog${createQuery(category.slug.current)}`}
 						key={category.slug.current}
