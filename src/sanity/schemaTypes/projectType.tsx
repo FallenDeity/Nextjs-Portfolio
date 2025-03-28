@@ -68,6 +68,14 @@ export const projectType = defineType({
 			options: {
 				hotspot: true,
 			},
+			fields: [
+				defineField({
+					name: "alt",
+					type: "string",
+					title: "Alternative text",
+					validation: (Rule) => Rule.required(),
+				}),
+			],
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({

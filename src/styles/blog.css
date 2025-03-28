@@ -1,45 +1,45 @@
 @import url("https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css");
 
-code[data-theme*=" "],
-code[data-theme*=" "] span {
+.markdown-body code[data-theme*=" "],
+.markdown-body code[data-theme*=" "] span {
 	color: var(--shiki-light);
 	background-color: var(--shiki-light-bg);
 }
 
 html.dark {
-	code[data-theme*=" "],
-	code[data-theme*=" "] span {
+	.markdown-body code[data-theme*=" "],
+	.markdown-body code[data-theme*=" "] span {
 		color: var(--shiki-dark);
 		background-color: var(--shiki-dark-bg);
 	}
 
-	[data-highlighted-line] {
+	.markdown-body [data-highlighted-line] {
 		background: rgba(200, 200, 255, 0.1) !important;
 		border-left: 4px solid rgba(67, 192, 245, 0.55) !important;
 	}
 
-	[data-highlighted-chars] {
+	.markdown-body [data-highlighted-chars] {
 		background-color: rgba(82, 82, 91, 0.5);
 		box-shadow: 0 0 0 0.125rem rgba(82, 82, 91, 0.5);
 	}
 
-	[data-highlighted-line][data-highlighted-line-id="add"] {
+	.markdown-body [data-highlighted-line][data-highlighted-line-id="add"] {
 		background: rgba(0, 255, 0, 0.1) !important;
 		border-left: 4px solid rgba(47, 115, 47, 0.55) !important;
 	}
 
-	[data-highlighted-line][data-highlighted-line-id="sub"] {
+	.markdown-body [data-highlighted-line][data-highlighted-line-id="sub"] {
 		background: rgba(255, 0, 0, 0.1) !important;
 		border-left: 4px solid rgba(141, 35, 35, 0.55) !important;
 	}
 }
 
-figure[data-rehype-pretty-code-figure] {
+.markdown-body figure[data-rehype-pretty-code-figure] {
 	margin-top: 1.5rem;
 	margin-bottom: 1rem;
 }
 
-figure[data-rehype-pretty-code-figure] pre > code {
+.markdown-body figure[data-rehype-pretty-code-figure] pre > code {
 	counter-reset: line;
 	padding-top: 0.5rem;
 	padding-bottom: 0.5rem;
@@ -47,11 +47,11 @@ figure[data-rehype-pretty-code-figure] pre > code {
 	padding-right: 0 !important;
 }
 
-code[data-line-numbers] {
+.markdown-body code[data-line-numbers] {
 	counter-reset: line;
 }
 
-code[data-line-numbers] > [data-line]::before {
+.markdown-body code[data-line-numbers] > [data-line]::before {
 	counter-increment: line;
 	content: counter(line);
 	margin-right: 1rem;
@@ -61,33 +61,33 @@ code[data-line-numbers] > [data-line]::before {
 	color: var(--muted-foreground);
 }
 
-pre [data-line] {
+.markdown-body pre [data-line] {
 	border-left-width: 2px;
 	border-left-color: transparent;
 	padding-left: 0.5rem;
 }
 
-figure[data-rehype-pretty-code-figure] pre {
+.markdown-body figure[data-rehype-pretty-code-figure] pre {
 	overflow-x: auto;
 	padding: 0;
 	border: none !important;
 }
 
-figure[data-rehype-pretty-code-figure]:has(> [data-rehype-pretty-code-title]) pre,
-pre > code {
+.markdown-body figure[data-rehype-pretty-code-figure]:has(> [data-rehype-pretty-code-title]) pre,
+.markdown-body pre > code {
 	margin-top: 0;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }
 
-figure[data-rehype-pretty-code-figure]:has(> [data-rehype-pretty-code-caption]) pre,
-pre > code {
+.markdown-body figure[data-rehype-pretty-code-figure]:has(> [data-rehype-pretty-code-caption]) pre,
+.markdown-body pre > code {
 	margin-bottom: 0;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
 }
 
-code span.gfm-color-chip {
+.markdown-body code span.gfm-color-chip {
 	display: inline-block;
 	width: 0.7rem;
 	height: 0.7rem;
@@ -96,7 +96,7 @@ code span.gfm-color-chip {
 	border: 1px solid var(--muted-foreground);
 }
 
-code:has(span.gfm-color-chip) {
+.markdown-body code:has(span.gfm-color-chip) {
 	display: inline-flex;
 	align-items: center;
 	width: fit-content;
@@ -104,67 +104,67 @@ code:has(span.gfm-color-chip) {
 	padding-bottom: 0;
 }
 
-[data-highlighted-line] {
+.markdown-body [data-highlighted-line] {
 	background: rgba(183, 183, 248, 0.2) !important;
 	border-left: 4px solid rgba(100, 206, 251, 0.55) !important;
 }
 
-[data-highlighted-line][data-highlighted-line-id="add"] {
+.markdown-body [data-highlighted-line][data-highlighted-line-id="add"] {
 	background: rgba(0, 255, 0, 0.1) !important;
 	border-left: 4px solid rgba(0, 255, 0, 0.55) !important;
 }
 
-[data-highlighted-line][data-highlighted-line-id="sub"] {
+.markdown-body [data-highlighted-line][data-highlighted-line-id="sub"] {
 	background: rgba(255, 0, 0, 0.1) !important;
 	border-left: 4px solid rgba(255, 0, 0, 0.55) !important;
 }
 
-[data-highlighted-line][data-highlighted-line-id="add"] > span:first-child:before {
+.markdown-body [data-highlighted-line][data-highlighted-line-id="add"] > span:first-child:before {
 	content: "+";
 	margin-right: 0.75rem;
 	color: var(--muted-foreground);
 }
 
-[data-highlighted-line][data-highlighted-line-id="sub"] > span:first-child:before {
+.markdown-body [data-highlighted-line][data-highlighted-line-id="sub"] > span:first-child:before {
 	content: "-";
 	margin-right: 0.75rem;
 	color: var(--muted-foreground);
 }
 
 /* if no first child, then it's a blank line, we put it as first child */
-[data-highlighted-line][data-highlighted-line-id="add"]:not(:has(span))::after {
+.markdown-body [data-highlighted-line][data-highlighted-line-id="add"]:not(:has(span))::after {
 	content: "+";
 	margin-left: -0.5rem;
 	color: var(--muted-foreground);
 }
 
-[data-highlighted-line][data-highlighted-line-id="sub"]:not(:has(span))::after {
+.markdown-body [data-highlighted-line][data-highlighted-line-id="sub"]:not(:has(span))::after {
 	content: "-";
 	color: var(--muted-foreground);
 	margin-left: -0.5rem;
 }
 
-span[data-highlighted-line] span {
+.markdown-body span[data-highlighted-line] span {
 	background-color: transparent !important;
 }
 
-[data-highlighted-chars] {
+.markdown-body [data-highlighted-chars] {
 	background-color: rgba(142, 142, 144, 0.3);
 	box-shadow: 0 0 0 0.125rem rgba(142, 142, 144, 0.3);
 	border-radius: 0.25rem;
 	z-index: 100;
 }
 
-mark[data-highlighted-chars] span {
+.markdown-body mark[data-highlighted-chars] span {
 	background-color: transparent !important;
 }
 
-mark[data-highlighted-chars] {
+.markdown-body mark[data-highlighted-chars] {
 	margin-left: 0.125rem;
 	margin-right: 0.125rem;
 }
 
-[data-rehype-pretty-code-title] {
+.markdown-body [data-rehype-pretty-code-title] {
 	border-top-left-radius: 0.6rem;
 	border-top-right-radius: 0.6rem;
 	background-color: var(--muted);
@@ -177,7 +177,7 @@ mark[data-highlighted-chars] {
 	color: var(--muted-foreground);
 }
 
-[data-rehype-pretty-code-caption] {
+.markdown-body [data-rehype-pretty-code-caption] {
 	border-bottom-left-radius: 0.6rem;
 	border-bottom-right-radius: 0.6rem;
 	background-color: var(--muted);
@@ -190,17 +190,17 @@ mark[data-highlighted-chars] {
 	text-align: center;
 }
 
-pre,
-code,
-figure {
+.markdown-body pre,
+.markdown-body code,
+.markdown-body figure {
 	overflow-x: auto;
 }
 
-.section_heading {
+.markdown-body .section_heading {
 	text-decoration: none;
 }
 
-.section_heading:hover::after {
+.markdown-body .section_heading:hover::after {
 	content: "";
 	display: inline-block;
 	width: 18px;
@@ -213,33 +213,33 @@ figure {
 	transition: transform 0.2s;
 }
 
-a[data-footnote-backref] {
+.markdown-body a[data-footnote-backref] {
 	font-family: ui-sans-serif, system-ui, sans-serif, "Segoe UI Symbol", "Noto Color Emoji";
 	font-size: 0.875rem;
 }
 
 /* Unordered List Styles */
-ul {
+.markdown-body ul {
 	list-style-type: disc; /* 1st level */
 }
 
-ul ul {
+.markdown-body ul ul {
 	list-style-type: circle; /* 2nd level */
 }
 
-ul ul ul {
+.markdown-body ul ul ul {
 	list-style-type: square; /* 3rd level */
 }
 
 /* Ordered List Styles */
-ol {
+.markdown-body ol {
 	list-style-type: decimal; /* 1st level */
 }
 
-ol ol {
+.markdown-body ol ol {
 	list-style-type: lower-alpha; /* 2nd level */
 }
 
-ol ol ol {
+.markdown-body ol ol ol {
 	list-style-type: lower-roman; /* 3rd level */
 }

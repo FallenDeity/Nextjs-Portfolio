@@ -78,6 +78,7 @@ export interface Project {
 		};
 		hotspot?: SanityImageHotspot;
 		crop?: SanityImageCrop;
+		alt: string;
 		_type: "image";
 	};
 	features?: string[];
@@ -450,7 +451,7 @@ export type POSTS_QUERYResult = {
 	}[];
 }[];
 // Variable: POST_QUERY
-// Query: *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body    }
+// Query: *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body, excerpt    }
 export type POST_QUERYResult = {
 	_id: string;
 	title: string;
@@ -488,6 +489,7 @@ export type POST_QUERYResult = {
 		description: string | null;
 	}[];
 	body: string;
+	excerpt: string;
 } | null;
 // Variable: PREV_NEXT_POSTS_QUERY
 // Query: *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {        "prev": *[_type == "post" && defined(slug.current) && defined(publishedAt) && publishedAt < ^.publishedAt]            | order(publishedAt desc)[0] {                _id, title, slug, excerpt, publishedAt        },        "next": *[_type == "post" && defined(slug.current) && defined(publishedAt) && publishedAt > ^.publishedAt]            | order(publishedAt asc)[0] {                _id, title, slug, excerpt, publishedAt        }    }
@@ -659,6 +661,7 @@ export type PROFILE_QUERYResult = {
 			};
 			hotspot?: SanityImageHotspot;
 			crop?: SanityImageCrop;
+			alt: string;
 			_type: "image";
 		};
 	}[];
@@ -690,6 +693,7 @@ export type PROJECTS_QUERYResult = {
 		};
 		hotspot?: SanityImageHotspot;
 		crop?: SanityImageCrop;
+		alt: string;
 		_type: "image";
 	};
 	features: string[] | null;
@@ -735,6 +739,7 @@ export type PROJECT_QUERYResult = {
 		};
 		hotspot?: SanityImageHotspot;
 		crop?: SanityImageCrop;
+		alt: string;
 		_type: "image";
 	};
 	features: string[] | null;
@@ -776,7 +781,7 @@ export type NEXT_PREV_PROJECTS_QUERYResult = {
 declare module "@sanity/client" {
 	interface SanityQueries {
 		'\n    *[_type == "post"\n    && defined(slug.current)\n    && (!defined($search) || $search == "" || (title match $search || body match $search))\n    && (!defined($tags) || count($tags) == 0 || array::intersects(categories[]->slug.current, $tags))\n    ] | order(publishedAt desc) {\n        _id, title, slug, publishedAt, mainImage, excerpt, author->{name, image}, categories[]->{title, slug, description}\n    }': POSTS_QUERYResult;
-		'\n    *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {\n        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body\n    }': POST_QUERYResult;
+		'\n    *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {\n        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body, excerpt\n    }': POST_QUERYResult;
 		'\n    *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {\n        "prev": *[_type == "post" && defined(slug.current) && defined(publishedAt) && publishedAt < ^.publishedAt]\n            | order(publishedAt desc)[0] {\n                _id, title, slug, excerpt, publishedAt\n        },\n        "next": *[_type == "post" && defined(slug.current) && defined(publishedAt) && publishedAt > ^.publishedAt]\n            | order(publishedAt asc)[0] {\n                _id, title, slug, excerpt, publishedAt\n        }\n    }\n': PREV_NEXT_POSTS_QUERYResult;
 		'\n    *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {\n        _id, title, slug, publishedAt, mainImage, categories[]->{title, slug, description}, excerpt, author->{name, image}\n    }': RECENT_POSTS_QUERYResult;
 		'\n    *[_type == "category"] {\n        _id, title, slug, description\n    }': CATEGORIES_QUERYResult;

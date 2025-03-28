@@ -23,7 +23,6 @@ export async function sanityFetch<const QueryString extends string>({
 	ClientReturn<QueryString, { data: ClientReturn<QueryString>; sourceMap: ContentSourceMap | null; tags: string[] }>
 > {
 	return client.fetch(query, params, {
-		// @ts-expect-error - this is a valid option
 		next: {
 			revalidate: tags.length ? false : revalidate, // for simple, time-based revalidation
 			tags, // for tag-based revalidation

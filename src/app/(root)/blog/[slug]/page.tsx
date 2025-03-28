@@ -2,6 +2,7 @@ import "@/styles/blog.css";
 
 import { getImageDimensions } from "@sanity/asset-utils";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -15,6 +16,59 @@ import { urlFor } from "@/sanity/lib/image";
 import { POST_QUERY, POSTS_QUERY, PREV_NEXT_POSTS_QUERY } from "@/sanity/lib/queries";
 
 export const dynamicParams = true;
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+	const { slug } = params;
+	const post = await sanityFetch({
+		query: POST_QUERY,
+		params: { slug: slug },
+		tags: [`post:${slug}`, "author", "category"],
+	});
+
+	if (!post) {
+		return {
+			title: "Post not found",
+			description: "The requested post could not be found.",
+			keywords: ["404", "not found", "error"],
+		};
+	}
+
+	return {
+		title: post.title,
+		description: post.excerpt,
+		keywords: [post.title, ...post.categories.map((category) => category.slug.current), "blog", "article"],
+		publisher: post.author.name,
+		openGraph: {
+			title: post.title,
+			description: post.excerpt,
+			tags: post.categories.map((category) => category.slug.current),
+			url: `/blog/${post.slug.current}`,
+			images: [
+				{
+					url: urlFor(post.mainImage).url() || "",
+					alt: post.mainImage.alt || "Image",
+					width: 1200,
+					height: 630,
+				},
+			],
+		},
+		twitter: {
+			card: "summary_large_image",
+			title: post.title,
+			description: post.excerpt,
+			creator: post.author.name,
+			site: "/",
+			images: [
+				{
+					url: urlFor(post.mainImage).url() || "",
+					alt: post.mainImage.alt || "Image",
+					width: 1200,
+					height: 630,
+				},
+			],
+		},
+	};
+}
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
 	const posts = await sanityFetch({
@@ -109,7 +163,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 						))}
 					</div>
 				</section>
-				<div className="p-4">
+				<div className="markdown-body p-4">
 					<CustomMDX source={post.body} />
 				</div>
 			</article>

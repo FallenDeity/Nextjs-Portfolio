@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 
 import { PostList } from "@/components/blog/posts";
@@ -11,6 +12,34 @@ interface BlogPageProps {
 	tags: string;
 	query: string;
 }
+
+export const metadata: Metadata = {
+	title: "Blog",
+	description:
+		"Welcome to my blog page! Dive into a collection of insightful articles and captivating stories where I share my thoughts, experiences, and expertise on various topics.",
+	keywords: ["blog", "thoughts", "texts", "technical", "tutorials", "posts", "phisolophy"],
+	openGraph: {
+		images: [
+			{
+				url: "/blog-open-graph.png",
+				alt: "Blog",
+				width: 1200,
+				height: 630,
+			},
+		],
+	},
+	twitter: {
+		card: "summary_large_image",
+		images: [
+			{
+				url: "/blog-open-graph.png",
+				alt: "Blog",
+				width: 1200,
+				height: 630,
+			},
+		],
+	},
+};
 
 export default async function BlogPage(props: { searchParams: Promise<BlogPageProps> }): Promise<React.ReactElement> {
 	const searchParams = await props.searchParams;

@@ -1,11 +1,10 @@
 import { getImageDimensions } from "@sanity/asset-utils";
-import { formatDistanceToNow } from "date-fns";
 import { ArrowLeft, ArrowRight, Calendar, ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import { CARD_STYLE_STRING, cn, CUSTOM_LOGOS } from "@/lib/utils";
+import { CARD_STYLE_STRING, cn, CUSTOM_LOGOS, formatDate } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { NEXT_PREV_PROJECTS_QUERYResult, PROJECT_QUERYResult } from "@/sanity/sanity.types";
 
@@ -26,7 +25,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 				<div className="dark relative mb-8 h-[300px] overflow-hidden md:h-[400px] md:rounded-xl">
 					<Image
 						priority
-						src={urlFor(project.image).url() || "/placeholder.svg"}
+						src={urlFor(project.image).height(400).url()}
 						alt={project.title}
 						fill
 						className="object-cover"
@@ -91,7 +90,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 										<h3 className="font-semibold">Date</h3>
 										<p className="text-muted-foreground flex items-center text-sm">
 											<Calendar size={14} className="mr-2" />
-											{formatDistanceToNow(new Date(project.publishedAt), { addSuffix: true })}
+											{formatDate(project.publishedAt, true)}
 										</p>
 									</div>
 									<div className="col-span-1 flex flex-col">

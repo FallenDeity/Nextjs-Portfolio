@@ -11,7 +11,7 @@ export const POSTS_QUERY = defineQuery(`
 
 export const POST_QUERY = defineQuery(`
     *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {
-        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body
+        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body, excerpt
     }`);
 
 export const PREV_NEXT_POSTS_QUERY = defineQuery(`

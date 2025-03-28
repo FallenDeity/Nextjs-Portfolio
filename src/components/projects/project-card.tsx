@@ -14,7 +14,7 @@ export function ProjectCard({ project }: { project: Project }): React.ReactEleme
 		<div className={cn("group flex cursor-pointer flex-col overflow-hidden rounded-xl", CARD_STYLE_STRING)}>
 			<div className="relative flex h-48">
 				<Image
-					src={urlFor(project.image).url() || "/placeholder.svg"}
+					src={urlFor(project.image).url()}
 					alt={project.title}
 					fill
 					className="object-cover transition-transform duration-300 group-hover:translate-y-[-5px] group-hover:scale-105"

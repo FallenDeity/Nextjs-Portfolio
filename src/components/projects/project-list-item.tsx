@@ -14,12 +14,7 @@ export function ProjectListItem({ project }: { project: Project }): React.ReactE
 		<div className={cn("overflow-hidden rounded-xl", CARD_STYLE_STRING)}>
 			<div className="flex flex-col md:flex-row">
 				<div className="relative h-48 w-full md:h-auto md:w-64">
-					<Image
-						src={urlFor(project.image).url() || "/placeholder.svg"}
-						alt={project.title}
-						fill
-						className="object-cover"
-					/>
+					<Image src={urlFor(project.image).url()} alt={project.title} fill className="object-cover" />
 				</div>
 				<div className="flex flex-1 flex-col p-6">
 					<div className="mb-2 flex items-start justify-between">

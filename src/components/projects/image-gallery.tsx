@@ -44,6 +44,7 @@ export function Gallery({ images }: { images: GalleryItem[] }): React.ReactEleme
 								width={thumbnailWidth}
 								height={thumbnailHeight}
 								className="h-full w-full rounded-md object-contain"
+								loading="lazy"
 							/>
 						</a>
 					);
