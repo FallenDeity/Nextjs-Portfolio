@@ -9,6 +9,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { NEXT_PREV_PROJECTS_QUERYResult, PROJECT_QUERYResult } from "@/sanity/sanity.types";
 
 import { Button } from "../ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { Gallery } from "./image-gallery";
 
 type Project = NonNullable<PROJECT_QUERYResult>;
@@ -85,7 +86,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 						<div>
 							<h2 className="mb-4 text-xl font-semibold">Project Details</h2>
 							<div className="space-y-4">
-								<div className="grid grid-flow-col grid-cols-2 gap-6">
+								<div className="grid grid-flow-col grid-cols-2">
 									<div className="col-span-1 flex flex-col">
 										<h3 className="font-semibold">Date</h3>
 										<p className="text-muted-foreground flex items-center text-sm">
@@ -93,7 +94,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 											{formatDate(project.publishedAt, true)}
 										</p>
 									</div>
-									<div className="col-span-1 flex flex-col">
+									<div className="col-span-1 flex flex-col justify-self-center">
 										<h3 className="font-semibold">Links</h3>
 										<div className="mt-2 flex gap-3">
 											{project.source && (
@@ -121,18 +122,27 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 									<h3 className="font-semibold">Technologies</h3>
 									<div className="mt-2 flex flex-wrap gap-2">
 										{(project.technologies ?? []).map((tech, index) => (
-											<Image
-												className="bg-primary/10 rounded-full p-1"
-												key={index}
-												src={
-													CUSTOM_LOGOS.includes(tech)
-														? `/${tech}.svg`
-														: `https://cdn.simpleicons.org/${tech}`
-												}
-												alt={tech}
-												width={26}
-												height={26}
-											/>
+											<TooltipProvider key={index}>
+												<Tooltip>
+													<TooltipTrigger asChild>
+														<span className="bg-primary/10 rounded-full p-1">
+															<Image
+																src={
+																	CUSTOM_LOGOS.includes(tech)
+																		? `/${tech}.svg`
+																		: `https://cdn.simpleicons.org/${tech}`
+																}
+																alt={tech}
+																width={20}
+																height={20}
+															/>
+														</span>
+													</TooltipTrigger>
+													<TooltipContent>
+														<p className="text-xs capitalize">{tech}</p>
+													</TooltipContent>
+												</Tooltip>
+											</TooltipProvider>
 										))}
 									</div>
 								</div>

@@ -10,6 +10,8 @@ export const metadata: Metadata = {
 		"Welcome to my projects page! Explore an assortment of meticulously crafted projects I've personally worked on and take pride in.",
 	keywords: ["projects", "portfolio", "programming", "softwares", "apps", "tools", "websites", "github"],
 	openGraph: {
+		siteName: "Projects",
+		url: "/projects",
 		images: [
 			{
 				url: "/projects-open-graph.png",

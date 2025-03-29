@@ -39,6 +39,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 		keywords: [post.title, ...post.categories.map((category) => category.slug.current), "blog", "article"],
 		publisher: post.author.name,
 		openGraph: {
+			siteName: "Triyan Mukherjee",
+			type: "article",
 			title: post.title,
 			description: post.excerpt,
 			tags: post.categories.map((category) => category.slug.current),
@@ -140,7 +142,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 						</div>
 					</div>
 					<div className="flex flex-col items-end gap-4">
-						<p className="text-muted-foreground text-sm">{formatDate(post.publishedAt)}</p>
+						<p className="text-muted-foreground text-sm">{formatDate(post.publishedAt, true)}</p>
 						<div className="hidden flex-row gap-2 md:flex">
 							{post.categories.map((category) => (
 								<span

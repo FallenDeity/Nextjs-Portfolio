@@ -28,7 +28,7 @@ export function ProfileCard(props: ProfileCardProps): React.ReactElement {
 	return (
 		<BentoCard name="Profile" className="lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-4">
 			<div className="flex h-full flex-col items-center p-6">
-				<div className="flex w-full flex-row items-center justify-between">
+				<div className="flex w-full flex-row items-center justify-between gap-2.5">
 					<ShineBorder
 						borderRadius={64}
 						borderWidth={3}

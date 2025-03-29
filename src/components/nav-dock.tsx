@@ -8,6 +8,7 @@ import { Dock, DockIcon } from "@/components/magicui/dock";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 import { PROFILE_QUERYResult } from "@/sanity/sanity.types";
 
@@ -83,12 +84,13 @@ export function NavigationDock({ data }: NavigationDockProps): React.ReactElemen
 		const Icon = Icons[name];
 		return <Icon className="size-4" />;
 	};
+	const isMobile = useMediaQuery("(max-width: 768px)");
 	return (
 		<TooltipProvider>
 			<Dock
 				direction="middle"
 				className="bg-background/50 fixed right-0 bottom-10 left-0 z-50 shadow-lg backdrop-blur-lg dark:shadow-none"
-				iconDistance={100}>
+				iconDistance={isMobile ? 0 : 100}>
 				{DATA.navbar.map((item) => (
 					<DockIcon key={item.label}>
 						<Tooltip>
@@ -99,7 +101,7 @@ export function NavigationDock({ data }: NavigationDockProps): React.ReactElemen
 									aria-label={item.label}
 									className={cn(
 										buttonVariants({ variant: "ghost", size: "icon" }),
-										"size-10 cursor-pointer rounded-full"
+										"size-10 cursor-pointer rounded-full hover:bg-transparent"
 									)}>
 									<item.icon className="size-4" />
 								</Link>
@@ -121,7 +123,7 @@ export function NavigationDock({ data }: NavigationDockProps): React.ReactElemen
 									aria-label={name}
 									className={cn(
 										buttonVariants({ variant: "ghost", size: "icon" }),
-										"size-10 cursor-pointer rounded-full"
+										"size-10 cursor-pointer rounded-full hover:bg-transparent"
 									)}>
 									{getIcon(name as keyof typeof data)}
 								</Link>

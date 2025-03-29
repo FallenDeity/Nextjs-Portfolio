@@ -30,6 +30,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 		description: project.excerpt,
 		keywords: [project.title, ...(project.technologies || []), ...project.tags.map((tag) => tag.slug.current)],
 		openGraph: {
+			siteName: "Triyan Mukherjee",
+			type: "article",
 			title: project.title,
 			description: project.excerpt,
 			tags: project.tags.map((tag) => tag.slug.current),

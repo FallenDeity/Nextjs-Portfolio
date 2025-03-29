@@ -43,7 +43,7 @@ export async function RecentPosts(): Promise<React.ReactElement> {
 							/>
 							<div className="flex w-full flex-col">
 								<div className="flex w-full flex-row items-center gap-1 text-[10px]">
-									<p className="text-muted-foreground">{formatDate(post.publishedAt)}</p>
+									<p className="text-muted-foreground">{formatDate(post.publishedAt, true)}</p>
 									<span className="text-muted-foreground text-xs">&bull;</span>
 									<p className="text-muted-foreground">
 										{formatDistanceToNow(new Date(post.publishedAt), { addSuffix: true })}

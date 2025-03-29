@@ -65,7 +65,7 @@ function PostCard({ post }: PostCardProps): React.ReactElement {
 					</div>
 					<div className="hidden flex-col items-end gap-3 md:flex">
 						<div className="flex flex-row">
-							<p className="text-muted-foreground text-sm">{formatDate(post.publishedAt)}</p>
+							<p className="text-muted-foreground text-sm">{formatDate(post.publishedAt, true)}</p>
 							<Calendar className="ml-2 h-5 w-5" />
 						</div>
 						<div className="flex flex-row gap-2">
