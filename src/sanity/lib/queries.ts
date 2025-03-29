@@ -75,3 +75,8 @@ export const NEXT_PREV_PROJECTS_QUERY = defineQuery(`
         }
     }
 `);
+
+export const PINGS_QUERY = defineQuery(`
+    *[_type == "ping"] | order(publishedAt desc) {
+        _id, title, slug, publishedAt, body, image, link, tags[]->{title, slug, description}
+    }`);

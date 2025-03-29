@@ -4,15 +4,15 @@ import { POSTS_QUERY, PROJECTS_QUERY } from "@/sanity/lib/queries";
 const posts = await sanityFetch({
 	query: POSTS_QUERY,
 	params: { search: "", tags: [] },
-	revalidate: false,
+	tags: ["post", "author", "category"],
 });
 
 const projects = await sanityFetch({
 	query: PROJECTS_QUERY,
-	revalidate: false,
+	tags: ["project", "category"],
 });
 
-const commonPaths = ["", "projects", "blog"];
+const commonPaths = ["", "projects", "blog", "blog/rss.xml", "pings", "pings/rss.xml"];
 const postPaths = posts.filter((post) => post.slug?.current).map((post) => `blog/${post.slug?.current}`);
 const projectPaths = projects
 	.filter((project) => project.slug?.current)

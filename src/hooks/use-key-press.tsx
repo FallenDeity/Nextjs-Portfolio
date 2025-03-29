@@ -140,6 +140,8 @@ export function useKeyPress({
 		const keydownListener = (event: KeyboardEvent): void => {
 			for (const keyPressItem of keyPressItems) {
 				const { keys, event: triggerEvent, preventDefault = true } = keyPressItem;
+				console.log("Key Press Item:", keyPressItem); // Debugging line
+				console.log("Event:", event); // Debugging line
 				if (checkCombination(event, keys) && shouldFireEvent(event, tagsToIgnore, triggerOnContentEditable)) {
 					if (preventDefault) {
 						event.preventDefault();

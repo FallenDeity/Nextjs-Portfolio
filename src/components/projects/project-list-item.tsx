@@ -25,7 +25,7 @@ export function ProjectListItem({ project }: { project: Project }): React.ReactE
 						</div>
 					</div>
 
-					<p className="text-muted-foreground mb-4 flex-grow text-sm">{project.description}</p>
+					<p className="text-muted-foreground mb-4 flex-grow text-sm">{project.excerpt}</p>
 
 					<div className="mb-4 flex flex-wrap gap-2">
 						{project.tags.map((tech) => (

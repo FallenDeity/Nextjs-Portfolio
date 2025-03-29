@@ -19,10 +19,13 @@ export default function ProjectListing({ projects }: ProjectListingProps): React
 		<Tabs
 			defaultValue="grid"
 			className="z-10 m-6 mx-auto mb-44 min-h-screen w-full max-w-5xl overflow-hidden p-4 md:pb-36">
-			<div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row">
+			<div className="mb-8 flex flex-col items-start justify-between gap-4 font-mono md:flex-row">
 				<div>
 					<h1 className="text-6xl font-bold">Projects</h1>
-					<p className="text-muted-foreground mt-4">A collection of my work and side projects</p>
+					<p className="text-muted-foreground mt-4">
+						Welcome to my projects page! Here, I showcase an assortment of meticulously crafted projects
+						I've personally worked on and take pride in.
+					</p>
 				</div>
 				<div className="hidden flex-row items-center justify-end gap-4 md:flex">
 					<div className="w-full md:w-auto">

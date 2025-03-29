@@ -49,6 +49,38 @@ export interface Geopoint {
 	alt?: number;
 }
 
+export interface Ping {
+	_id: string;
+	_type: "ping";
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	title: string;
+	slug: Slug;
+	publishedAt: string;
+	body: string;
+	image: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+		};
+		hotspot?: SanityImageHotspot;
+		crop?: SanityImageCrop;
+		alt: string;
+		_type: "image";
+	};
+	link?: string;
+	tags?: {
+		_ref: string;
+		_type: "reference";
+		_weak?: boolean;
+		_key: string;
+		[internalGroqTypeReferenceTo]?: "category";
+	}[];
+}
+
 export interface Project {
 	_id: string;
 	_type: "project";
@@ -393,6 +425,7 @@ export type AllSanitySchemaTypes =
 	| SanityImagePalette
 	| SanityImageDimensions
 	| Geopoint
+	| Ping
 	| Project
 	| Profile
 	| SanityFileAsset
@@ -778,6 +811,35 @@ export type NEXT_PREV_PROJECTS_QUERYResult = {
 		publishedAt: string;
 	} | null;
 } | null;
+// Variable: PINGS_QUERY
+// Query: *[_type == "ping"] | order(publishedAt desc) {        _id, title, slug, publishedAt, body, image, link, tags[]->{title, slug, description}    }
+export type PINGS_QUERYResult = {
+	_id: string;
+	title: string;
+	slug: Slug;
+	publishedAt: string;
+	body: string;
+	image: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+		};
+		hotspot?: SanityImageHotspot;
+		crop?: SanityImageCrop;
+		alt: string;
+		_type: "image";
+	};
+	link: string | null;
+	tags:
+		| {
+				title: string;
+				slug: Slug;
+				description: string | null;
+		  }[]
+		| null;
+}[];
 declare module "@sanity/client" {
 	interface SanityQueries {
 		'\n    *[_type == "post"\n    && defined(slug.current)\n    && (!defined($search) || $search == "" || (title match $search || body match $search))\n    && (!defined($tags) || count($tags) == 0 || array::intersects(categories[]->slug.current, $tags))\n    ] | order(publishedAt desc) {\n        _id, title, slug, publishedAt, mainImage, excerpt, author->{name, image}, categories[]->{title, slug, description}\n    }': POSTS_QUERYResult;
@@ -789,5 +851,6 @@ declare module "@sanity/client" {
 		'\n    *[_type == "project"] | order(publishedAt desc) {\n        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies, featured\n    }': PROJECTS_QUERYResult;
 		'\n    *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {\n        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies, featured\n    }': PROJECT_QUERYResult;
 		'\n    *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {\n        "prev": *[_type == "project" && defined(slug.current) && defined(publishedAt) && publishedAt < ^.publishedAt]\n            | order(publishedAt desc)[0] {\n                _id, slug, title, excerpt, publishedAt\n        },\n        "next": *[_type == "project" && defined(slug.current) && defined(publishedAt) && publishedAt > ^.publishedAt]\n            | order(publishedAt asc)[0] {\n                _id, slug, title, excerpt, publishedAt\n        }\n    }\n': NEXT_PREV_PROJECTS_QUERYResult;
+		'\n    *[_type == "ping"] | order(publishedAt desc) {\n        _id, title, slug, publishedAt, body, image, link, tags[]->{title, slug, description}\n    }': PINGS_QUERYResult;
 	}
 }

@@ -3,7 +3,7 @@ import React from "react";
 import { NavigationDock } from "@/components/nav-dock";
 import { Lights } from "@/components/ui/lights";
 import { sanityFetch } from "@/sanity/lib/client";
-import { PROFILE_QUERY } from "@/sanity/lib/queries";
+import { POSTS_QUERY, PROFILE_QUERY, PROJECTS_QUERY } from "@/sanity/lib/queries";
 import { PROFILE_QUERYResult } from "@/sanity/sanity.types";
 
 import CommandPalette from "./command-palette";
@@ -14,9 +14,18 @@ export default async function MainLayout({ children }: { children: React.ReactNo
 		query: PROFILE_QUERY,
 		tags: ["profile", "education", "experience", "project"],
 	});
+	const projects = await sanityFetch({
+		query: PROJECTS_QUERY,
+		tags: ["project", "category"],
+	});
+	const posts = await sanityFetch({
+		query: POSTS_QUERY,
+		params: { search: "", tags: [] },
+		tags: ["post", "category", "author"],
+	});
 	return (
 		<main className="scrollbar-none sm:scrollbar-thin sm:scrollbar-track-background sm:scrollbar-thumb-accent relative flex h-screen w-full flex-col overflow-x-hidden overflow-y-auto">
-			<CommandPalette />
+			<CommandPalette projects={projects} posts={posts} />
 			<div className={"bg-grid-black/[0.05] dark:bg-grid-white/[0.03] relative w-full"}>
 				<Lights />
 				<NavigationDock data={profile?.contact as NonNullable<PROFILE_QUERYResult>["contact"]} />

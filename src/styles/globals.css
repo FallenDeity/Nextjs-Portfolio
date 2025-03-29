@@ -44,6 +44,7 @@
 	--cursor-from: #e2eefe;
 	--cursor-via: #8dbcf5;
 	--cursor-to: #89b6ec;
+	--accent-custom: hsla(207, 97%, 74%, 0.895);
 }
 
 .dark {
@@ -75,6 +76,7 @@
 	--cursor-from: #6ea9f2;
 	--cursor-via: #e879f9;
 	--cursor-to: #5eead4;
+	--accent-custom: hsla(211, 93%, 72%, 0.695);
 }
 
 @theme inline {

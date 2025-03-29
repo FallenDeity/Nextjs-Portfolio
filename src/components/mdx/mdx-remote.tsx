@@ -175,7 +175,11 @@ const components: MDXComponents = {
 	Kbd,
 };
 
-export async function CustomMDX(props: { source: string; components?: MDXComponents }): Promise<React.ReactElement> {
-	const body = await mdSerialize(props.source, { ...components, ...(props.components || {}) });
+export async function CustomMDX(props: {
+	source: string;
+	components?: MDXComponents;
+	addToc?: boolean;
+}): Promise<React.ReactElement> {
+	const body = await mdSerialize(props.source, { ...components, ...(props.components || {}) }, props.addToc);
 	return <>{body.content}</>;
 }

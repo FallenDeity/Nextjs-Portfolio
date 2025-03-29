@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarIcon, Folders, HomeIcon, MailIcon, PencilIcon } from "lucide-react";
+import { CalendarIcon, Folders, HomeIcon, MailIcon, PencilIcon, Rss } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -76,6 +76,7 @@ const DATA = {
 		{ href: "/", icon: HomeIcon, label: "Home" },
 		{ href: "/projects", icon: Folders, label: "Projects" },
 		{ href: "/blog", icon: PencilIcon, label: "Blog" },
+		{ href: "/pings", icon: Rss, label: "Pings" },
 	],
 };
 
@@ -90,6 +91,7 @@ export function NavigationDock({ data }: NavigationDockProps): React.ReactElemen
 			<Dock
 				direction="middle"
 				className="bg-background/50 fixed right-0 bottom-10 left-0 z-50 shadow-lg backdrop-blur-lg dark:shadow-none"
+				iconSize={isMobile ? 35 : 40}
 				iconDistance={isMobile ? 0 : 100}>
 				{DATA.navbar.map((item) => (
 					<DockIcon key={item.label}>

@@ -166,7 +166,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 					</div>
 				</section>
 				<div className="markdown-body p-4">
-					<CustomMDX source={post.body} />
+					<CustomMDX source={post.body} addToc={true} />
 				</div>
 			</article>
 			<div

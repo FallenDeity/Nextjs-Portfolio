@@ -54,7 +54,11 @@ const remarkInsertTOC =
 		tree.children = newChildren;
 	};
 
-const mdSerialize = async (source: string, components?: MDXComponents): Promise<ReturnType<typeof compileMDX>> => {
+const mdSerialize = async (
+	source: string,
+	components?: MDXComponents,
+	addToc = false
+): Promise<ReturnType<typeof compileMDX>> => {
 	return await compileMDX({
 		source: source,
 		options: {
@@ -65,8 +69,7 @@ const mdSerialize = async (source: string, components?: MDXComponents): Promise<
 					remarkMath,
 					remarkBreaks,
 					remarkEmoji,
-					remarkInsertTOC,
-					remarkToc,
+					...(addToc ? [remarkInsertTOC, remarkToc] : []),
 					[mdxMermaid, { theme: { light: "default", dark: "dark" }, mermaid: { look: "handDrawn" } }],
 				],
 				rehypePlugins: [

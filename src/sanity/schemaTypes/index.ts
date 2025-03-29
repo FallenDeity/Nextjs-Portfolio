@@ -4,10 +4,11 @@ import { authorType } from "./authorType";
 import { categoryType } from "./categoryType";
 import { educationType } from "./educationType";
 import { experienceType } from "./experienceType";
+import { pingType } from "./pingType";
 import { postType } from "./postType";
 import { profileType } from "./profileType";
 import { projectType } from "./projectType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-	types: [categoryType, postType, authorType, educationType, experienceType, profileType, projectType],
+	types: [categoryType, postType, authorType, educationType, experienceType, profileType, projectType, pingType],
 };

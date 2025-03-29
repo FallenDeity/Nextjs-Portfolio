@@ -41,4 +41,15 @@ export const structure: StructureResolver = (S) =>
 							S.documentTypeListItem("category").title("Categories").id("project_categories"),
 						])
 				),
+			S.divider(),
+			S.listItem()
+				.title("Pings")
+				.child(
+					S.list()
+						.title("Pings")
+						.items([
+							S.documentTypeListItem("ping").title("Pings"),
+							S.documentTypeListItem("category").title("Categories").id("ping_categories"),
+						])
+				),
 		]);

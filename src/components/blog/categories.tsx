@@ -64,6 +64,15 @@ export default function Categories({ categories }: { categories: CATEGORIES_QUER
 					</>
 				)}
 			</Button>
+			<div className="border-muted-foreground/20 mt-2 border-t pt-2">
+				<span className="text-muted-foreground text-xs">
+					Subscribe to my{" "}
+					<Link href="/blog/rss.xml" className="text-primary" prefetch={false}>
+						RSS feed
+					</Link>{" "}
+					to get notified of new posts.
+				</span>
+			</div>
 		</div>
 	);
 }

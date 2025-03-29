@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 	title: "Blog",
 	description:
 		"Welcome to my blog page! Dive into a collection of insightful articles and captivating stories where I share my thoughts, experiences, and expertise on various topics.",
-	keywords: ["blog", "thoughts", "texts", "technical", "tutorials", "posts", "phisolophy"],
+	keywords: ["blog", "thoughts", "texts", "technical", "tutorials", "posts", "philosophy", "experiences"],
 	openGraph: {
 		siteName: "Blog",
 		url: "/blog",
