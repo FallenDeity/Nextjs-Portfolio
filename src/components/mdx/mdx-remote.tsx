@@ -74,7 +74,7 @@ const components: MDXComponents = {
 		<a className={cn("font-medium underline underline-offset-4", className)} {...props} />
 	),
 	p: ({ className, ...props }: React.HTMLProps<HTMLParagraphElement>): React.ReactElement => (
-		<p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)} {...props} />
+		<p className={cn("[&:not(:first-child)]:mt-6", className)} {...props} />
 	),
 	ul: ({ className, ...props }: React.HTMLProps<HTMLUListElement>): React.ReactElement => (
 		<ul className={cn("mt-2 ml-6", className)} {...props} />

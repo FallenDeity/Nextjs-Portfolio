@@ -17,8 +17,8 @@ import { POST_QUERY, POSTS_QUERY, PREV_NEXT_POSTS_QUERY } from "@/sanity/lib/que
 
 export const dynamicParams = true;
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-	const { slug } = params;
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+	const { slug } = await params;
 	const post = await sanityFetch({
 		query: POST_QUERY,
 		params: { slug: slug },

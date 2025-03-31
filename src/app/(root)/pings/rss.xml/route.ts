@@ -31,10 +31,12 @@ export async function GET(): Promise<Response> {
 			date: ping.publishedAt,
 			categories: (ping.tags ?? []).map((tag) => tag.title),
 			author: "Triyan Mukherjee",
-			enclosure: {
-				url: urlFor(ping.image).url(),
-				type: "image/jpeg",
-			},
+			enclosure: ping.image
+				? {
+						url: urlFor(ping.image).url(),
+						type: "image/jpeg",
+					}
+				: undefined,
 		});
 	});
 	feed.item({

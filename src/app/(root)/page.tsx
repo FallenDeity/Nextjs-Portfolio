@@ -39,7 +39,7 @@ export default function HomePage(): React.ReactElement {
 				<ExperienceTimeline experiences={profile?.experience ?? []} />
 				<ProjectCard projects={profile?.projects ?? []} />
 				<TechnologyCard technologies={profile?.technologies ?? []} educations={profile?.education ?? []} />
-				<StatusCard />
+				<StatusCard github_username={(profile?.contact.github ?? "").split("/").pop() ?? ""} />
 			</BentoGrid>
 		</div>
 	);

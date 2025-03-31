@@ -3,12 +3,18 @@
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { ExternalLink, GitCommit, GitFork, Star, Users } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { BentoCard } from "@/components/magicui/bento-grid";
 
-export function StatusCard(): React.ReactElement {
+interface StatusCardProps {
+	github_username: string;
+}
+
+export function StatusCard({ github_username }: StatusCardProps): React.ReactElement {
 	const [stats, setStats] = React.useState({
+		name: "",
 		stars: 0,
 		repos: 0,
 		followers: 0,
@@ -19,13 +25,14 @@ export function StatusCard(): React.ReactElement {
 		const fetchGitHubStats = async (): Promise<void> => {
 			try {
 				const [userRes, reposRes] = await Promise.all([
-					fetch("https://api.github.com/users/FallenDeity"),
-					fetch("https://api.github.com/users/FallenDeity/repos"),
+					fetch(`https://api.github.com/users/${github_username}`),
+					fetch(`https://api.github.com/users/${github_username}/repos`),
 				]);
 
 				if (!userRes.ok || !reposRes.ok) throw new Error("Failed to fetch data");
 
 				const userData = (await userRes.json()) as {
+					name: string;
 					followers: number;
 					public_repos: number;
 					public_gists: number;
@@ -37,6 +44,7 @@ export function StatusCard(): React.ReactElement {
 					: 0;
 
 				setStats({
+					name: userData.name || github_username,
 					followers: userData.followers ?? 0,
 					repos: userData.public_repos ?? 0,
 					gists: userData.public_gists ?? 0,
@@ -57,10 +65,16 @@ export function StatusCard(): React.ReactElement {
 				<div className="bg-card/60 relative flex w-full cursor-pointer items-center rounded-md border p-3">
 					<GitHubLogoIcon className="h-16 w-16 rounded-md" />
 					<div className="ml-4">
-						<div className="text-md font-bold">Asher</div>
-						<div className="text-muted-foreground text-sm">FallenDeity</div>
+						<div className="text-md font-bold">{stats.name || "Asher"}</div>
+						<div className="text-muted-foreground text-sm">{github_username}</div>
 					</div>
-					<ExternalLink className="absolute top-3 right-3" />
+					<Link
+						href={`https://github.com/${github_username}`}
+						passHref
+						target="_blank"
+						className="absolute top-3 right-3">
+						<ExternalLink />
+					</Link>
 					<Image
 						src="/cat.webp"
 						alt="profile"

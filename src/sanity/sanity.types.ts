@@ -59,7 +59,7 @@ export interface Ping {
 	slug: Slug;
 	publishedAt: string;
 	body: string;
-	image: {
+	image?: {
 		asset?: {
 			_ref: string;
 			_type: "reference";
@@ -162,6 +162,7 @@ export interface Profile {
 	};
 	contact: {
 		discord?: string;
+		github: string;
 		linkedin: string;
 		email: string;
 	};
@@ -619,6 +620,7 @@ export type PROFILE_QUERYResult = {
 	};
 	contact: {
 		discord?: string;
+		github: string;
 		linkedin: string;
 		email: string;
 	};
@@ -830,7 +832,7 @@ export type PINGS_QUERYResult = {
 		crop?: SanityImageCrop;
 		alt: string;
 		_type: "image";
-	};
+	} | null;
 	link: string | null;
 	tags:
 		| {

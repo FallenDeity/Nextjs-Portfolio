@@ -1,6 +1,8 @@
 "use client";
 
-import { Folders, Home, Moon, PencilIcon, Rss, Sun } from "lucide-react";
+import { DiscordLogoIcon } from "@radix-ui/react-icons";
+import { GithubIcon, LinkedinIcon } from "@sanity/icons";
+import { ExternalLink, Folders, Home, Mail, Moon, PencilIcon, Rss, Sun } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useTheme } from "next-themes";
@@ -19,12 +21,26 @@ import {
 } from "@/components/ui/command";
 import { useKeyPress } from "@/hooks/use-key-press";
 import { urlFor } from "@/sanity/lib/image";
-import { POSTS_QUERYResult, PROJECTS_QUERYResult } from "@/sanity/sanity.types";
+import { POSTS_QUERYResult, PROFILE_QUERYResult, PROJECTS_QUERYResult } from "@/sanity/sanity.types";
 
 type Project = PROJECTS_QUERYResult[number];
 type Post = POSTS_QUERYResult[number];
+type Contact = NonNullable<PROFILE_QUERYResult>["contact"] | undefined;
 
-export default function CommandPalette({ posts, projects }: { posts: Post[]; projects: Project[] }): React.JSX.Element {
+interface CommandPaletteProps {
+	posts: Post[];
+	projects: Project[];
+	contact: Contact;
+}
+
+const ContactLogos = {
+	email: <Mail className="mr-2 h-4 w-4" />,
+	linkedin: <LinkedinIcon className="mr-2 h-4 w-4" />,
+	github: <GithubIcon className="mr-2 h-4 w-4" />,
+	discord: <DiscordLogoIcon className="mr-2 h-4 w-4" />,
+};
+
+export default function CommandPalette({ posts, projects, contact }: CommandPaletteProps): React.JSX.Element {
 	const [open, setOpen] = useState(false);
 	const { setTheme, resolvedTheme } = useTheme();
 
@@ -172,6 +188,26 @@ export default function CommandPalette({ posts, projects }: { posts: Post[]; pro
 								</div>
 							</CommandItem>
 						))}
+					</CommandGroup>
+					<CommandSeparator />
+					<CommandGroup heading="Contact">
+						{Object.entries(contact || {}).map(([key, value]) => {
+							const url = key === "email" ? `mailto:${value}` : value;
+							return (
+								<CommandItem
+									value={key}
+									key={key}
+									onSelect={() => window.open(url, "_blank")}
+									disabled={!value}
+									className="cursor-pointer">
+									{ContactLogos[key as keyof Contact]}
+									<span>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
+									<CommandShortcut>
+										<ExternalLink className="h-4 w-4" />
+									</CommandShortcut>
+								</CommandItem>
+							);
+						})}
 					</CommandGroup>
 					<CommandSeparator />
 					<CommandGroup heading="Settings">

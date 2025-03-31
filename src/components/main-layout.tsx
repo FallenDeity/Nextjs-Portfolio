@@ -25,7 +25,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
 	});
 	return (
 		<main className="scrollbar-none sm:scrollbar-thin sm:scrollbar-track-background sm:scrollbar-thumb-accent relative flex h-screen w-full flex-col overflow-x-hidden overflow-y-auto">
-			<CommandPalette projects={projects} posts={posts} />
+			<CommandPalette projects={projects} posts={posts} contact={profile?.contact} />
 			<div className={"bg-grid-black/[0.05] dark:bg-grid-white/[0.03] relative w-full"}>
 				<Lights />
 				<NavigationDock data={profile?.contact as NonNullable<PROFILE_QUERYResult>["contact"]} />

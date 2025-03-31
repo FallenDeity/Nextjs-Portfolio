@@ -62,6 +62,12 @@ export const profileType = defineType({
 					type: "url",
 				}),
 				defineField({
+					name: "github",
+					title: "GitHub",
+					type: "url",
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					name: "linkedin",
 					title: "LinkedIn",
 					type: "url",
