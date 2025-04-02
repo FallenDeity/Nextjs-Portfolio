@@ -65,7 +65,7 @@ export function StatusCard({ github_username }: StatusCardProps): React.ReactEle
 				<div className="bg-card/60 relative flex w-full cursor-pointer items-center rounded-md border p-3">
 					<GitHubLogoIcon className="h-16 w-16 rounded-md" />
 					<div className="ml-4">
-						<div className="text-md font-bold">{stats.name || "Asher"}</div>
+						<div className="text-md font-bold">{stats.name || "Triyan Mukherjee"}</div>
 						<div className="text-muted-foreground text-sm">{github_username}</div>
 					</div>
 					<Link
