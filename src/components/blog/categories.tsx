@@ -43,7 +43,7 @@ export default function Categories({ categories }: { categories: CATEGORIES_QUER
 						href={`/blog${createQuery(category.slug.current)}`}
 						key={category.slug.current}
 						style={{ color: colorFromString(category.slug.current, resolvedTheme as "dark" | "light") }}
-						className="bg-muted rounded-full border px-1.5 py-0.5 font-mono text-xs lowercase dark:border-none">
+						className="bg-muted rounded-full border px-1.5 py-0.5 font-mono text-xs whitespace-nowrap lowercase dark:border-none">
 						#{category.slug.current}
 					</Link>
 				))}

@@ -72,7 +72,7 @@ function PostCard({ post }: PostCardProps): React.ReactElement {
 							{post.categories.slice(0, 3).map((category) => (
 								<span
 									key={category.slug.current}
-									className="text-muted-foreground bg-muted rounded-full px-1.5 py-0.5 font-mono text-xs lowercase">
+									className="text-muted-foreground bg-muted rounded-full px-1.5 py-0.5 font-mono text-xs whitespace-nowrap lowercase">
 									#{category.slug.current}
 								</span>
 							))}

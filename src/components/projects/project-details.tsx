@@ -39,7 +39,7 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 							{project.tags.map((tech) => (
 								<span
 									key={tech.slug.current}
-									className="text-muted-foreground bg-muted rounded-full px-1.5 py-0.5 font-mono text-xs lowercase">
+									className="text-muted-foreground bg-muted rounded-full px-1.5 py-0.5 font-mono text-xs whitespace-nowrap lowercase">
 									#{tech.slug.current}
 								</span>
 							))}

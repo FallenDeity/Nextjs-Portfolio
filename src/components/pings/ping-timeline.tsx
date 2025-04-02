@@ -107,7 +107,7 @@ export const PingTimeline: React.FC<PingTimelineProps> = ({ pings }) => {
 							{(ping.tags ?? []).map((tag) => (
 								<span
 									key={tag.slug.current}
-									className="text-muted-foreground rounded-full bg-[var(--accent-custom)]/20 px-1.5 py-0.5 font-mono text-sm lowercase">
+									className="text-muted-foreground rounded-full bg-[var(--accent-custom)]/20 px-1.5 py-0.5 font-mono text-sm whitespace-nowrap lowercase">
 									#{tag.slug.current}
 								</span>
 							))}

@@ -53,7 +53,7 @@ export function ProjectCard({ project }: { project: Project }): React.ReactEleme
 						{project.tags.slice(0, 4).map((tech) => (
 							<span
 								key={tech.slug.current}
-								className="text-muted-foreground bg-muted rounded-full px-1.5 py-0.5 font-mono text-xs lowercase">
+								className="text-muted-foreground bg-muted rounded-full px-1.5 py-0.5 font-mono text-xs whitespace-nowrap lowercase">
 								#{tech.slug.current}
 							</span>
 						))}

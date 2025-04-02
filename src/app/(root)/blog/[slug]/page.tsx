@@ -147,7 +147,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 							{post.categories.map((category) => (
 								<span
 									key={category.slug.current}
-									className="text-muted-foreground bg-muted rounded-full px-1.5 py-0.5 font-mono text-xs lowercase">
+									className="text-muted-foreground bg-muted rounded-full px-1.5 py-0.5 font-mono text-xs whitespace-nowrap lowercase">
 									#{category.slug.current}
 								</span>
 							))}
@@ -159,7 +159,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 						{post.categories.map((category) => (
 							<span
 								key={category.slug.current}
-								className="text-muted-foreground bg-muted rounded-full px-1.5 py-0.5 font-mono text-xs lowercase">
+								className="text-muted-foreground bg-muted rounded-full px-1.5 py-0.5 font-mono text-xs whitespace-nowrap lowercase">
 								#{category.slug.current}
 							</span>
 						))}
