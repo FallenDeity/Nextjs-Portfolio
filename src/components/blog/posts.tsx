@@ -63,7 +63,7 @@ function PostCard({ post }: PostCardProps): React.ReactElement {
 							<p className="text-muted-foreground line-clamp-1 text-xs text-ellipsis">{post.excerpt}</p>
 						</div>
 					</div>
-					<div className="hidden flex-col items-end gap-3 md:flex">
+					<div className="hidden flex-col items-end gap-3 md:flex md:w-56">
 						<div className="flex flex-row">
 							<p className="text-muted-foreground text-sm">{formatDate(post.publishedAt, true)}</p>
 							<Calendar className="ml-2 h-5 w-5" />
