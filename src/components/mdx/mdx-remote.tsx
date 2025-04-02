@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 import { Kbd } from "../ui/kbd";
 import Pre from "./copy-button";
+import LightboxImage from "./lightbox-image";
 import { mdSerialize } from "./mdx-serializer";
 import { Mermaid } from "./mermaid";
 
@@ -41,8 +42,12 @@ const Alert = ({ type, children }: { type: string; children: React.ReactNode }):
 };
 
 const ResponsiveImage = (props: React.ImgHTMLAttributes<HTMLImageElement>): React.JSX.Element => {
-	// @ts-expect-error - Missing properties
-	return <Image alt={props.alt ?? ""} sizes="100vw" style={{ width: "100%", height: "auto" }} {...props} />;
+	return (
+		<LightboxImage>
+			{/* @ts-expect-error - Different properties */}
+			<Image alt={props.alt ?? ""} sizes="100vw" width={450} height={0} {...props} />
+		</LightboxImage>
+	);
 };
 
 const components: MDXComponents = {
@@ -118,8 +123,10 @@ const components: MDXComponents = {
 		<blockquote className={cn("[&>*]:text-muted-foreground mt-6 border-l-2 pl-6 italic", className)} {...props} />
 	),
 	img: ({ className, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>): React.ReactElement => (
-		// eslint-disable-next-line @next/next/no-img-element
-		<img className={cn("rounded-md border", className)} alt={alt} {...props} />
+		<LightboxImage>
+			{/* eslint-disable-next-line @next/next/no-img-element */}
+			<img className={cn("rounded-md border", className)} alt={alt} {...props} />
+		</LightboxImage>
 	),
 	hr: ({ ...props }: React.HTMLProps<HTMLHRElement>): React.ReactElement => (
 		<hr className="my-4 md:my-8" {...props} />

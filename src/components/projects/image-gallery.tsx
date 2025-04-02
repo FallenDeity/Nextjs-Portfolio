@@ -8,6 +8,7 @@ import "lightgallery/css/lg-fullscreen.css";
 import "lightgallery/css/lg-rotate.css";
 import "lightgallery/css/lg-pager.css";
 
+import { InitDetail } from "lightgallery/lg-events";
 import { GalleryItem } from "lightgallery/lg-utils";
 import lgFullscreen from "lightgallery/plugins/fullscreen";
 import lgPager from "lightgallery/plugins/pager";
@@ -25,7 +26,9 @@ import { Marquee } from "../magicui/marquee";
 export function Gallery({ images }: { images: GalleryItem[] }): React.ReactElement {
 	return (
 		<Marquee pauseOnHover className="scrollbar-hide relative max-w-5xl overflow-x-auto">
-			<LightGallery plugins={[lgThumbnail, lgZoom, lgRotate, lgFullscreen, lgPager]}>
+			<LightGallery
+				elementClassNames="lg-gallery-styles"
+				plugins={[lgThumbnail, lgZoom, lgRotate, lgFullscreen, lgPager]}>
 				{images.map((image, index) => {
 					const thumbnailWidth = 480; // Set your desired thumbnail width
 					const aspectRatio = parseFloat(image.width as string) / parseFloat(image.height as string);
@@ -51,5 +54,29 @@ export function Gallery({ images }: { images: GalleryItem[] }): React.ReactEleme
 				})}
 			</LightGallery>
 		</Marquee>
+	);
+}
+
+// A component which displays lightgallery
+export function ImageGallery({
+	children,
+	close,
+}: {
+	children: React.ReactNode;
+	close?: () => void;
+}): React.ReactElement {
+	const onInit = (details: InitDetail): void => {
+		details.instance.openGallery();
+	};
+	return (
+		<LightGallery
+			onInit={onInit}
+			thumbnail={false}
+			plugins={[lgZoom, lgRotate, lgFullscreen, lgPager]}
+			onBeforeClose={close}>
+			<a href={((children as React.JSX.Element).props as { src: string }).src} className="hidden">
+				{children}
+			</a>
+		</LightGallery>
 	);
 }
