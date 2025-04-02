@@ -42,10 +42,19 @@ const Alert = ({ type, children }: { type: string; children: React.ReactNode }):
 };
 
 const ResponsiveImage = (props: React.ImgHTMLAttributes<HTMLImageElement>): React.JSX.Element => {
+	const { className, ...rest } = props;
 	return (
 		<LightboxImage>
-			{/* @ts-expect-error - Different properties */}
-			<Image alt={props.alt ?? ""} sizes="100vw" width={450} height={0} {...props} />
+			<Image
+				alt={props.alt ?? ""}
+				sizes="100vw"
+				// @ts-expect-error - Types don't match
+				width={450}
+				// @ts-expect-error - Types don't match
+				height={0}
+				className={cn("rounded-md border", className)}
+				{...rest}
+			/>
 		</LightboxImage>
 	);
 };
