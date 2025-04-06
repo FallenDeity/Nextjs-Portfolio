@@ -24,12 +24,12 @@ export function StatusCard({ github_username }: StatusCardProps): React.ReactEle
 	React.useEffect(() => {
 		const fetchGitHubStats = async (): Promise<void> => {
 			try {
-				const [userRes, reposRes] = await Promise.all([
+				const [userRes, starsRes] = await Promise.all([
 					fetch(`https://api.github.com/users/${github_username}`),
-					fetch(`https://api.github.com/users/${github_username}/repos`),
+					fetch(`https://api.github-star-counter.workers.dev/user/${github_username}`),
 				]);
 
-				if (!userRes.ok || !reposRes.ok) throw new Error("Failed to fetch data");
+				if (!userRes.ok || !starsRes.ok) throw new Error("Failed to fetch data");
 
 				const userData = (await userRes.json()) as {
 					name: string;
@@ -37,11 +37,7 @@ export function StatusCard({ github_username }: StatusCardProps): React.ReactEle
 					public_repos: number;
 					public_gists: number;
 				};
-				const reposData = (await reposRes.json()) as { stargazers_count: number }[];
-
-				const stars = Array.isArray(reposData)
-					? reposData.reduce((acc, repo) => acc + (repo.stargazers_count || 0), 0)
-					: 0;
+				const { stars } = (await starsRes.json()) as { stars: number };
 
 				setStats({
 					name: userData.name || github_username,
