@@ -37,14 +37,14 @@ export function StatusCard({ github_username }: StatusCardProps): React.ReactEle
 					public_repos: number;
 					public_gists: number;
 				};
-				const { stars } = (await starsRes.json()) as { stars: number };
+				const starsData = (await starsRes.json()) as { stars: number };
 
 				setStats({
 					name: userData.name || github_username,
 					followers: userData.followers ?? 0,
 					repos: userData.public_repos ?? 0,
 					gists: userData.public_gists ?? 0,
-					stars,
+					stars: starsData.stars ?? 0,
 				});
 			} catch (error) {
 				console.error("Error fetching GitHub data:", error);
