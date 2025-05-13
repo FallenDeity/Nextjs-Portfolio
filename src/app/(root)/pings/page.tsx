@@ -47,12 +47,11 @@ export const metadata: Metadata = {
 	},
 };
 
-const pings = await sanityFetch({
-	query: PINGS_QUERY,
-	tags: ["ping", "category"],
-});
-
-export default function PingPage(): React.ReactElement {
+export default async function PingPage(): Promise<React.ReactElement> {
+	const pings = await sanityFetch({
+		query: PINGS_QUERY,
+		tags: ["ping", "category"],
+	});
 	return (
 		<div className="z-10 m-6 mx-auto mb-44 min-h-screen w-full max-w-3xl overflow-hidden p-4 font-mono md:pb-36">
 			<div>
