@@ -1,4 +1,3 @@
-// import dynamic from "next/dynamic";
 import { getFileAsset } from "@sanity/asset-utils";
 import React from "react";
 
@@ -13,12 +12,11 @@ import { sanityFetch } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { PROFILE_QUERY } from "@/sanity/lib/queries";
 
-const profile = await sanityFetch({
-	query: PROFILE_QUERY,
-	tags: ["profile", "education", "experience", "project"],
-});
-
-export default function HomePage(): React.ReactElement {
+export default async function HomePage(): Promise<React.ReactElement> {
+	const profile = await sanityFetch({
+		query: PROFILE_QUERY,
+		tags: ["profile", "education", "experience", "project"],
+	});
 	return (
 		<div className="flex h-full w-full flex-col items-center justify-start space-y-6 px-2 pt-2 pb-44 md:px-6 md:pt-6 md:pb-36">
 			<BentoGrid className="lg:grid-rows-3">
