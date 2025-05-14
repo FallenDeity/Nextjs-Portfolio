@@ -85,7 +85,7 @@ const components: MDXComponents = {
 		<h6 className={cn("mt-8 scroll-m-20 text-base font-semibold tracking-tight", className)} {...props} />
 	),
 	a: ({ className, ...props }: React.HTMLProps<HTMLAnchorElement>): React.ReactElement => (
-		<a className={cn("font-medium underline underline-offset-4", className)} {...props} />
+		<a className={cn("font-medium break-all underline underline-offset-4", className)} {...props} />
 	),
 	p: ({ className, ...props }: React.HTMLProps<HTMLParagraphElement>): React.ReactElement => (
 		<p className={cn("[&:not(:first-child)]:mt-6", className)} {...props} />
