@@ -68,7 +68,7 @@ function PostCard({ post }: PostCardProps): React.ReactElement {
 							<p className="text-muted-foreground text-sm">{formatDate(post.publishedAt, true)}</p>
 							<Calendar className="ml-2 h-5 w-5" />
 						</div>
-						<div className="flex flex-row gap-2">
+						{/* <div className="flex flex-row gap-2">
 							{post.categories.slice(0, 3).map((category) => (
 								<span
 									key={category.slug.current}
@@ -81,7 +81,7 @@ function PostCard({ post }: PostCardProps): React.ReactElement {
 									+{post.categories.length - 3}
 								</span>
 							)}
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>
