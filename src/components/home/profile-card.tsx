@@ -92,7 +92,7 @@ export function ProfileCard(props: ProfileCardProps): React.ReactElement {
 				</div>
 				<div className="relative -mb-44 block h-[40vh] w-full items-center justify-center pt-12 sm:mt-12 md:mt-0">
 					<div id="functions-hero" className="absolute inset-0 top-10">
-						<div className="animate-in fade-in absolute top-[0%] right-0 left-0 z-20 flex h-auto w-[100%] flex-1 items-center justify-center transition-opacity duration-1000 ease-in sm:top-[0%] sm:left-[6%] sm:w-[90%] md:top-[5%] md:left-[25%] md:w-[55%] lg:top-[0%] lg:left-[5%] lg:w-[100%] xl:top-[-5%] xl:left-[8%] xl:w-[90%] 2xl:top-[-5%] 2xl:left-[5%] 2xl:w-[100%]">
+						<div className="animate-in fade-in absolute top-[0%] right-0 left-0 z-20 flex h-auto w-[100%] flex-1 items-center justify-center transition-opacity duration-1000 ease-in sm:top-[0%] sm:left-[6%] sm:w-[90%] md:top-[5%] md:left-[25%] md:w-[55%] lg:top-[0%] lg:left-[5%] lg:w-[90%] xl:top-[-5%] xl:left-[8%] xl:w-[90%] 2xl:top-[-5%] 2xl:left-[5%] 2xl:w-[90%]">
 							<a
 								href={`mailto:${props.mailto.replace("mailto:", "")}`}
 								aria-label="Contact Me"
