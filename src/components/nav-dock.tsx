@@ -121,6 +121,8 @@ export function NavigationDock({ data }: NavigationDockProps): React.ReactElemen
 							<TooltipTrigger asChild>
 								<Link
 									prefetch={false}
+									target="_blank"
+									rel="noopener noreferrer"
 									href={social}
 									aria-label={name}
 									className={cn(
@@ -151,3 +153,4 @@ export function NavigationDock({ data }: NavigationDockProps): React.ReactElemen
 		</TooltipProvider>
 	);
 }
+
