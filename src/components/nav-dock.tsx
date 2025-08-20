@@ -153,4 +153,3 @@ export function NavigationDock({ data }: NavigationDockProps): React.ReactElemen
 		</TooltipProvider>
 	);
 }
-
