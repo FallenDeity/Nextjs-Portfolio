@@ -89,7 +89,7 @@ function Kbd({ keys, children }: KbdProps): React.ReactElement {
 			className={cn(
 				"bg-muted text-muted-foreground pointer-events-none inline-flex h-6 items-center justify-center gap-1 rounded border px-1.5 text-center font-mono text-[10px] font-medium opacity-100 select-none"
 			)}>
-			{keys.map((key, i) => (
+			{keys?.map((key, i) => (
 				<span key={i} title={kbdKeysLabelMap[key]} className={cn("text-xs")}>
 					{kbdKeysMap[key]}
 				</span>

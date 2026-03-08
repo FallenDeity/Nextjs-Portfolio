@@ -62,6 +62,8 @@ const mdSerialize = async (
 	return await compileMDX({
 		source: source,
 		options: {
+			blockJS: false,
+			// blockDangerousJS: false,
 			mdxOptions: {
 				remarkPlugins: [
 					remarkGfm,
