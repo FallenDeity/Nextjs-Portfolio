@@ -99,11 +99,12 @@ export function TechnologyCard({ technologies, educations }: TechnologyCardProps
 												src={
 													CUSTOM_LOGOS.includes(slug)
 														? `/${slug}.svg`
-														: `https://cdn.simpleicons.org/${slug}`
+														: `https://cdn.simpleicons.org/${slug}?size=64`
 												}
 												alt={slug}
 												width={64}
 												height={64}
+												unoptimized
 											/>
 										</TooltipTrigger>
 										<TooltipContent className="pb-2 text-xs capitalize">{slug}</TooltipContent>
@@ -122,11 +123,12 @@ export function TechnologyCard({ technologies, educations }: TechnologyCardProps
 												src={
 													CUSTOM_LOGOS.includes(slug)
 														? `/${slug}.svg`
-														: `https://cdn.simpleicons.org/${slug}`
+														: `https://cdn.simpleicons.org/${slug}?size=64`
 												}
 												alt={slug}
 												width={64}
 												height={64}
+												unoptimized
 											/>
 										</TooltipTrigger>
 										<TooltipContent className="pb-2 text-xs capitalize">{slug}</TooltipContent>
