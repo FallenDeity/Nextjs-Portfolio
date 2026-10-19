@@ -243,3 +243,15 @@ html.dark {
 .markdown-body ol ol ol {
 	list-style-type: lower-roman; /* 3rd level */
 }
+
+.markdown-body .mermaid {
+	display: flex;
+	justify-content: center;
+	margin-block: 1.5rem;
+	overflow-x: auto;
+}
+
+.markdown-body .mermaid svg {
+	max-width: 100%;
+	height: auto;
+}

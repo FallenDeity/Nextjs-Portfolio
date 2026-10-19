@@ -113,7 +113,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 		<>
 			<article
 				className={cn(
-					"mx-auto min-h-screen w-full max-w-3xl overflow-hidden md:m-6 md:rounded-lg",
+					"mx-auto min-h-screen w-full max-w-7xl overflow-hidden md:m-6 md:rounded-lg",
 					CARD_STYLE_STRING
 				)}>
 				<Image
@@ -124,7 +124,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 					width={getImageDimensions(post.mainImage.asset?._ref ?? "").width}
 					height={getImageDimensions(post.mainImage.asset?._ref ?? "").height}
 				/>
-				<section className="flex flex-row items-start justify-between p-4">
+				<section className="flex flex-row items-start justify-between p-4 md:px-6">
 					<div className="flex flex-row items-center gap-2">
 						<Image
 							src={urlFor(post.author.image).width(56).height(56).url() || ""}
@@ -165,12 +165,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 						))}
 					</div>
 				</section>
-				<div className="markdown-body p-4">
+				<div className="markdown-body p-4 md:px-6">
 					<CustomMDX source={post.body} addToc={true} />
 				</div>
 			</article>
 			<div
-				className={`mx-auto mt-6 flex w-full max-w-3xl flex-col gap-6 md:mt-0 md:justify-between ${next_prev && !next_prev.prev ? "md:flex-row-reverse" : "md:flex-row"}`}>
+				className={`mx-auto mt-6 flex w-full max-w-7xl flex-col gap-6 md:mt-0 md:justify-between ${next_prev && !next_prev.prev ? "md:flex-row-reverse" : "md:flex-row"}`}>
 				{next_prev && next_prev.prev && (
 					<Link
 						aria-label="View previous post"
@@ -204,7 +204,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 					</Link>
 				)}
 			</div>
-			<section className="z-10 mx-auto mt-16 mb-44 w-full max-w-3xl md:mb-36">
+			<section className="z-10 mx-auto mt-16 mb-44 w-full max-w-7xl md:mb-36">
 				<Comments repo={repo} repoId={repoId} category={category} categoryId={categoryId} />
 			</section>
 		</>

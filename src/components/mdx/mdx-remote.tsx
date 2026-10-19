@@ -1,4 +1,4 @@
-import { Info, Lightbulb, MessageSquareWarning, OctagonAlert, TriangleAlert } from "lucide-react";
+import { ChevronDown, Info, Lightbulb, MessageSquareWarning, OctagonAlert, TriangleAlert } from "lucide-react";
 import { MDXComponents } from "mdx/types";
 import Image from "next/image";
 import React from "react";
@@ -11,7 +11,62 @@ import LightboxImage from "./lightbox-image";
 import { mdSerialize } from "./mdx-serializer";
 import { Mermaid } from "./mermaid";
 
-const Alert = ({ type, children }: { type: string; children: React.ReactNode }): React.ReactElement => {
+type MediaAlignment = "left" | "center" | "right";
+
+type MDXImageProps = Omit<React.ImgHTMLAttributes<HTMLImageElement>, "align"> & {
+	align?: MediaAlignment;
+	caption?: React.ReactNode;
+};
+
+const ImageFrame = ({
+	align = "center",
+	children,
+}: {
+	align?: MediaAlignment;
+	children: React.ReactNode;
+}): React.ReactElement => (
+	<span
+		className={cn("my-2 flex w-full", {
+			"justify-start": align === "left",
+			"justify-center": align === "center",
+			"justify-end": align === "right",
+		})}>
+		{children}
+	</span>
+);
+
+const ImageFigure = ({
+	align = "center",
+	caption,
+	children,
+}: {
+	align?: MediaAlignment;
+	caption?: React.ReactNode;
+	children: React.ReactNode;
+}): React.ReactElement => {
+	const image = <ImageFrame align={align}>{children}</ImageFrame>;
+	if (caption === undefined || caption === null) return image;
+	return (
+		<figure className="my-6 w-full">
+			{image}
+			<figcaption className="text-muted-foreground mt-2 text-center text-sm">{caption}</figcaption>
+		</figure>
+	);
+};
+
+const Alert = ({
+	type,
+	children,
+	collapsible = false,
+	title,
+	open = false,
+}: {
+	type: string;
+	children: React.ReactNode;
+	collapsible?: boolean;
+	title?: string;
+	open?: boolean;
+}): React.ReactElement => {
 	const IconMap = {
 		note: <Info className="h-4 w-4 text-blue-500" />,
 		tip: <Lightbulb className="h-4 w-4 text-green-500" />,
@@ -19,6 +74,35 @@ const Alert = ({ type, children }: { type: string; children: React.ReactNode }):
 		warning: <TriangleAlert className="h-4 w-4 text-amber-500" />,
 		caution: <OctagonAlert className="h-4 w-4 text-red-500" />,
 	};
+	if (collapsible) {
+		return (
+			<details
+				open={open}
+				className={cn("group my-4 overflow-hidden rounded-md border-l-4", {
+					"border-blue-500 bg-blue-50 dark:bg-blue-900/30": type.toUpperCase() === "NOTE",
+					"border-green-500 bg-green-50 dark:bg-green-900/30": type.toUpperCase() === "TIP",
+					"border-purple-500 bg-purple-50 dark:bg-purple-900/30": type.toUpperCase() === "IMPORTANT",
+					"border-amber-500 bg-amber-50 dark:bg-amber-900/30": type.toUpperCase() === "WARNING",
+					"border-red-500 bg-red-50 dark:bg-red-900/30": type.toUpperCase() === "CAUTION",
+				})}>
+				<summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-4 [&::-webkit-details-marker]:hidden">
+					<span className="flex items-center gap-2">
+						{IconMap[type.toLowerCase() as keyof typeof IconMap]}
+						<span className="text-sm font-semibold text-gray-900 capitalize dark:text-gray-100">
+							{title ?? type}
+						</span>
+					</span>
+					<ChevronDown
+						aria-hidden="true"
+						className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180"
+					/>
+				</summary>
+				<div className="border-t border-black/10 px-4 pt-3 pb-4 text-sm text-gray-700 dark:border-white/10 dark:text-gray-300">
+					{children}
+				</div>
+			</details>
+		);
+	}
 	return (
 		<div
 			className={cn(
@@ -34,28 +118,91 @@ const Alert = ({ type, children }: { type: string; children: React.ReactNode }):
 			)}>
 			<div className="flex items-center space-x-2">
 				{IconMap[type.toLowerCase() as keyof typeof IconMap]}
-				<span className="text-sm font-semibold text-gray-900 capitalize dark:text-gray-100">{type}</span>
+				<span className="text-sm font-semibold text-gray-900 capitalize dark:text-gray-100">
+					{title ?? type}
+				</span>
 			</div>
 			<div className="mt-2 text-sm text-gray-700 dark:text-gray-300">{children}</div>
 		</div>
 	);
 };
 
-const ResponsiveImage = (props: React.ImgHTMLAttributes<HTMLImageElement>): React.JSX.Element => {
-	const { className, ...rest } = props;
+const imageDimensions = (src?: string): { width: number; height: number } => {
+	const match = src?.match(/-(\d+)x(\d+)(?:\.[a-z0-9]+)(?:\?.*)?$/i);
+	return match ? { width: Number(match[1]), height: Number(match[2]) } : { width: 1200, height: 800 };
+};
+
+const parseImageDimension = (value: string | number | undefined): number | undefined => {
+	const dimension =
+		typeof value === "number"
+			? value
+			: typeof value === "string" && /^\d+$/.test(value.trim())
+				? Number(value)
+				: undefined;
+	return dimension !== undefined && Number.isSafeInteger(dimension) && dimension > 0 ? dimension : undefined;
+};
+
+const ResponsiveImage = ({
+	align = "center",
+	caption,
+	className,
+	alt,
+	src,
+	width,
+	height,
+	...rest
+}: MDXImageProps): React.JSX.Element => {
+	const explicitWidth = parseImageDimension(width);
+	const explicitHeight = parseImageDimension(height);
+	const hasExplicitWidth = explicitWidth !== undefined;
+	const dimensions = imageDimensions(src);
+	const imageWidth = explicitWidth ?? dimensions.width;
+	const imageHeight =
+		explicitHeight !== undefined
+			? explicitHeight
+			: Math.max(1, Math.round(imageWidth * (dimensions.height / dimensions.width)));
 	return (
-		<LightboxImage>
-			<Image
-				alt={props.alt ?? ""}
-				sizes="100vw"
-				// @ts-expect-error - Types don't match
-				width={450}
-				// @ts-expect-error - Types don't match
-				height={0}
-				className={cn("rounded-md border", className)}
-				{...rest}
-			/>
-		</LightboxImage>
+		<ImageFigure align={align} caption={caption}>
+			<LightboxImage className={hasExplicitWidth ? "w-fit max-w-full" : "w-full"}>
+				<Image
+					alt={alt ?? ""}
+					src={src ?? ""}
+					sizes={hasExplicitWidth ? String(imageWidth) + "px" : "100vw"}
+					width={imageWidth}
+					height={imageHeight}
+					className={cn("h-auto rounded-md border", hasExplicitWidth ? "max-w-full" : "w-full", className)}
+					{...rest}
+				/>
+			</LightboxImage>
+		</ImageFigure>
+	);
+};
+
+const MarkdownImage = ({
+	align = "center",
+	caption,
+	className,
+	alt,
+	width,
+	height,
+	...rest
+}: MDXImageProps): React.JSX.Element => {
+	const explicitWidth = parseImageDimension(width);
+	const explicitHeight = parseImageDimension(height);
+	const hasExplicitWidth = explicitWidth !== undefined;
+	return (
+		<ImageFigure align={align} caption={caption}>
+			<LightboxImage className={hasExplicitWidth ? "w-fit max-w-full" : "w-full"}>
+				{/* eslint-disable-next-line @next/next/no-img-element */}
+				<img
+					className={cn("h-auto rounded-md border", hasExplicitWidth ? "max-w-full" : "w-full", className)}
+					alt={alt ?? ""}
+					width={explicitWidth ?? width}
+					height={explicitHeight ?? height}
+					{...rest}
+				/>
+			</LightboxImage>
+		</ImageFigure>
 	);
 };
 
@@ -131,12 +278,7 @@ const components: MDXComponents = {
 		// @ts-expect-error - Missing properties
 		<blockquote className={cn("[&>*]:text-muted-foreground mt-6 border-l-2 pl-6 italic", className)} {...props} />
 	),
-	img: ({ className, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>): React.ReactElement => (
-		<LightboxImage>
-			{/* eslint-disable-next-line @next/next/no-img-element */}
-			<img className={cn("rounded-md border", className)} alt={alt} {...props} />
-		</LightboxImage>
-	),
+	img: MarkdownImage,
 	hr: ({ ...props }: React.HTMLProps<HTMLHRElement>): React.ReactElement => (
 		<hr className="my-4 md:my-8" {...props} />
 	),

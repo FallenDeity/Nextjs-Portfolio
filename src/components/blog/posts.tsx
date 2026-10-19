@@ -53,9 +53,9 @@ function PostCard({ post }: PostCardProps): React.ReactElement {
 							</AvatarFallback>
 						</Avatar>
 						<div className="flex flex-col gap-1">
-							<h2 className="text-lg font-semibold">
+							<h2 className="text-md font-semibold">
 								{post.title}
-								<span className="text-muted-foreground ml-1 text-xs font-normal">
+								<span className="text-muted-foreground ml-1 text-xs font-normal tracking-tight">
 									{" "}
 									by {post.author.name}
 								</span>
