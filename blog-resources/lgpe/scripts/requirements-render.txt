@@ -1,0 +1,6 @@
+numpy>=1.23
+Pillow>=10
+moderngl==5.13.0
+lz4>=4
+texture2ddecoder>=1
+matplotlib>=3.7
