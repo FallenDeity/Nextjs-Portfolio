@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 			keywords: ["404", "not found", "error"],
 		};
 	}
+	const socialImageUrl = urlFor(project.image).width(1200).height(630).fit("crop").format("jpg").quality(80).url();
 
 	return {
 		title: project.title,
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 			url: `/projects/${project.slug.current}`,
 			images: [
 				{
-					url: urlFor(project.image).url() || "",
+					url: socialImageUrl,
 					alt: project.image.alt || "Image",
 					width: 1200,
 					height: 630,
@@ -52,7 +53,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 			site: "/",
 			images: [
 				{
-					url: urlFor(project.image).url() || "",
+					url: socialImageUrl,
 					alt: project.image.alt || "Image",
 					width: 1200,
 					height: 630,

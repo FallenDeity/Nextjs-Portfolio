@@ -1,8 +1,8 @@
-import Image from "next/image";
 import React from "react";
 
 import { BentoCard } from "@/components/magicui/bento-grid";
 import { Marquee } from "@/components/magicui/marquee";
+import Image from "@/components/ui/sanity-image";
 import {
 	Timeline,
 	TimelineConnector,
@@ -14,6 +14,7 @@ import {
 	TimelineTitle,
 } from "@/components/ui/timeline";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { imagePlaceholder } from "@/lib/image";
 import { CUSTOM_LOGOS, formatDate } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { PROFILE_QUERYResult } from "@/sanity/sanity.types";
@@ -37,7 +38,9 @@ function EducationList({
 							<Image
 								width={40}
 								height={40}
+								sizes="(min-width: 1024px) 28px, 40px"
 								src={urlFor(education.icon).url() ?? ""}
+								{...imagePlaceholder(education.icon)}
 								alt="icon"
 								className="h-10 w-10 object-contain lg:h-7 lg:w-7"
 							/>

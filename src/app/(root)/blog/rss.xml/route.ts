@@ -34,7 +34,7 @@ export async function GET(): Promise<Response> {
 			categories: (post.categories ?? []).map((category) => category.title),
 			author: post.author.name,
 			enclosure: {
-				url: urlFor(post.mainImage).url(),
+				url: urlFor(post.mainImage).width(1200).format("jpg").quality(80).url(),
 				type: "image/jpeg",
 			},
 		});

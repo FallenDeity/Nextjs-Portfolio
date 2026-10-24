@@ -18,9 +18,14 @@ const nextConfig = {
 			fullUrl: true,
 		},
 	},
+	outputFileTracingIncludes: {
+		"/": ["./public/cat.webp"],
+		"/blog/*": ["./public/**/*"],
+		"/pings": ["./public/**/*"],
+	},
 	serverExternalPackages: ["pino", "pino-pretty"],
 	images: {
-		dangerouslyAllowSVG: true,
+		dangerouslyAllowSVG: false,
 		remotePatterns: [
 			{
 				protocol: "https",

@@ -1,8 +1,9 @@
 import { formatDistanceToNow } from "date-fns";
 import { Calendar, ExternalLink, Github } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
+import Image from "@/components/ui/sanity-image";
+import { imagePlaceholder } from "@/lib/image";
 import { CARD_STYLE_STRING, cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { PROJECTS_QUERYResult } from "@/sanity/sanity.types";
@@ -15,8 +16,10 @@ export function ProjectCard({ project }: { project: Project }): React.ReactEleme
 			<div className="relative flex h-48">
 				<Image
 					src={urlFor(project.image).url()}
+					{...imagePlaceholder(project.image)}
 					alt={project.title}
 					fill
+					sizes="(min-width: 1088px) 320px, (min-width: 768px) 47vw, calc(100vw - 2rem)"
 					className="object-cover transition-transform duration-300 group-hover:translate-y-[-5px] group-hover:scale-105"
 				/>
 				{/* <div className="from-zinc-900 absolute inset-0 bg-gradient-to-t to-transparent opacity-90" /> */}

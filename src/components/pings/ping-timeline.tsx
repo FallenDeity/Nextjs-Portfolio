@@ -1,9 +1,9 @@
 import "@/styles/blog.css";
 
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+import Image from "@/components/ui/sanity-image";
 import {
 	Timeline,
 	TimelineConnector,
@@ -13,6 +13,7 @@ import {
 	TimelineSeparator,
 	TimelineTitle,
 } from "@/components/ui/timeline";
+import { imagePlaceholder } from "@/lib/image";
 import { CARD_STYLE_STRING, cn, formatDate } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { PINGS_QUERYResult } from "@/sanity/sanity.types";
@@ -94,8 +95,8 @@ export const PingTimeline: React.FC<PingTimelineProps> = ({ pings }) => {
 									src={urlFor(ping.image).width(1280).url()}
 									alt={ping.title}
 									fill
-									placeholder="blur"
-									blurDataURL={urlFor(ping.image).width(16).height(9).dpr(2).blur(20).url() || ""}
+									sizes="(min-width: 816px) 704px, calc(100vw - 3rem)"
+									{...imagePlaceholder(ping.image)}
 									className="rounded-md object-cover"
 								/>
 							</div>

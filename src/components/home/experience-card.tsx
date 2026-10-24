@@ -2,10 +2,10 @@
 
 import { getImageDimensions } from "@sanity/asset-utils";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import Image from "next/image";
 import React from "react";
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import Image from "@/components/ui/sanity-image";
 import {
 	Timeline,
 	TimelineConnector,
@@ -16,6 +16,7 @@ import {
 	TimelineSeparator,
 	TimelineTitle,
 } from "@/components/ui/timeline";
+import { imagePlaceholder } from "@/lib/image";
 import { formatDate } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { PROFILE_QUERYResult } from "@/sanity/sanity.types";
@@ -90,9 +91,11 @@ const ExperienceList: React.FC<{ experiences: Experience[] }> = ({ experiences }
 								<Image
 									className="rounded-full"
 									src={urlFor(experience.icon).url() ?? ""}
+									{...imagePlaceholder(experience.icon)}
 									alt={"icon"}
 									width={getImageDimensions(experience.icon.asset?._ref ?? "").width}
 									height={getImageDimensions(experience.icon.asset?._ref ?? "").height}
+									sizes="16px"
 								/>
 							)}
 						</TimelineDot>

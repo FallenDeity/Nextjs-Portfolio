@@ -2,17 +2,19 @@
 
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { ExternalLink, GitCommit, GitFork, Star, Users } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 import { BentoCard } from "@/components/magicui/bento-grid";
+import Image from "@/components/ui/sanity-image";
+import type { ImagePlaceholderProps } from "@/lib/image";
 
 interface StatusCardProps {
 	github_username: string;
+	imagePlaceholder: ImagePlaceholderProps;
 }
 
-export function StatusCard({ github_username }: StatusCardProps): React.ReactElement {
+export function StatusCard({ github_username, imagePlaceholder }: StatusCardProps): React.ReactElement {
 	const [stats, setStats] = React.useState({
 		name: "",
 		stars: 0,
@@ -73,8 +75,10 @@ export function StatusCard({ github_username }: StatusCardProps): React.ReactEle
 					</Link>
 					<Image
 						src="/cat.webp"
+						{...imagePlaceholder}
 						alt="profile"
 						fill
+						sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
 						className="absolute inset-0 z-[-1] h-full w-full rounded-md object-cover"
 					/>
 					<div className="via-background/20 to-background absolute inset-0 z-[-1] bg-gradient-to-bl from-transparent" />

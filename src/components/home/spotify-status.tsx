@@ -7,11 +7,11 @@
 import ColorThief from "colorthief/dist/color-thief.mjs";
 import { domAnimation, LazyMotion } from "motion/react";
 import * as m from "motion/react-m";
-import Image from "next/image";
 import { useTheme } from "next-themes";
 import React from "react";
 import { createNoise2D } from "simplex-noise";
 
+import Image from "@/components/ui/sanity-image";
 import { getSpotifyStatus, SpotifyStatus } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 
@@ -202,6 +202,7 @@ export default function SpotifyStatusCard(): React.ReactElement {
 							className="h-16 w-16 rounded-md"
 							width={64}
 							height={64}
+							sizes="64px"
 						/>
 						<div className="absolute top-3 right-0">
 							<AudioVisualizer
@@ -245,6 +246,7 @@ export default function SpotifyStatusCard(): React.ReactElement {
 							className="h-15 w-15 rounded-md"
 							width={64}
 							height={64}
+							sizes="64px"
 						/>
 						<div className="absolute top-3 right-0">
 							<AudioVisualizer

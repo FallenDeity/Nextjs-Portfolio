@@ -1,8 +1,9 @@
 import { formatDistanceToNow } from "date-fns";
 import { ArrowUpRight, Calendar, ExternalLink, Github } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
+import Image from "@/components/ui/sanity-image";
+import { imagePlaceholder } from "@/lib/image";
 import { CARD_STYLE_STRING, cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { PROJECTS_QUERYResult } from "@/sanity/sanity.types";
@@ -14,7 +15,14 @@ export function ProjectListItem({ project }: { project: Project }): React.ReactE
 		<div className={cn("overflow-hidden rounded-xl", CARD_STYLE_STRING)}>
 			<div className="flex flex-col md:flex-row">
 				<div className="relative h-48 w-full md:h-auto md:w-64">
-					<Image src={urlFor(project.image).url()} alt={project.title} fill className="object-cover" />
+					<Image
+						src={urlFor(project.image).url()}
+						{...imagePlaceholder(project.image)}
+						alt={project.title}
+						fill
+						sizes="(min-width: 768px) 256px, calc(100vw - 2rem)"
+						className="object-cover"
+					/>
 				</div>
 				<div className="flex flex-1 flex-col p-6">
 					<div className="mb-2 flex items-start justify-between">

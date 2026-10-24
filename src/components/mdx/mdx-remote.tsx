@@ -1,8 +1,11 @@
 import { ChevronDown, Info, Lightbulb, MessageSquareWarning, OctagonAlert, TriangleAlert } from "lucide-react";
 import { MDXComponents } from "mdx/types";
-import Image from "next/image";
+import type { ImageProps } from "next/image";
 import React from "react";
 
+import Image from "@/components/ui/sanity-image";
+import { isSanityImageUrl } from "@/lib/image";
+import { mdxImagePlaceholder } from "@/lib/image.server";
 import { cn } from "@/lib/utils";
 
 import { Kbd } from "../ui/kbd";
@@ -16,6 +19,10 @@ type MediaAlignment = "left" | "center" | "right";
 type MDXImageProps = Omit<React.ImgHTMLAttributes<HTMLImageElement>, "align"> & {
 	align?: MediaAlignment;
 	caption?: React.ReactNode;
+	unoptimized?: boolean;
+	placeholder?: ImageProps["placeholder"];
+	blurDataURL?: string;
+	blurHash?: string;
 };
 
 const ImageFrame = ({
@@ -142,7 +149,13 @@ const parseImageDimension = (value: string | number | undefined): number | undef
 	return dimension !== undefined && Number.isSafeInteger(dimension) && dimension > 0 ? dimension : undefined;
 };
 
-const ResponsiveImage = ({
+const articleImageSizes = (maxWidth?: number): string => {
+	const cap = maxWidth ? `min(${maxWidth}px, ` : "";
+	const close = maxWidth ? ")" : "";
+	return `(min-width: 1328px) ${Math.min(maxWidth ?? 1232, 1232)}px, (min-width: 768px) ${cap}calc(100vw - 6rem)${close}, ${cap}calc(100vw - 2rem)${close}`;
+};
+
+const ResponsiveImage = async ({
 	align = "center",
 	caption,
 	className,
@@ -150,8 +163,14 @@ const ResponsiveImage = ({
 	src,
 	width,
 	height,
+	sizes,
+	unoptimized,
 	...rest
-}: MDXImageProps): React.JSX.Element => {
+}: MDXImageProps): Promise<React.JSX.Element> => {
+	const placeholderProps =
+		rest.placeholder !== undefined || rest.blurDataURL !== undefined || rest.blurHash !== undefined
+			? {}
+			: await mdxImagePlaceholder(src);
 	const explicitWidth = parseImageDimension(width);
 	const explicitHeight = parseImageDimension(height);
 	const hasExplicitWidth = explicitWidth !== undefined;
@@ -167,9 +186,11 @@ const ResponsiveImage = ({
 				<Image
 					alt={alt ?? ""}
 					src={src ?? ""}
-					sizes={hasExplicitWidth ? String(imageWidth) + "px" : "100vw"}
+					sizes={sizes ?? articleImageSizes(hasExplicitWidth ? imageWidth : undefined)}
 					width={imageWidth}
 					height={imageHeight}
+					unoptimized={unoptimized}
+					{...placeholderProps}
 					className={cn("h-auto rounded-md border", hasExplicitWidth ? "max-w-full" : "w-full", className)}
 					{...rest}
 				/>
@@ -178,18 +199,54 @@ const ResponsiveImage = ({
 	);
 };
 
-const MarkdownImage = ({
+const MarkdownImage = async ({
 	align = "center",
 	caption,
 	className,
 	alt,
+	src,
 	width,
 	height,
+	sizes,
+	unoptimized,
 	...rest
-}: MDXImageProps): React.JSX.Element => {
+}: MDXImageProps): Promise<React.JSX.Element> => {
+	const placeholderProps =
+		rest.placeholder !== undefined || rest.blurDataURL !== undefined || rest.blurHash !== undefined
+			? {}
+			: await mdxImagePlaceholder(src);
 	const explicitWidth = parseImageDimension(width);
 	const explicitHeight = parseImageDimension(height);
 	const hasExplicitWidth = explicitWidth !== undefined;
+	if (!src || !/\.svg(?:[?#]|$)/i.test(src)) {
+		const dimensions = imageDimensions(src);
+		const imageWidth = explicitWidth ?? dimensions.width;
+		const imageHeight =
+			explicitHeight !== undefined
+				? explicitHeight
+				: Math.max(1, Math.round(imageWidth * (dimensions.height / dimensions.width)));
+		return (
+			<ImageFigure align={align} caption={caption}>
+				<LightboxImage className={hasExplicitWidth ? "w-fit max-w-full" : "w-full"}>
+					<Image
+						alt={alt ?? ""}
+						src={src ?? ""}
+						width={imageWidth}
+						height={imageHeight}
+						sizes={sizes ?? articleImageSizes(hasExplicitWidth ? imageWidth : undefined)}
+						unoptimized={unoptimized ?? !isSanityImageUrl(src)}
+						{...placeholderProps}
+						className={cn(
+							"h-auto rounded-md border",
+							hasExplicitWidth ? "max-w-full" : "w-full",
+							className
+						)}
+						{...rest}
+					/>
+				</LightboxImage>
+			</ImageFigure>
+		);
+	}
 	return (
 		<ImageFigure align={align} caption={caption}>
 			<LightboxImage className={hasExplicitWidth ? "w-fit max-w-full" : "w-full"}>
@@ -197,8 +254,10 @@ const MarkdownImage = ({
 				<img
 					className={cn("h-auto rounded-md border", hasExplicitWidth ? "max-w-full" : "w-full", className)}
 					alt={alt ?? ""}
+					src={src}
 					width={explicitWidth ?? width}
 					height={explicitHeight ?? height}
+					sizes={sizes}
 					{...rest}
 				/>
 			</LightboxImage>

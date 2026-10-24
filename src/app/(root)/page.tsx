@@ -7,6 +7,8 @@ import { ProfileCard } from "@/components/home/profile-card";
 import { ProjectCard } from "@/components/home/project-card-carousel";
 import { TechnologyCard } from "@/components/home/technology-card";
 import { BentoGrid } from "@/components/magicui/bento-grid";
+import { imagePlaceholder } from "@/lib/image";
+import { mdxImagePlaceholder } from "@/lib/image.server";
 import { dataset, projectId } from "@/sanity/env";
 import { sanityFetch } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
@@ -31,13 +33,17 @@ export default async function HomePage(): Promise<React.ReactElement> {
 					}
 					languages={profile?.languages ?? []}
 					image={profile?.image ? urlFor(profile.image).width(120).height(120).url() : ""}
+					imagePlaceholder={imagePlaceholder(profile?.image)}
 					updateAt={profile?._updatedAt ? new Date(profile._updatedAt) : new Date()}
 					mailto={profile?.contact?.email ?? ""}
 				/>
 				<ExperienceTimeline experiences={profile?.experience ?? []} />
 				<ProjectCard projects={profile?.projects ?? []} />
 				<TechnologyCard technologies={profile?.technologies ?? []} educations={profile?.education ?? []} />
-				<StatusCard github_username={(profile?.contact.github ?? "").split("/").pop() ?? ""} />
+				<StatusCard
+					github_username={(profile?.contact.github ?? "").split("/").pop() ?? ""}
+					imagePlaceholder={await mdxImagePlaceholder("/cat.webp")}
+				/>
 			</BentoGrid>
 		</div>
 	);

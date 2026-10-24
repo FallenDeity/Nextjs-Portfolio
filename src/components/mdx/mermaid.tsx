@@ -8,9 +8,8 @@
  */
 
 import type { Config } from "mdx-mermaid/lib/config.model";
-import mermaid from "mermaid";
 import { useTheme } from "next-themes";
-import React, { ReactElement, useEffect, useMemo, useState } from "react";
+import React, { ReactElement, useEffect, useMemo, useRef } from "react";
 
 export const DEFAULT_DARK_THEME = "dark";
 export const DEFAULT_LIGHT_THEME = "default";
@@ -61,11 +60,7 @@ export interface MermaidProps {
  */
 export const Mermaid = ({ chart, config: configSrc }: MermaidProps): ReactElement<MermaidProps> => {
 	const { resolvedTheme } = useTheme();
-	const [isClient, setIsClient] = useState(false);
-
-	useEffect(() => {
-		setIsClient(true);
-	}, []);
+	const element = useRef<HTMLDivElement>(null);
 
 	const config: Config = useMemo<Config>(
 		() => (typeof configSrc === "string" ? JSON.parse(configSrc) : configSrc) as Config,
@@ -75,30 +70,24 @@ export const Mermaid = ({ chart, config: configSrc }: MermaidProps): ReactElemen
 	const theme = useMemo<THEME>(() => getTheme(resolvedTheme as "light" | "dark", config), [resolvedTheme, config]);
 
 	useEffect(() => {
-		if (config) {
-			if (config.mermaid) {
-				mermaid.initialize({ startOnLoad: true, ...config.mermaid, theme });
-			} else {
-				mermaid.initialize({ startOnLoad: true, theme });
-			}
-			document.querySelectorAll('div.mermaid[data-processed="true"]').forEach((v) => {
-				v.removeAttribute("data-processed");
-				v.innerHTML = v.getAttribute("data-mermaid-src") as string;
-			});
-			mermaid.contentLoaded();
-		}
-	}, [config, theme]);
-
-	useEffect(() => {
-		setTimeout(mermaid.contentLoaded, 0);
-	}, [chart]);
-
-	if (!isClient) {
-		return <div className="mermaid" data-mermaid-src={chart} data-processed="true" />;
-	}
+		let cancelled = false;
+		const render = async (): Promise<void> => {
+			const { default: mermaid } = await import("mermaid");
+			if (cancelled || !element.current) return;
+			const node = element.current;
+			node.removeAttribute("data-processed");
+			node.textContent = chart;
+			mermaid.initialize({ startOnLoad: false, ...config?.mermaid, theme });
+			await mermaid.run({ nodes: [node] });
+		};
+		void render().catch((error: unknown) => console.error("Failed to render Mermaid diagram", error));
+		return (): void => {
+			cancelled = true;
+		};
+	}, [chart, config, theme]);
 
 	return (
-		<div className="mermaid" data-mermaid-src={chart}>
+		<div ref={element} className="mermaid" data-mermaid-src={chart}>
 			{chart}
 		</div>
 	);

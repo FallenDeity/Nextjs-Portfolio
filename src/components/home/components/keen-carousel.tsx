@@ -4,8 +4,10 @@ import "@/styles/carousel.css";
 import "keen-slider/keen-slider.min.css";
 
 import { KeenSliderPlugin, useKeenSlider } from "keen-slider/react";
-import Image from "next/image";
 import React from "react";
+
+import Image from "@/components/ui/sanity-image";
+import type { ImagePlaceholderProps } from "@/lib/image";
 
 const carousel: KeenSliderPlugin = (slider) => {
 	const z = 300;
@@ -109,7 +111,7 @@ const AutoSlide: KeenSliderPlugin = (slider) => {
 	startAutoSlide();
 };
 
-export function KeenCarousel({ images }: { images: string[] }): React.ReactElement {
+export function KeenCarousel({ images }: { images: (ImagePlaceholderProps & { src: string })[] }): React.ReactElement {
 	const [sliderRef] = useKeenSlider<HTMLDivElement>(
 		{
 			loop: true,
@@ -128,14 +130,15 @@ export function KeenCarousel({ images }: { images: string[] }): React.ReactEleme
 	return (
 		<div className="scene">
 			<div className="carousel keen-slider" ref={sliderRef}>
-				{images.map((src, idx) => (
+				{images.map((image, idx) => (
 					<Image
 						key={idx}
 						className="carousel__cell number-slide rounded-md object-cover shadow-md"
-						src={src}
+						{...image}
 						alt="project"
 						width={260}
 						height={160}
+						sizes="260px"
 					/>
 				))}
 			</div>

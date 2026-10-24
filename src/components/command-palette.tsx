@@ -3,7 +3,6 @@
 import { DiscordLogoIcon } from "@radix-ui/react-icons";
 import { GithubIcon, LinkedinIcon } from "@sanity/icons";
 import { ExternalLink, Folders, Home, Mail, Moon, PencilIcon, Rss, Sun } from "lucide-react";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useTheme } from "next-themes";
 import React, { useState } from "react";
@@ -19,17 +18,23 @@ import {
 	CommandSeparator,
 	CommandShortcut,
 } from "@/components/ui/command";
+import Image from "@/components/ui/sanity-image";
 import { useKeyPress } from "@/hooks/use-key-press";
-import { urlFor } from "@/sanity/lib/image";
-import { POSTS_QUERYResult, PROFILE_QUERYResult, PROJECTS_QUERYResult } from "@/sanity/sanity.types";
+import { type ImagePlaceholderProps } from "@/lib/image";
+import { PROFILE_QUERYResult } from "@/sanity/sanity.types";
 
-type Project = PROJECTS_QUERYResult[number];
-type Post = POSTS_QUERYResult[number];
+export interface PaletteItem extends ImagePlaceholderProps {
+	_id: string;
+	title: string;
+	slug: { current: string };
+	excerpt: string;
+	imageUrl: string;
+}
 type Contact = NonNullable<PROFILE_QUERYResult>["contact"] | undefined;
 
 interface CommandPaletteProps {
-	posts: Post[];
-	projects: Project[];
+	posts: PaletteItem[];
+	projects: PaletteItem[];
 	contact: Contact;
 }
 
@@ -143,13 +148,15 @@ export default function CommandPalette({ posts, projects, contact }: CommandPale
 								className="cursor-pointer">
 								<div className="flex w-full flex-row items-center">
 									<Image
-										src={urlFor(project.image).width(32).height(32).url() || ""}
+										src={project.imageUrl}
 										alt={project.title}
 										width={32}
 										height={32}
+										sizes="32px"
 										className="h-8 w-8 rounded-md"
-										placeholder="blur"
-										blurDataURL={urlFor(project.image).width(6).height(6).blur(20).url() || ""}
+										placeholder={project.placeholder}
+										blurDataURL={project.blurDataURL}
+										blurHash={project.blurHash}
 									/>
 									<div className="ml-2 flex flex-col">
 										<span>{project.title}</span>
@@ -171,13 +178,15 @@ export default function CommandPalette({ posts, projects, contact }: CommandPale
 								className="cursor-pointer">
 								<div className="flex w-full flex-row items-center">
 									<Image
-										src={urlFor(post.mainImage).width(32).height(32).url() || ""}
+										src={post.imageUrl}
 										alt={post.title}
 										width={32}
 										height={32}
+										sizes="32px"
 										className="rounded-md"
-										placeholder="blur"
-										blurDataURL={urlFor(post.mainImage).width(6).height(6).blur(20).url() || ""}
+										placeholder={post.placeholder}
+										blurDataURL={post.blurDataURL}
+										blurHash={post.blurHash}
 									/>
 									<div className="ml-2 flex flex-col">
 										<span>{post.title}</span>

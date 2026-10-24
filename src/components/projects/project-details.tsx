@@ -1,9 +1,10 @@
 import { getImageDimensions } from "@sanity/asset-utils";
 import { ArrowLeft, ArrowRight, Calendar, ExternalLink, Github } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+import Image from "@/components/ui/sanity-image";
+import { imagePlaceholder } from "@/lib/image";
 import { CARD_STYLE_STRING, cn, CUSTOM_LOGOS, formatDate } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { NEXT_PREV_PROJECTS_QUERYResult, PROJECT_QUERYResult } from "@/sanity/sanity.types";
@@ -26,9 +27,11 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 				<div className="dark relative mb-8 h-[300px] overflow-hidden md:h-[400px] md:rounded-xl">
 					<Image
 						priority
-						src={urlFor(project.image).height(400).url()}
+						src={urlFor(project.image).url()}
+						{...imagePlaceholder(project.image)}
 						alt={project.title}
 						fill
+						sizes="(min-width: 1072px) 976px, (min-width: 768px) calc(100vw - 6rem), 100vw"
 						className="object-cover"
 					/>
 					<div className="from-background via-background/70 absolute inset-0 bg-gradient-to-t to-transparent opacity-90" />
@@ -130,11 +133,13 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 																src={
 																	CUSTOM_LOGOS.includes(tech)
 																		? `/${tech}.svg`
-																		: `https://cdn.simpleicons.org/${tech}`
+																		: `https://cdn.simpleicons.org/${tech}?size=20`
 																}
 																alt={tech}
 																width={20}
 																height={20}
+																sizes="20px"
+																unoptimized
 															/>
 														</span>
 													</TooltipTrigger>
@@ -168,9 +173,10 @@ export default function ProjectDetail({ project, nextPrev }: ProjectDetailProps)
 						<h2 className="mb-4 text-xl font-semibold">Screenshots</h2>
 						<Gallery
 							images={project.screenshots.map((image) => ({
-								src: urlFor(image).url(),
+								src: urlFor(image).ignoreImageParams().url(),
 								alt: project.title,
 								thumb: urlFor(image).width(480).url(),
+								placeholderProps: imagePlaceholder(image),
 								width: getImageDimensions(image.asset?._ref ?? "").width.toString(),
 								height: getImageDimensions(image.asset?._ref ?? "").height.toString(),
 							}))}

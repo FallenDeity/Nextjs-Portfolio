@@ -3,13 +3,15 @@ import "@/styles/blog.css";
 import { getImageDimensions } from "@sanity/asset-utils";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
 import Comments from "@/components/blog/comments";
 import { CustomMDX } from "@/components/mdx/mdx-remote";
+import Image from "@/components/ui/sanity-image";
+import { imagePlaceholder } from "@/lib/image";
+import { mdxImagePlaceholder } from "@/lib/image.server";
 import { CARD_STYLE_STRING, cn, formatDate } from "@/lib/utils";
 import { sanityFetch } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
@@ -32,6 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 			keywords: ["404", "not found", "error"],
 		};
 	}
+	const socialImageUrl = urlFor(post.mainImage).width(1200).height(630).fit("crop").format("jpg").quality(80).url();
 
 	return {
 		title: post.title,
@@ -47,7 +50,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 			url: `/blog/${post.slug.current}`,
 			images: [
 				{
-					url: urlFor(post.mainImage).url() || "",
+					url: socialImageUrl,
 					alt: post.mainImage.alt || "Image",
 					width: 1200,
 					height: 630,
@@ -62,7 +65,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 			site: "/",
 			images: [
 				{
-					url: urlFor(post.mainImage).url() || "",
+					url: socialImageUrl,
 					alt: post.mainImage.alt || "Image",
 					width: 1200,
 					height: 630,
@@ -120,17 +123,21 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 					priority
 					className="max-h-96 w-full rounded-b-lg object-cover md:rounded-lg"
 					src={urlFor(post.mainImage).url() || ""}
+					{...imagePlaceholder(post.mainImage)}
 					alt={post.mainImage.alt || "Image"}
 					width={getImageDimensions(post.mainImage.asset?._ref ?? "").width}
 					height={getImageDimensions(post.mainImage.asset?._ref ?? "").height}
+					sizes="(min-width: 1328px) 1280px, (min-width: 768px) calc(100vw - 3rem), 100vw"
 				/>
 				<section className="flex flex-row items-start justify-between p-4 md:px-6">
 					<div className="flex flex-row items-center gap-2">
 						<Image
 							src={urlFor(post.author.image).width(56).height(56).url() || ""}
+							{...await mdxImagePlaceholder(urlFor(post.author.image).url())}
 							alt={post.author.name}
 							width={56}
 							height={56}
+							sizes="56px"
 							className="h-14 w-14 rounded-full"
 						/>
 						<div className="flex flex-col gap-1">

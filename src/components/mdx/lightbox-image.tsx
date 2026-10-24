@@ -1,10 +1,13 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 
-import { ImageGallery } from "../projects/image-gallery";
+const ImageGallery = dynamic(() => import("../projects/image-gallery-viewer").then((module) => module.ImageGallery), {
+	ssr: false,
+});
 
 export default function Lightbox({
 	children,

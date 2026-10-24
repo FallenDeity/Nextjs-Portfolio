@@ -6,12 +6,12 @@ export const POSTS_QUERY = defineQuery(`
     && (!defined($search) || $search == "" || (title match $search || body match $search))
     && (!defined($tags) || count($tags) == 0 || array::intersects(categories[]->slug.current, $tags))
     ] | order(publishedAt desc) {
-        _id, title, slug, publishedAt, mainImage, excerpt, author->{name, image}, categories[]->{title, slug, description}
+        _id, title, slug, publishedAt, mainImage{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}, excerpt, author->{name, image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}}, categories[]->{title, slug, description}
     }`);
 
 export const POST_QUERY = defineQuery(`
     *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {
-        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body, excerpt
+        _id, title, slug, publishedAt, mainImage{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}, author->{name, image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}}, categories[]->{title, slug, description}, body, excerpt
     }`);
 
 export const PREV_NEXT_POSTS_QUERY = defineQuery(`
@@ -29,7 +29,7 @@ export const PREV_NEXT_POSTS_QUERY = defineQuery(`
 
 export const RECENT_POSTS_QUERY = defineQuery(`
     *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {
-        _id, title, slug, publishedAt, mainImage, categories[]->{title, slug, description}, excerpt, author->{name, image}
+        _id, title, slug, publishedAt, mainImage{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}, categories[]->{title, slug, description}, excerpt, author->{name, image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}}
     }`);
 
 export const CATEGORIES_QUERY = defineQuery(`
@@ -42,25 +42,25 @@ export const PROFILE_QUERY = defineQuery(`
         name,
         caption,
         bio,
-        image,
+        image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)},
         languages,
         resume,
         contact,
-        education[]->{institution, degree, startDate, endDate, description, icon},
-        experience[]->{_id, company, role, startDate, endDate, description, points, icon, subExperiences[]->{_id, company, role, startDate, endDate, description, points, icon}},
-        projects[]->{title, slug, image},
+        education[]->{institution, degree, startDate, endDate, description, icon{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}},
+        experience[]->{_id, company, role, startDate, endDate, description, points, icon{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}, subExperiences[]->{_id, company, role, startDate, endDate, description, points, icon{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}}},
+        projects[]->{title, slug, image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}},
         technologies,
         _updatedAt
     }`);
 
 export const PROJECTS_QUERY = defineQuery(`
     *[_type == "project"] | order(publishedAt desc) {
-        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies, featured
+        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}, features, screenshots[]{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}, technologies, featured
     }`);
 
 export const PROJECT_QUERY = defineQuery(`
     *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {
-        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies, featured
+        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}, features, screenshots[]{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}, technologies, featured
     }`);
 
 export const NEXT_PREV_PROJECTS_QUERY = defineQuery(`
@@ -78,5 +78,17 @@ export const NEXT_PREV_PROJECTS_QUERY = defineQuery(`
 
 export const PINGS_QUERY = defineQuery(`
     *[_type == "ping"] | order(publishedAt desc) {
-        _id, title, slug, publishedAt, body, image, link, tags[]->{title, slug, description}
+        _id, title, slug, publishedAt, body, image{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}, link, tags[]->{title, slug, description}
+    }`);
+
+export const CONTACT_QUERY = defineQuery(`*[_type == "profile"][0]{contact}`);
+
+export const PALETTE_PROJECTS_QUERY = defineQuery(`
+    *[_type == "project" && defined(slug.current)] | order(publishedAt desc) {
+        _id, title, slug, excerpt, image{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}
+    }`);
+
+export const PALETTE_POSTS_QUERY = defineQuery(`
+    *[_type == "post" && defined(slug.current)] | order(publishedAt desc) {
+        _id, title, slug, excerpt, mainImage{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}
     }`);

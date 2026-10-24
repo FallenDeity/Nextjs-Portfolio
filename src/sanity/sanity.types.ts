@@ -445,7 +445,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: POSTS_QUERY
-// Query: *[_type == "post"    && defined(slug.current)    && (!defined($search) || $search == "" || (title match $search || body match $search))    && (!defined($tags) || count($tags) == 0 || array::intersects(categories[]->slug.current, $tags))    ] | order(publishedAt desc) {        _id, title, slug, publishedAt, mainImage, excerpt, author->{name, image}, categories[]->{title, slug, description}    }
+// Query: *[_type == "post"    && defined(slug.current)    && (!defined($search) || $search == "" || (title match $search || body match $search))    && (!defined($tags) || count($tags) == 0 || array::intersects(categories[]->slug.current, $tags))    ] | order(publishedAt desc) {        _id, title, slug, publishedAt, mainImage{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}, excerpt, author->{name, image}, categories[]->{title, slug, description}    }
 export type POSTS_QUERYResult = {
 	_id: string;
 	title: string;
@@ -485,7 +485,7 @@ export type POSTS_QUERYResult = {
 	}[];
 }[];
 // Variable: POST_QUERY
-// Query: *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body, excerpt    }
+// Query: *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {        _id, title, slug, publishedAt, mainImage{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}, author->{name, image}, categories[]->{title, slug, description}, body, excerpt    }
 export type POST_QUERYResult = {
 	_id: string;
 	title: string;
@@ -544,7 +544,7 @@ export type PREV_NEXT_POSTS_QUERYResult = {
 	} | null;
 } | null;
 // Variable: RECENT_POSTS_QUERY
-// Query: *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {        _id, title, slug, publishedAt, mainImage, categories[]->{title, slug, description}, excerpt, author->{name, image}    }
+// Query: *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {        _id, title, slug, publishedAt, mainImage{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}, categories[]->{title, slug, description}, excerpt, author->{name, image}    }
 export type RECENT_POSTS_QUERYResult = {
 	_id: string;
 	title: string;
@@ -814,7 +814,7 @@ export type NEXT_PREV_PROJECTS_QUERYResult = {
 	} | null;
 } | null;
 // Variable: PINGS_QUERY
-// Query: *[_type == "ping"] | order(publishedAt desc) {        _id, title, slug, publishedAt, body, image, link, tags[]->{title, slug, description}    }
+// Query: *[_type == "ping"] | order(publishedAt desc) {        _id, title, slug, publishedAt, body, image{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}, link, tags[]->{title, slug, description}    }
 export type PINGS_QUERYResult = {
 	_id: string;
 	title: string;
@@ -844,15 +844,34 @@ export type PINGS_QUERYResult = {
 }[];
 declare module "@sanity/client" {
 	interface SanityQueries {
-		'\n    *[_type == "post"\n    && defined(slug.current)\n    && (!defined($search) || $search == "" || (title match $search || body match $search))\n    && (!defined($tags) || count($tags) == 0 || array::intersects(categories[]->slug.current, $tags))\n    ] | order(publishedAt desc) {\n        _id, title, slug, publishedAt, mainImage, excerpt, author->{name, image}, categories[]->{title, slug, description}\n    }': POSTS_QUERYResult;
-		'\n    *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {\n        _id, title, slug, publishedAt, mainImage, author->{name, image}, categories[]->{title, slug, description}, body, excerpt\n    }': POST_QUERYResult;
+		'*[_type == "profile"][0]{contact}': Pick<NonNullable<PROFILE_QUERYResult>, "contact"> | null;
+		'\n    *[_type == "project" && defined(slug.current)] | order(publishedAt desc) {\n        _id, title, slug, excerpt, image{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}\n    }': (Pick<
+			PROJECTS_QUERYResult[number],
+			"_id" | "title" | "slug" | "excerpt" | "image"
+		> & {
+			image: NonNullable<PROJECTS_QUERYResult[number]["image"]> & {
+				blurHash: string | null;
+				lqip: string | null;
+			};
+		})[];
+		'\n    *[_type == "post" && defined(slug.current)] | order(publishedAt desc) {\n        _id, title, slug, excerpt, mainImage{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}\n    }': (Pick<
+			POSTS_QUERYResult[number],
+			"_id" | "title" | "slug" | "excerpt" | "mainImage"
+		> & {
+			mainImage: NonNullable<POSTS_QUERYResult[number]["mainImage"]> & {
+				blurHash: string | null;
+				lqip: string | null;
+			};
+		})[];
+		'\n    *[_type == "post"\n    && defined(slug.current)\n    && (!defined($search) || $search == "" || (title match $search || body match $search))\n    && (!defined($tags) || count($tags) == 0 || array::intersects(categories[]->slug.current, $tags))\n    ] | order(publishedAt desc) {\n        _id, title, slug, publishedAt, mainImage{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}, excerpt, author->{name, image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}}, categories[]->{title, slug, description}\n    }': POSTS_QUERYResult;
+		'\n    *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {\n        _id, title, slug, publishedAt, mainImage{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}, author->{name, image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}}, categories[]->{title, slug, description}, body, excerpt\n    }': POST_QUERYResult;
 		'\n    *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {\n        "prev": *[_type == "post" && defined(slug.current) && defined(publishedAt) && publishedAt < ^.publishedAt]\n            | order(publishedAt desc)[0] {\n                _id, title, slug, excerpt, publishedAt\n        },\n        "next": *[_type == "post" && defined(slug.current) && defined(publishedAt) && publishedAt > ^.publishedAt]\n            | order(publishedAt asc)[0] {\n                _id, title, slug, excerpt, publishedAt\n        }\n    }\n': PREV_NEXT_POSTS_QUERYResult;
-		'\n    *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {\n        _id, title, slug, publishedAt, mainImage, categories[]->{title, slug, description}, excerpt, author->{name, image}\n    }': RECENT_POSTS_QUERYResult;
+		'\n    *[_type == "post" && defined(slug.current)] | order(_createdAt desc)[0...$limit] {\n        _id, title, slug, publishedAt, mainImage{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}, categories[]->{title, slug, description}, excerpt, author->{name, image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}}\n    }': RECENT_POSTS_QUERYResult;
 		'\n    *[_type == "category"] {\n        _id, title, slug, description\n    }': CATEGORIES_QUERYResult;
-		'\n    *[_type == "profile"][0] {\n        name,\n        caption,\n        bio,\n        image,\n        languages,\n        resume,\n        contact,\n        education[]->{institution, degree, startDate, endDate, description, icon},\n        experience[]->{_id, company, role, startDate, endDate, description, points, icon, subExperiences[]->{_id, company, role, startDate, endDate, description, points, icon}},\n        projects[]->{title, slug, image},\n        technologies,\n        _updatedAt\n    }': PROFILE_QUERYResult;
-		'\n    *[_type == "project"] | order(publishedAt desc) {\n        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies, featured\n    }': PROJECTS_QUERYResult;
-		'\n    *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {\n        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image, features, screenshots, technologies, featured\n    }': PROJECT_QUERYResult;
+		'\n    *[_type == "profile"][0] {\n        name,\n        caption,\n        bio,\n        image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)},\n        languages,\n        resume,\n        contact,\n        education[]->{institution, degree, startDate, endDate, description, icon{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}},\n        experience[]->{_id, company, role, startDate, endDate, description, points, icon{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}, subExperiences[]->{_id, company, role, startDate, endDate, description, points, icon{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}}},\n        projects[]->{title, slug, image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}},\n        technologies,\n        _updatedAt\n    }': PROFILE_QUERYResult;
+		'\n    *[_type == "project"] | order(publishedAt desc) {\n        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}, features, screenshots[]{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}, technologies, featured\n    }': PROJECTS_QUERYResult;
+		'\n    *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {\n        _id, slug, title, description, excerpt, tags[]->{title, slug, description}, publishedAt, source, demo, image{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}, features, screenshots[]{..., "blurHash": asset->metadata.blurHash, "lqip": select(defined(asset->metadata.blurHash) => null, asset->metadata.lqip)}, technologies, featured\n    }': PROJECT_QUERYResult;
 		'\n    *[_type == "project" && defined(slug.current) && slug.current == $slug][0] {\n        "prev": *[_type == "project" && defined(slug.current) && defined(publishedAt) && publishedAt < ^.publishedAt]\n            | order(publishedAt desc)[0] {\n                _id, slug, title, excerpt, publishedAt\n        },\n        "next": *[_type == "project" && defined(slug.current) && defined(publishedAt) && publishedAt > ^.publishedAt]\n            | order(publishedAt asc)[0] {\n                _id, slug, title, excerpt, publishedAt\n        }\n    }\n': NEXT_PREV_PROJECTS_QUERYResult;
-		'\n    *[_type == "ping"] | order(publishedAt desc) {\n        _id, title, slug, publishedAt, body, image, link, tags[]->{title, slug, description}\n    }': PINGS_QUERYResult;
+		'\n    *[_type == "ping"] | order(publishedAt desc) {\n        _id, title, slug, publishedAt, body, image{..., "blurHash": asset->metadata.blurHash, "lqip": asset->metadata.lqip}, link, tags[]->{title, slug, description}\n    }': PINGS_QUERYResult;
 	}
 }

@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 import { BentoCard } from "@/components/magicui/bento-grid";
+import { imagePlaceholder } from "@/lib/image";
 import { urlFor } from "@/sanity/lib/image";
 import { PROFILE_QUERYResult } from "@/sanity/sanity.types";
 
@@ -24,7 +25,12 @@ export function ProjectCard({ projects }: ProjectCardProps): React.ReactElement 
 						<ExternalLink className="hover:text-foreground text-muted-foreground h-4 w-4 cursor-pointer transition-colors duration-300 ease-in-out" />
 					</Link>
 				</div>
-				<KeenCarousel images={projects.map((project) => urlFor(project.image).width(260).url())} />
+				<KeenCarousel
+					images={projects.map((project) => ({
+						src: urlFor(project.image).width(260).url(),
+						...imagePlaceholder(project.image),
+					}))}
+				/>
 			</div>
 		</BentoCard>
 	);

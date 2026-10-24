@@ -1,13 +1,14 @@
 import { formatDistanceToNow } from "date-fns";
 import { Download, Info, Languages } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 import { BentoCard } from "@/components/magicui/bento-grid";
 import { StaggerText } from "@/components/magicui/text-animate";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { ImageAvatar } from "@/components/ui/image-avatar";
+import Image from "@/components/ui/sanity-image";
+import type { ImagePlaceholderProps } from "@/lib/image";
 
 import { ShineBorder } from "../magicui/shine-border";
 import { Button } from "../ui/button";
@@ -20,6 +21,7 @@ interface ProfileCardProps {
 	resume: string;
 	languages: string[];
 	image: string;
+	imagePlaceholder: ImagePlaceholderProps;
 	updateAt: Date;
 	mailto: string;
 }
@@ -35,10 +37,12 @@ export function ProfileCard(props: ProfileCardProps): React.ReactElement {
 						className="absolute size-32 min-w-0 rounded-full"
 						color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
 					/>
-					<Avatar className="ml-1 h-30 w-30 rounded-full shadow-md dark:shadow-none">
-						<AvatarImage src={props.image} alt={props.name} />
-						<AvatarFallback>T</AvatarFallback>
-					</Avatar>
+					<ImageAvatar
+						src={props.image}
+						alt={props.name}
+						className="ml-1 shadow-md dark:shadow-none"
+						{...props.imagePlaceholder}
+					/>
 					<div className="flex w-full flex-col items-center justify-center space-y-2">
 						<h3 className="text-xl font-semibold">{props.name}</h3>
 						<p className="text-muted-foreground text-center tracking-tight">{props.caption}</p>
@@ -82,7 +86,7 @@ export function ProfileCard(props: ProfileCardProps): React.ReactElement {
 										Last updated {formatDistanceToNow(props.updateAt, { addSuffix: true })}
 									</div>
 								</div>
-								<Image className="mr-2" src="/pdf.webp" alt="pdf" width={24} height={24} />
+								<Image className="mr-2" src="/pdf.webp" alt="pdf" width={24} height={24} sizes="24px" />
 							</div>
 						</Button>
 					</Link>

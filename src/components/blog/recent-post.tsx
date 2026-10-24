@@ -1,8 +1,9 @@
 import { formatDistanceToNow } from "date-fns";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+import Image from "@/components/ui/sanity-image";
+import { imagePlaceholder } from "@/lib/image";
 import { CARD_STYLE_STRING, cn, formatDate } from "@/lib/utils";
 import { sanityFetch } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
@@ -36,9 +37,11 @@ export async function RecentPosts(): Promise<React.ReactElement> {
 							className="hover:bg-primary/10 flex flex-row items-center gap-4 rounded-md p-2 transition-all duration-300 ease-in-out">
 							<Image
 								src={urlFor(post.mainImage).url() || ""}
+								{...imagePlaceholder(post.mainImage)}
 								alt={post.mainImage.alt || "Image"}
 								width={56}
 								height={56}
+								sizes="56px"
 								className="h-14 w-14 rounded-md object-cover"
 							/>
 							<div className="flex w-full flex-col">

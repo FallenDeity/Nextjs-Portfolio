@@ -1,16 +1,17 @@
 import { getImageDimensions } from "@sanity/asset-utils";
 import { Calendar } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+import Image from "@/components/ui/sanity-image";
+import { imagePlaceholder } from "@/lib/image";
 import { formatDate } from "@/lib/utils";
 import { sanityFetch } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { POSTS_QUERY } from "@/sanity/lib/queries";
 import { POSTS_QUERYResult } from "@/sanity/sanity.types";
 
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { ImageAvatar } from "../ui/image-avatar";
 
 type Post = POSTS_QUERYResult[number];
 
@@ -29,29 +30,26 @@ function PostCard({ post }: PostCardProps): React.ReactElement {
 			<Image
 				src={urlFor(post.mainImage).url() || ""}
 				alt={post.mainImage.alt || "Image"}
-				placeholder="blur"
-				blurDataURL={urlFor(post.mainImage).width(16).height(9).dpr(2).blur(20).url() || ""}
+				{...imagePlaceholder(post.mainImage)}
 				width={getImageDimensions(post.mainImage.asset?._ref ?? "").width}
 				height={getImageDimensions(post.mainImage.asset?._ref ?? "").height}
 				className="max-h-48 w-full rounded-lg object-cover md:max-h-96"
-				sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+				sizes="(min-width: 1024px) calc(50vw - 3.75rem), calc(100vw - 3rem)"
 			/>
 			<div className="p-4">
 				<div className="flex flex-row justify-between gap-4">
 					<div className="flex flex-row items-center gap-2">
-						<Avatar className="h-14 w-14 rounded-full">
-							<AvatarImage
-								src={urlFor(post.author.image).width(56).height(56).url()}
-								alt={post.author.name}
-							/>
-							<AvatarFallback>
-								{post.author.name
-									.split(" ")
-									.map((word) => word[0])
-									.join("")
-									.toUpperCase()}
-							</AvatarFallback>
-						</Avatar>
+						<ImageAvatar
+							src={urlFor(post.author.image).width(56).height(56).url()}
+							alt={post.author.name}
+							size={56}
+							fallback={post.author.name
+								.split(" ")
+								.map((word) => word[0])
+								.join("")
+								.toUpperCase()}
+							{...imagePlaceholder(post.author.image)}
+						/>
 						<div className="flex flex-col gap-1">
 							<h2 className="text-md font-semibold">
 								{post.title}

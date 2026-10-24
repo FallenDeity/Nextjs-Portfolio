@@ -3,10 +3,11 @@
 import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
 import { domAnimation, LazyMotion } from "motion/react";
 import * as m from "motion/react-m";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import Image from "@/components/ui/sanity-image";
+import { imagePlaceholder } from "@/lib/image";
 import { cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { PROJECTS_QUERYResult } from "@/sanity/sanity.types";
@@ -119,9 +120,11 @@ export default function ProjectsAdvancedCarousel({ projects }: ProjectCarouselPr
 								className="relative h-full min-w-full"
 								aria-hidden={currentSlide !== index}>
 								<Image
-									src={urlFor(project.image).height(400).url()}
+									src={urlFor(project.image).url()}
+									{...imagePlaceholder(project.image)}
 									alt={project.title}
 									fill
+									sizes="(min-width: 1024px) 992px, calc(100vw - 2rem)"
 									className="object-cover"
 									priority={index === 0}
 								/>

@@ -33,7 +33,7 @@ export async function GET(): Promise<Response> {
 			author: "Triyan Mukherjee",
 			enclosure: ping.image
 				? {
-						url: urlFor(ping.image).url(),
+						url: urlFor(ping.image).width(1200).format("jpg").quality(80).url(),
 						type: "image/jpeg",
 					}
 				: undefined,
